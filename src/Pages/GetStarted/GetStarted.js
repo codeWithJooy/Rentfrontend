@@ -4,17 +4,20 @@ import "./GetStarted.css";
 const GetStarted = () => {
   return (
     <div className="getStarted">
-      <div className="overlay"></div>
-      <div className="topSection">
-        <div className="topImage">
-          <img src="Assets/Logo/RentPG.jpg" />
-        </div>
-        <div className="topText">
-          <p>We Write about RentPG to tell user about us.</p>
-        </div>
+      <div className="getStartedImage">
+        <img src="Assets/Signup/roberto-nickson-oQ56kobbYLM-unsplash.jpg" />
       </div>
-      <div className="startButton">
-        <button>Get Started</button>
+      <div className="topSection">
+        <div className="topText">
+          <p>One stop renting solution for your property</p>
+        </div>
+        <div className="topDescription">
+          <p>RentPG is the most trusted & reliable helper of property owners</p>
+        </div>
+        <div className="buttonSection">
+          <button className="buttonSign">Register</button>
+          <button className="buttonLogin">SignIn</button>
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import "./App.css";
 
 import Splash from "./Pages/Splash/Splash";
 import GetStarted from "./Pages/GetStarted/GetStarted";
+import Login from "./Pages/Login/Login";
 import Home from "./Pages/Home/Home";
 import Property from "./Pages/Property/Propert";
 import Floors from "./Pages/Property/Floors/Floors";
@@ -11,7 +12,8 @@ const App = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/splash" component={Splash} />
-        <Route path="/get-started" component={GetStarted} />
+        <Route path="/get-started" component={GetStarted} exact />
+        <Route path="/login" component={Login} />
         <Route path="/home" component={Home} />
         <Route path="/property" component={Property} />
         <Route path="/floor" component={Floors} />

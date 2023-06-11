@@ -2,39 +2,26 @@
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
   position: relative;
-  background-image: url(../../../public/Assets/Signup/roberto-nickson-oQ56kobbYLM-unsplash.jpg);
-  background-size: cover;
+  padding: 10px 10px;
 }
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
+.getStartedImage {
   width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.55);
-  z-index: 1;
+  height: 55vh;
+  overflow: hidden;
+  border-radius: 10px;
 }
+.getStartedImage img {
+  width: 100%;
+  height: 100%;
+}
+
 .topSection {
   width: 100%;
-  margin-top: 40px;
-}
-.topImage {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-.topImage img {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  z-index: 100;
+  margin-top: 10px;
 }
 .topText {
   width: 100%;
@@ -42,32 +29,39 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-top: 30px;
+  padding: 0px 30px;
 }
 .topText p {
   font-size: 20px;
-  color: #fff;
+  color: #334b75;
   font-weight: bold;
   z-index: 100;
 }
-.startButton {
-  position: fixed;
-  bottom: 80px;
-  left: 0;
+.topDescription {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: 10px 20px;
+}
+.topDescription p {
+  font-size: 12px;
+  color: #334b75;
+  font-weight: bold;
   z-index: 100;
 }
-
-.startButton button {
-  width: 70%;
-  height: 50px;
-  z-index: 100;
+.buttonSection {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.buttonSection button {
+  width: 120px;
+  padding: 10px 20px;
+  margin: 0px 10px;
   border-radius: 5px;
-  background: #83c5b3;
-  color: #006d77;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
+  cursor: pointer;
 }
