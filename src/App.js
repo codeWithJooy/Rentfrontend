@@ -13,7 +13,7 @@ const App = () => {
         <Route path="/splash" component={Splash} />
         <Route path="/get-started" component={GetStarted} />
         <Route path="/home" component={Home} />
-        <Route path="/" component={Property} />
+        <Route path="/property" component={Property} />
         <Route path="/floor" component={Floors} />
       </Switch>
     </BrowserRouter>
