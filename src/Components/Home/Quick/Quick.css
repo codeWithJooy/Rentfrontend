@@ -1,0 +1,28 @@
+.quick {
+  width: 100%;
+  min-height: 30px;
+  padding: 10px;
+  margin: 20px 0px;
+  background-color: #edf6f9;
+}
+.quickTitle {
+  width: 100%;
+  font-size: 18px;
+  color: #83c5be;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.quickContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.quickUnit {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  border: 1px solid red;
+  margin: 10px 0px;
+}

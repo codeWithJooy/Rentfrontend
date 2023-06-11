@@ -1,0 +1,46 @@
+.header {
+  width: 100%;
+  height: 60px;
+  background: #006d77;
+  padding: 5px 10px;
+}
+.headerContainer {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.logo {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+.headerTitle {
+  width: 65%;
+  height: 100%;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.headerNotifications {
+  width: 15%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.headerNotifications img {
+  height: 24px;
+  width: 24px;
+}

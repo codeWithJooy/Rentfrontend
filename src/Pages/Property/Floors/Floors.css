@@ -1,0 +1,180 @@
+.floorDiv {
+  width: 100%;
+  height: 100vh;
+  background-color: #edf6f9;
+  position: relative;
+}
+
+.floorUnit {
+  width: 90%;
+  min-height: 60px;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+}
+.floorUnitTop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.floor {
+  min-width: 10px;
+  padding: 10px 10px;
+  border-radius: 5px;
+  background: #edf6f9;
+  font-size: 12px;
+}
+
+.floorDelete {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 15px;
+  font-weight: bold;
+}
+.floorDelete img {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.floorButton {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.floorUnitButton {
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.floorAdd {
+  position: fixed;
+  top: 0px;
+  left: 00px;
+  bottom: 0px;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.55);
+  z-index: 1000001;
+}
+.floorAddUnit {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  padding-bottom: 20px;
+  width: 100%;
+  background-color: #fff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.addUnitTop {
+  width: 100%;
+  padding: 10px 0px;
+  position: relative;
+  font-size: 16px;
+  font-weight: 500;
+  color: #006d77;
+  display: flex;
+  align-items: center;
+}
+.addUnitTop img {
+  position: absolute;
+  right: 10px;
+  height: 15px;
+  width: 15px;
+  cursor: pointer;
+}
+.addUnitMain {
+  width: 100%;
+  position: relative;
+}
+.addMainTitle {
+  width: 100%;
+  padding: 2px;
+  font-size: 12px;
+  color: #e29578;
+  margin-bottom: 5px;
+}
+.addUnitSelect {
+  width: 100%;
+  padding: 0px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid #e29578;
+  border-radius: 5px;
+}
+.addSelectUnit {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #000;
+  cursor: pointer;
+  padding: 10px 0px;
+}
+.addSelectUnitActive {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #006d77;
+  background-color: #e29578;
+  cursor: pointer;
+  padding: 10px 0px;
+}
+.addRoom {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+.addRoom button {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.addRoomQuantity {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.addQuantityTitle {
+  width: 16%;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-start;
+}
+.addQuantityUnit {
+  width: 28%;
+  padding: 10px;
+  text-align: center;
+}
+.addQuantityUnit input {
+  border: none;
+  text-align: center;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #e29578;
+}
+.addQuantityUnit p {
+  font-size: 12px;
+}
