@@ -1,12 +1,19 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import "./Quick.css";
 
-const QuickUnit = () => {
+const QuickUnit = ({ title, img, link }) => {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(link);
+  };
   return (
-    <div className="quickUnitContainer">
-      <div className="quickUnit"></div>
+    <div className="quickUnitContainer" onClick={handleClick}>
+      <div className="quickUnit">
+        <img src={img} />
+      </div>
       <div className="quickUnitText">
-        <p>Add Tenant</p>
+        <p>{title}</p>
       </div>
     </div>
   );

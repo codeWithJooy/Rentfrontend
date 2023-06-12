@@ -2,7 +2,9 @@
   width: 100%;
   min-height: 30px;
   padding: 10px;
+
   margin: 20px 0px;
+  margin-bottom: 60px;
   background-color: #fff;
 }
 .quickTitle {
@@ -18,13 +20,19 @@
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+  scrollbar-width: none;
 }
+.quickContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .quickUnitContainer {
   width: 25%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 .quickUnit {
   width: 60px;
@@ -32,7 +40,16 @@
   border-radius: 5px;
   border: 1px solid #b1a7a6;
   margin: 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quickUnit img {
+  width: 32px;
+  height: 32px;
 }
 .quickUnitText {
+  width: 100%;
+  text-align: center;
   font-size: 12px;
 }
