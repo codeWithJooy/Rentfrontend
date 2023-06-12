@@ -9,7 +9,7 @@ const Signup = () => {
   });
   const history = useHistory();
   const handleSignUp = () => {
-    history.push("/signup");
+    history.push("/add");
   };
   const handleSignIn = () => {
     history.push("/login");

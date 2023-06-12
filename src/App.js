@@ -5,6 +5,7 @@ import Splash from "./Pages/Splash/Splash";
 import GetStarted from "./Pages/GetStarted/GetStarted";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Login/Signup";
+import Add from "./Pages/Login/Add";
 import Home from "./Pages/Home/Home";
 import Property from "./Pages/Property/Propert";
 import Floors from "./Pages/Property/Floors/Floors";
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/get-started" component={GetStarted} exact />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/add" component={Add} />
         <Route path="/home" component={Home} />
         <Route path="/property" component={Property} />
         <Route path="/floor" component={Floors} />
