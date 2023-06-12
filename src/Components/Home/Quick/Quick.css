@@ -3,12 +3,12 @@
   min-height: 30px;
   padding: 10px;
   margin: 20px 0px;
-  background-color: #edf6f9;
+  background-color: #fff;
 }
 .quickTitle {
   width: 100%;
-  font-size: 18px;
-  color: #83c5be;
+  font-size: 14px;
+  color: #a4161a;
   font-weight: bold;
   margin-bottom: 15px;
 }
@@ -19,10 +19,20 @@
   align-items: flex-start;
   justify-content: space-between;
 }
+.quickUnitContainer {
+  width: 25%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
 .quickUnit {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border-radius: 5px;
-  border: 1px solid red;
+  border: 1px solid #b1a7a6;
   margin: 10px 0px;
+}
+.quickUnitText {
+  font-size: 12px;
 }

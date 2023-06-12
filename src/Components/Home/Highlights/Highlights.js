@@ -9,13 +9,13 @@ const Highlights = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToShow: 2.5,
+    slidesToScroll: 0.5,
   };
   return (
     <div className="highlights">
       <div className="highlightTitle">
-        <span>June 2023</span>
+        <span>June 2023 Summary</span>
       </div>
       <Slider {...settings}>
         <HighlightsUnit />
