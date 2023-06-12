@@ -11,7 +11,7 @@ const FloorUnit = ({ floorName, setFloorDetails, setFloorName }) => {
       <div className="floorUnitTop">
         <div className="floor">{floorName}</div>
         <div className="floorDelete">
-          <img src="Assets/Footer/plus.png" />
+          <img src="Assets/Property/delete.png" />
           <p>Delete</p>
         </div>
       </div>
