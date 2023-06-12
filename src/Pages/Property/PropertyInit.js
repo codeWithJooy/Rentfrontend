@@ -29,12 +29,16 @@ const PropertyInit = () => {
             <p>How Many floors do you have in AbhiPg ?</p>
           </div>
           <div className="propertyDetailsInput">
-            <input type="text" onChange={(e) => setFloors(e.target.value)} />
-            <img src="Assets/Footer/plus.png" onClick={handleFloors} />
+            <input
+              type="text"
+              placeholder="Total Floor"
+              onChange={(e) => setFloors(e.target.value)}
+            />
+            <img src="Assets/Property/next.png" onClick={handleFloors} />
           </div>
         </div>
         <div className="propertyIcon">
-          <img src="Assets/Footer/apartment.png" />
+          <img src="Assets/Property/apartment.png" />
         </div>
       </div>
     </div>

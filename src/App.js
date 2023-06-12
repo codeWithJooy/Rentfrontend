@@ -7,7 +7,7 @@ import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Login/Signup";
 import Add from "./Pages/Login/Add";
 import Home from "./Pages/Home/Home";
-import Property from "./Pages/Property/Propert";
+import Property from "./Pages/Property/Property";
 import Floors from "./Pages/Property/Floors/Floors";
 const App = () => {
   return (
