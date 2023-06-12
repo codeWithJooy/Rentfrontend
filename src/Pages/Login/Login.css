@@ -1,1 +1,81 @@
-
+.mainEntry {
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f3f4;
+  padding: 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mainEntryContainer {
+  width: 100%;
+}
+.entryTop {
+  width: 100%;
+}
+.entryTitle {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #161a1d;
+}
+.entryDescription {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #b1a7a6;
+}
+.entryData {
+  width: 100%;
+  margin: 15px 0px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.entryDataUnit {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 5px 0px;
+}
+.entryDataUnit input {
+  width: 80%;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+}
+.entryDataButton {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 30px 0px 0px;
+}
+.entryDataButton button {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #e5383b;
+}
+.entryDataButton p {
+  font-size: 12px;
+  margin-top: 15px;
+}
+.entryDataButton .register {
+  color: #e5383b;
+  margin-left: 5px;
+  cursor: pointer;
+}
