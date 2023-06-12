@@ -2,41 +2,41 @@ export const homeData = [
   {
     title: "Add Tenant",
     img: "Assets/Home/renter.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Receive Payment",
     img: "Assets/Home/payment.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Add Expense",
     img: "Assets/Home/expenses.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Add Dues",
     img: "Assets/Home/due.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Announce ment",
     img: "Assets/Home/announcement.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Add Member",
     img: "Assets/Home/team.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Food Menu",
     img: "Assets/Home/food.png",
-    link: "",
+    link: "/home",
   },
   {
     title: "Add UPI",
     img: "Assets/Home/upi.png",
-    link: "",
+    link: "/home",
   },
 ];
