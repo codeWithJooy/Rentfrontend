@@ -4,10 +4,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #006d77;
+  background-color: #f5f3f4;
+  position: relative;
 }
 .splashMain img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
+  animation: grow 3s ease-in;
+}
+@keyframes grow {
+  from {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0);
+  }
 }

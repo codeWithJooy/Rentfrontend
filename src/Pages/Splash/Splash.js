@@ -7,7 +7,7 @@ const Splash = () => {
   useEffect(() => {
     setTimeout(() => {
       history.push("/get-started");
-    }, 2500);
+    }, 4000);
   }, []);
   return (
     <div className="splashMain">
