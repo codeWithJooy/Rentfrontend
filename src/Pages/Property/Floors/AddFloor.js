@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addRooms } from "../../../actions/floorActions";
 import "./Floors.css";
 
 const AddFloor = ({ setFloorDetails, floorName }) => {
@@ -33,7 +35,7 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
             <div className="addSelectUnit">Apartment</div>
           </div>
         </div>
-        {roomActive && <AddUnit />}
+        {roomActive && <AddUnit floorName={floorName} />}
       </div>
     </div>
   );
@@ -41,7 +43,17 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
 
 export default AddFloor;
 
-const AddUnit = () => {
+const AddUnit = ({ floorName }) => {
+  const [roomTypes, setRoomTypes] = useState({
+    single: 1,
+    double: 1,
+    triple: 1,
+  });
+  const dispatch = useDispatch();
+  const handleRoomsAdd = () => {
+    dispatch(addRooms({ name: floorName, roomsType: roomTypes }));
+  };
+
   return (
     <div className="addRoom">
       <div class="addRoomQuantity">
@@ -61,7 +73,7 @@ const AddUnit = () => {
           <p>Triple Sharing</p>
         </div>
       </div>
-      <button>Add Unit</button>
+      <button onClick={handleRoomsAdd}>Add Unit</button>
     </div>
   );
 };

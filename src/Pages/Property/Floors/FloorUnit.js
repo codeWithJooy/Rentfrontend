@@ -4,7 +4,6 @@ const FloorUnit = ({ floorName, setFloorDetails, setFloorName }) => {
   const handleFloorDetails = () => {
     setFloorName(floorName);
     setFloorDetails(true);
-    console.log(floorName);
   };
   return (
     <div className="floorUnit">

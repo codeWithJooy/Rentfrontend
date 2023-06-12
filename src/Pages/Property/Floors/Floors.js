@@ -8,21 +8,13 @@ import AddFloor from "./AddFloor";
 const Floors = () => {
   const [floorDetails, setFloorDetails] = useState(false);
   const [floorName, setFloorName] = useState("");
-  const totalFloors = useSelector((state) => state.floor.totalFloors);
-  let arr = [];
-  for (let i = 0; i <= totalFloors; i++) {
-    if (i == 0) {
-      arr.push("Ground Floor");
-    } else {
-      arr.push("Floor " + i);
-    }
-  }
+  const floorData = useSelector((state) => state.floor.floors);
   return (
     <div className="floorDiv">
       <Header />
-      {arr.map((data, key) => (
+      {floorData.map((data, key) => (
         <FloorUnit
-          floorName={data}
+          floorName={data.name}
           key={key}
           setFloorDetails={setFloorDetails}
           setFloorName={setFloorName}

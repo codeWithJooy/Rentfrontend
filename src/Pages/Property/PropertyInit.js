@@ -15,7 +15,28 @@ const PropertyInit = () => {
     }
   }, []);
   const handleFloors = () => {
-    dispatch(setTotalFloors(floors));
+    let data = {};
+    let arr = [];
+    for (let i = 0; i <= floors; i++) {
+      if (i == 0) {
+        arr.push({
+          name: "Ground Floor",
+          roomsAdded: false,
+          roomsType: [],
+          rooms: [],
+        });
+      } else {
+        arr.push({
+          name: "Floor " + i,
+          roomsAdded: false,
+          roomsType: [],
+          rooms: [],
+        });
+      }
+    }
+    data.floors = arr;
+    data.totalFloors = floors;
+    dispatch(setTotalFloors(data));
     history.push("/floor");
   };
   return (
