@@ -3,6 +3,18 @@ import {
   ROOMS_ADDED,
 } from "../actionTypes/floorActionsType";
 
+/*
+  floors: [
+    {
+      name: "Ground Floor",
+      roomsType: {
+        single: 0,
+        double: 0,
+        triple: 0,
+      },
+    },
+  ],
+*/
 const initial = {
   floorPresent: false,
 };
@@ -22,7 +34,15 @@ const floorReducer = (state = initial, action) => {
         ...state,
         floors: [
           ...state.floors.filter((p) => p !== floor),
-          { ...floor, roomsAdded: true, roomsType: action.payload.roomsType },
+          {
+            ...floor,
+            roomsAdded: true,
+            roomsType: {
+              single: action.payload.roomsType.single,
+              double: action.payload.roomsType.double,
+              triple: action.payload.roomsType.triple,
+            },
+          },
         ],
       };
     default:

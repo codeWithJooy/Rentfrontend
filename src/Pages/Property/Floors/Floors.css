@@ -47,6 +47,30 @@
   height: 15px;
   margin-right: 10px;
 }
+.floorPlan {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+.floorPlanUnit {
+  width: 50%;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.floorPlanUnit p {
+  font-size: 12px;
+  font-weight: bold;
+}
+.floorPlanUnit img {
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+}
 .floorButton {
   width: 100%;
   display: flex;
@@ -61,6 +85,15 @@
   cursor: pointer;
   background-color: #e5383b;
   color: #fff;
+}
+.floorCheckoutButton {
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #fff;
+  color: #e5383b;
+  border: 1px solid #e5383b;
 }
 .floorAdd {
   position: fixed;

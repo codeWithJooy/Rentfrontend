@@ -9,17 +9,19 @@ const Floors = () => {
   const [floorDetails, setFloorDetails] = useState(false);
   const [floorName, setFloorName] = useState("");
   const floorData = useSelector((state) => state.floor.floors);
+  console.log(floorData);
   return (
     <div className="floorDiv">
       <Header />
-      {floorData.map((data, key) => (
-        <FloorUnit
-          floorName={data.name}
-          key={key}
-          setFloorDetails={setFloorDetails}
-          setFloorName={setFloorName}
-        />
-      ))}
+      {floorData &&
+        floorData.map((data, key) => (
+          <FloorUnit
+            floorData={data}
+            key={key}
+            setFloorDetails={setFloorDetails}
+            setFloorName={setFloorName}
+          />
+        ))}
       {floorDetails && (
         <AddFloor floorName={floorName} setFloorDetails={setFloorDetails} />
       )}

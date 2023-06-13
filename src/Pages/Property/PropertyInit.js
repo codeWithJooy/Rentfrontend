@@ -22,14 +22,14 @@ const PropertyInit = () => {
         arr.push({
           name: "Ground Floor",
           roomsAdded: false,
-          roomsType: [],
+          roomsType: {},
           rooms: [],
         });
       } else {
         arr.push({
           name: "Floor " + i,
           roomsAdded: false,
-          roomsType: [],
+          roomsType: {},
           rooms: [],
         });
       }

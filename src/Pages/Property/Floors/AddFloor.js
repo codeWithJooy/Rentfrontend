@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { addRooms } from "../../../actions/floorActions";
 import "./Floors.css";
 
@@ -35,7 +36,9 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
             <div className="addSelectUnit">Apartment</div>
           </div>
         </div>
-        {roomActive && <AddUnit floorName={floorName} />}
+        {roomActive && (
+          <AddUnit floorName={floorName} setFloorDetails={setFloorDetails} />
+        )}
       </div>
     </div>
   );
@@ -43,15 +46,21 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
 
 export default AddFloor;
 
-const AddUnit = ({ floorName }) => {
+const AddUnit = ({ floorName, setFloorDetails }) => {
   const [roomTypes, setRoomTypes] = useState({
-    single: 1,
-    double: 1,
-    triple: 1,
+    single: 0,
+    double: 0,
+    triple: 0,
   });
+  const history = useHistory();
   const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setRoomTypes({ ...roomTypes, [e.target.name]: e.target.value });
+  };
   const handleRoomsAdd = () => {
     dispatch(addRooms({ name: floorName, roomsType: roomTypes }));
+    setFloorDetails(false);
+    history.push("/floor");
   };
 
   return (
@@ -61,15 +70,25 @@ const AddUnit = ({ floorName }) => {
           <p>Room</p>
         </div>
         <div className="addQuantityUnit">
-          <input type="text" />
+          <input
+            type="text"
+            name="single"
+            onChange={handleChange}
+            value={roomTypes.single}
+          />
           <p>Sigle Sharing</p>
         </div>
         <div className="addQuantityUnit">
-          <input type="text" />
+          <input
+            type="text"
+            name="double"
+            onChange={handleChange}
+            value={roomTypes.double}
+          />
           <p>Double Sharing</p>
         </div>
         <div className="addQuantityUnit">
-          <input type="text" />
+          <input type="text" name="triple" />
           <p>Triple Sharing</p>
         </div>
       </div>
