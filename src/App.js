@@ -10,6 +10,7 @@ import Home from "./Pages/Home/Home";
 import Property from "./Pages/Property/Property";
 import Floors from "./Pages/Property/Floors/Floors";
 import Rooms from "./Pages/Property/Rooms/Rooms";
+import RoomUnit from "./Pages/Property/Rooms/RoomUnit";
 const App = () => {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/property" component={Property} />
         <Route path="/floor" component={Floors} />
         <Route path="/rooms" component={Rooms} />
+        <Route path="/room" component={RoomUnit} />
       </Switch>
     </BrowserRouter>
   );
