@@ -1,9 +1,14 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import "./Rooms.css";
 
 const RoomsCard = ({ name, type, status }) => {
+  const history = useHistory();
+  const handleCardClick = () => {
+    history.push("/room");
+  };
   return (
-    <div className="roomsContainer">
+    <div className="roomsContainer" onClick={handleCardClick}>
       <div className="roomsUnit">
         <div className="roomsUnitTitle">
           <p>{name}</p>

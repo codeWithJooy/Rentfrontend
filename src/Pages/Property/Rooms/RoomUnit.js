@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Rooms.css";
+import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
 
@@ -29,14 +30,14 @@ const RoomUnit = () => {
             {"Room Details"}
           </div>
         </div>
-        {navActive === "details" ? <RoomDetails /> : <TenantDetails />}
+        {navActive === "details" ? <RoomSection /> : <TenantDetails />}
       </div>
       <Footer />
     </div>
   );
 };
-
 export default RoomUnit;
+
 const TenantDetails = () => {
   return (
     <div className="tenantDetails">
@@ -52,9 +53,18 @@ const TenantDetails = () => {
     </div>
   );
 };
+const RoomSection = () => {
+  return (
+    <>
+      <RoomDetails />
+      <RoomFacilities />
+    </>
+  );
+};
 const RoomDetails = () => {
   return (
     <div className="roomDetails">
+      <div className="detailsHeader">Room Details</div>
       <div className="roomDetailsHalf">
         <div className="halfUnitLeft">
           <div className="roomDetailsUnit">
@@ -111,6 +121,39 @@ const RoomDetails = () => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const RoomFacilities = () => {
+  return (
+    <div className="facilitySection">
+      <div className="facilityHeader">Room Facilities</div>
+      <div className="facilities">
+        {roomData.map((data, index) => (
+          <FacilityIcon
+            key={index}
+            title={data.title}
+            normal={data.normal}
+            selected={data.selected}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const FacilityIcon = ({ title, normal, selected }) => {
+  const [selectedIcon, setSelectedIcon] = useState(false);
+  return (
+    <div
+      className="facilityIcons"
+      onClick={() => setSelectedIcon(!selectedIcon)}
+    >
+      <img src={`${selectedIcon ? selected : normal}`} />
+      <p className={`${selectedIcon ? "textSelected" : "textNormal"}`}>
+        {title}
+      </p>
     </div>
   );
 };

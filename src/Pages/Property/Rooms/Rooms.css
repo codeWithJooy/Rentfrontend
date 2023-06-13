@@ -121,6 +121,8 @@
 /*=============================================*/
 .roomMain {
   width: 100%;
+  height: 80vh;
+  overflow-y: scroll;
 }
 .roomNavbar {
   width: 100%;
@@ -148,9 +150,16 @@
 }
 .roomDetails {
   width: 100%;
-  padding: 20px 15px;
-  margin-top: 20px;
+  padding: 10px 15px;
+  margin-top: 10px;
   background-color: #fff;
+}
+.detailsHeader {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #a4161a;
+  padding: 0px 0px 10px;
 }
 .roomDetailsUnit {
   width: 100%;
@@ -203,7 +212,6 @@
 .tenantEmpty {
   width: 80%;
   height: 25vh;
-  box-shadow: 0 0 5px #b1a7a6;
 }
 .emptyPics {
   width: 100%;
@@ -218,9 +226,59 @@
   width: 100%;
   text-align: center;
   font-size: 13px;
-  color: #d3d3d3;
+  color: #161a1d;
 }
-
+.emptyButton {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.emptyButton button {
+  padding: 10px 20px;
+  background-color: #a4161a;
+  color: #fff;
+  border-radius: 5px;
+}
+.facilitySection {
+  width: 100%;
+  background: #fff;
+  margin-top: 15px;
+}
+.facilityHeader {
+  width: 100%;
+  padding: 10px 15px 0px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #a4161a;
+}
+.facilities {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.facilityIcons {
+  width: 20%;
+  padding: 5px;
+  text-align: center;
+}
+.facilityIcons img {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  top: 5px;
+}
+.textSelected {
+  font-size: 12px;
+  color: #a4161a;
+}
+.textNormal {
+  font-size: 12px;
+  color: #161a1d;
+}
 /*=============================================*/
 
 /*=============================================*/
