@@ -1,21 +1,21 @@
 import React from "react";
 import "./Rooms.css";
 
-const RoomsCard = () => {
+const RoomsCard = ({ name, type, status }) => {
   return (
     <div className="roomsContainer">
       <div className="roomsUnit">
         <div className="roomsUnitTitle">
-          <p>BASE-101</p>
+          <p>{name}</p>
         </div>
         <div className="roomsUnitType">
           <img src="Assets/Property/bed.png" />
-          <p>Triple Sharing</p>
+          <p>{type} Sharing</p>
         </div>
         <div className="roomsUnitDetail">
           <div className="roomsStatus">
             <div className="roomsStatusUnit">
-              <p>Vacant</p>
+              <p>{status}</p>
             </div>
           </div>
           <div className="roomsRate">

@@ -9,6 +9,7 @@ export const roomAddHelper = (floorName, roomTypes) => {
         room.name = "Ground" + counter;
         room.status = "Vacant";
         room.type = "Single";
+        room.rate = 0;
         counter = counter + 1;
         arr.push(room);
       }
@@ -20,6 +21,7 @@ export const roomAddHelper = (floorName, roomTypes) => {
         room.name = floorNumber * 100 + counter;
         room.status = "Vacant";
         room.type = "Single";
+        room.rate = 0;
         arr.push(room);
         counter = counter + 1;
       }
@@ -33,6 +35,7 @@ export const roomAddHelper = (floorName, roomTypes) => {
         room.name = "Ground" + counter;
         room.status = "Vacant";
         room.type = "Double";
+        room.rate = 0;
         arr.push(room);
         counter = counter + 1;
       }
@@ -44,6 +47,7 @@ export const roomAddHelper = (floorName, roomTypes) => {
         room.name = floorNumber * 100 + counter;
         room.status = "Vacant";
         room.type = "Double";
+        room.rate = 0;
         arr.push(room);
         counter = counter + 1;
       }
@@ -57,6 +61,7 @@ export const roomAddHelper = (floorName, roomTypes) => {
         room.name = "Ground" + counter;
         room.status = "Vacant";
         room.type = "Triple";
+        room.rate = 0;
         arr.push(room);
         counter = counter + 1;
       }
@@ -68,6 +73,7 @@ export const roomAddHelper = (floorName, roomTypes) => {
         room.name = floorNumber * 100 + counter;
         room.status = "Vacant";
         room.type = "Triple";
+        room.rate = 0;
         arr.push(room);
         counter = counter + 1;
       }
