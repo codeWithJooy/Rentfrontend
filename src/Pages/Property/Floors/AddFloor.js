@@ -48,9 +48,9 @@ export default AddFloor;
 
 const AddUnit = ({ floorName, setFloorDetails }) => {
   const [roomTypes, setRoomTypes] = useState({
-    single: 0,
-    double: 0,
-    triple: 0,
+    single: "",
+    double: "",
+    triple: "",
   });
   const history = useHistory();
   const dispatch = useDispatch();
@@ -88,7 +88,12 @@ const AddUnit = ({ floorName, setFloorDetails }) => {
           <p>Double Sharing</p>
         </div>
         <div className="addQuantityUnit">
-          <input type="text" name="triple" />
+          <input
+            type="text"
+            name="triple"
+            onChange={handleChange}
+            value={roomTypes.triple}
+          />
           <p>Triple Sharing</p>
         </div>
       </div>
