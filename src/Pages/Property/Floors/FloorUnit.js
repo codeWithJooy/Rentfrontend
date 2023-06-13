@@ -1,7 +1,11 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { setFloor } from "../../../actions/floorActions";
 const FloorUnit = ({ floorData, setFloorDetails, setFloorName }) => {
   const { name, roomsTypes } = floorData;
+  const history = useHistory();
+  const dispatch = useDispatch();
   let roomsType =
     Object.keys(floorData.roomsType).length > 1
       ? floorData.roomsType
@@ -13,6 +17,10 @@ const FloorUnit = ({ floorData, setFloorDetails, setFloorName }) => {
   const handleFloorDetails = () => {
     setFloorName(name);
     setFloorDetails(true);
+  };
+  const handleFloorCheckout = () => {
+    dispatch(setFloor(name));
+    history.push("/rooms");
   };
   return (
     <div className="floorUnit">
@@ -50,7 +58,7 @@ const FloorUnit = ({ floorData, setFloorDetails, setFloorName }) => {
           </button>
         )}
         {(single > 1 || double > 1 || triple > 1) && (
-          <button onClick={handleFloorDetails} className="floorCheckoutButton">
+          <button onClick={handleFloorCheckout} className="floorCheckoutButton">
             {"Checkout Unit"}
           </button>
         )}

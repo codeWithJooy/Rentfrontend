@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { addRooms } from "../../../actions/floorActions";
 import "./Floors.css";
+import { roomAddHelper } from "../../../helper";
+import { setRooms } from "../../../actions/roomActions";
 
 const AddFloor = ({ setFloorDetails, floorName }) => {
   const [roomActive, setRoomActive] = useState(false);
@@ -58,7 +60,9 @@ const AddUnit = ({ floorName, setFloorDetails }) => {
     setRoomTypes({ ...roomTypes, [e.target.name]: e.target.value });
   };
   const handleRoomsAdd = () => {
+    const arr = roomAddHelper(floorName, roomTypes);
     dispatch(addRooms({ name: floorName, roomsType: roomTypes }));
+    dispatch(setRooms(arr));
     setFloorDetails(false);
     history.push("/floor");
   };

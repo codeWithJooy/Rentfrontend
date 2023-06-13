@@ -1,6 +1,7 @@
 import {
   TOTAL_FLOORS_ADDED,
   ROOMS_ADDED,
+  FLOOR_SET,
 } from "../actionTypes/floorActionsType";
 
 /*
@@ -44,6 +45,11 @@ const floorReducer = (state = initial, action) => {
             },
           },
         ],
+      };
+    case FLOOR_SET:
+      return {
+        ...state,
+        selectedFloor: action.payload,
       };
     default:
       return state;
