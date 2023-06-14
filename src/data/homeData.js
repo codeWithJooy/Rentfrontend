@@ -12,12 +12,12 @@ export const homeData = [
   {
     title: "Add Expense",
     img: "Assets/Home/expenses.png",
-    link: "/home",
+    link: "/expense",
   },
   {
     title: "Add Dues",
     img: "Assets/Home/due.png",
-    link: "/home",
+    link: "/dues",
   },
   {
     title: "Announce ment",

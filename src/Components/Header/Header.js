@@ -1,7 +1,10 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ name = "AbhiPg", link = "/home", type = "header" }) => {
+  const history = useHistory();
+
   return (
     <div className="header">
       <div className="headerContainer">
@@ -9,7 +12,7 @@ const Header = () => {
           <img src="Assets/Header/RentPG.jpg" />
         </div>
         <div className="headerTitle">
-          <p>AbhiPG</p>
+          <p>{name}</p>
         </div>
         <div className="headerNotifications">
           <img src="Assets/Header/notification.png" />

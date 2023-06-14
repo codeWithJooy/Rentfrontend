@@ -13,6 +13,12 @@ import Rooms from "./Pages/Property/Rooms/Rooms";
 import RoomUnit from "./Pages/Property/Rooms/RoomUnit";
 
 import AddTenant from "./Pages/Tenant/AddTenant";
+
+import Dues from "./Pages/Dues/Dues";
+
+import Expense from "./Pages/Expense/Expense";
+import ExpenseDetails from "./Pages/Expense/ExpenseDetails";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -27,7 +33,13 @@ const App = () => {
         <Route path="/floor" component={Floors} />
         <Route path="/rooms" component={Rooms} />
         <Route path="/room" component={RoomUnit} />
+
         <Route path="/addtenant" component={AddTenant} />
+
+        <Route path="/dues" component={Dues} />
+
+        <Route path="/expense" component={Expense} />
+        <Route path="/expenseDetails" component={ExpenseDetails} />
       </Switch>
     </BrowserRouter>
   );
