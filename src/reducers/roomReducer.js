@@ -1,4 +1,4 @@
-import { FLOOR_ROOMS_ADDED } from "../actionTypes/roomActionsType";
+import { FLOOR_ROOMS_ADDED, SET_ROOM } from "../actionTypes/roomActionsType";
 
 const initial = {
   rooms: [],
@@ -10,6 +10,11 @@ const roomReducer = (state = initial, action) => {
       return {
         ...state,
         rooms: [...state.rooms, ...action.payload],
+      };
+    case SET_ROOM:
+      return {
+        ...state,
+        selectedRoom: action.payload,
       };
     default:
       return state;

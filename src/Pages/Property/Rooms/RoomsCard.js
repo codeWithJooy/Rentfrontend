@@ -1,10 +1,16 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectedRoom } from "../../../actions/roomActions";
 import "./Rooms.css";
 
 const RoomsCard = ({ name, type, status }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const rooms = useSelector((state) => state.room.rooms);
   const handleCardClick = () => {
+    const data = rooms.find((unit) => unit.name === name);
+    dispatch(selectedRoom(data));
     history.push("/room");
   };
   return (

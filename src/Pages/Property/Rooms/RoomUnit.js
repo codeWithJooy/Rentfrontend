@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "./Rooms.css";
 import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
+import { selectedRoom } from "../../../actions/roomActions";
 
 const RoomUnit = () => {
   const [navActive, setNavActive] = useState("details");
@@ -62,6 +64,8 @@ const RoomSection = () => {
   );
 };
 const RoomDetails = () => {
+  const room = useSelector((state) => state.room.selectedRoom);
+  const { floor, name, rate, status, type } = room;
   return (
     <div className="roomDetails">
       <div className="detailsHeader">Room Details</div>
@@ -72,7 +76,7 @@ const RoomDetails = () => {
               <p>{"Room Name"}</p>
             </div>
             <div className="detailsInput">
-              <p>BASE-101</p>
+              <p>{name}</p>
             </div>
           </div>
         </div>
@@ -94,7 +98,7 @@ const RoomDetails = () => {
               <p>{"Floor"}</p>
             </div>
             <div className="detailsInput">
-              <p>Ground Floor</p>
+              <p>{floor}</p>
             </div>
           </div>
         </div>
@@ -106,7 +110,7 @@ const RoomDetails = () => {
               <p>{"Sharing Type"}</p>
             </div>
             <div className="detailsInput">
-              <p>Triple</p>
+              <p>{type}</p>
             </div>
           </div>
         </div>
@@ -116,7 +120,7 @@ const RoomDetails = () => {
               <p>{"Rent"}</p>
             </div>
             <div className="detailsInput">
-              <p>Rs 0 / bed</p>
+              <p>Rs {rate} / bed</p>
             </div>
           </div>
         </div>
