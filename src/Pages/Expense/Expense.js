@@ -10,6 +10,7 @@ const Expense = () => {
         <ExpenseMainCard />
         <button className="expenseButton">Add Expense</button>
         <ExpenseUnitCard />
+        <ExpenseCategory />
       </div>
       <Footer />
     </div>
@@ -19,6 +20,38 @@ const Expense = () => {
 export default Expense;
 const ExpenseUnitCard = () => {
   return <div className="expenseMainCard"></div>;
+};
+
+const ExpenseCategory = () => {
+  return (
+    <div className="categoryMain">
+      <div className="categoryCross">
+        <img src="Assets/components/cross.png" />
+      </div>
+      <div className="categoryContainer">
+        <div className="categoryTitle">Select Expense Category Hi</div>
+        <div className="categorySection">
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+          <ExpenseCategoryUnit />
+        </div>
+      </div>
+    </div>
+  );
+};
+const ExpenseCategoryUnit = () => {
+  return (
+    <div className="categoryUnit">
+      <img src="Assets/Property/bed.png" />
+      <p>Category Name</p>
+    </div>
+  );
 };
 const ExpenseMainCard = () => {
   return (

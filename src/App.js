@@ -39,7 +39,7 @@ const App = () => {
         <Route path="/dues" component={Dues} />
 
         <Route path="/expense" component={Expense} />
-        <Route path="/expenseDetails" component={ExpenseDetails} />
+        <Route path="/expensedetails" component={ExpenseDetails} />
       </Switch>
     </BrowserRouter>
   );
