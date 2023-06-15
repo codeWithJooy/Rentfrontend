@@ -23,6 +23,7 @@ const DueAdd = () => {
         </div>
       </div>
       <DuesUnit />
+      <DueCategory />
     </div>
   );
 };
@@ -42,6 +43,32 @@ const DuesUnit = () => {
       </div>
       <div className="duesRoom">
         <p>Room Ground1</p>
+      </div>
+    </div>
+  );
+};
+
+const DueCategory = () => {
+  return (
+    <div className="categoryMain">
+      <div className="categoryCross">
+        <img src="Assets/components/cross.png" />
+      </div>
+      <div className="categoryContainer">
+        <div className="categoryTitle">Select Expense Category </div>
+        <div className="tenantAddSection">
+          <p>Amount</p>
+          <input type="text" />
+        </div>
+        <div className="tenantAddSection">
+          <p>Due Date</p>
+          <input type="text" />
+        </div>
+        <div className="tenantAddSection">
+          <p>Description</p>
+          <input type="text" />
+        </div>
+        <button className="dueButton">Add Due</button>
       </div>
     </div>
   );

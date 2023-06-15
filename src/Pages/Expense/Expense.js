@@ -30,21 +30,11 @@ const ExpenseCategory = () => {
       </div>
       <div className="categoryContainer">
         <div className="categoryTitle">Select Expense Category Hi</div>
-        <div className="categorySection">
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-          <ExpenseCategoryUnit />
-        </div>
       </div>
     </div>
   );
 };
+
 const ExpenseCategoryUnit = () => {
   return (
     <div className="categoryUnit">
