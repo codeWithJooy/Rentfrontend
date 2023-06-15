@@ -15,6 +15,7 @@ import RoomUnit from "./Pages/Property/Rooms/RoomUnit";
 import AddTenant from "./Pages/Tenant/AddTenant";
 
 import Dues from "./Pages/Dues/Dues";
+import DueAdd from "./Pages/Dues/DueAdd";
 
 import Expense from "./Pages/Expense/Expense";
 import ExpenseDetails from "./Pages/Expense/ExpenseDetails";
@@ -37,6 +38,7 @@ const App = () => {
         <Route path="/addtenant" component={AddTenant} />
 
         <Route path="/dues" component={Dues} />
+        <Route path="/dueadd" component={DueAdd} />
 
         <Route path="/expense" component={Expense} />
         <Route path="/expensedetails" component={ExpenseDetails} />
