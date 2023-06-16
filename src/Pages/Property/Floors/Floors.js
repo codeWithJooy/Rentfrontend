@@ -25,7 +25,7 @@ const Floors = () => {
       {floorDetails && (
         <AddFloor floorName={floorName} setFloorDetails={setFloorDetails} />
       )}
-      <Footer />
+      <Footer page={"Property"} />
     </div>
   );
 };

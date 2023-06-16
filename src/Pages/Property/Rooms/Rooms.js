@@ -23,7 +23,7 @@ const Rooms = () => {
           />
         ))}
       </div>
-      <Footer />
+      <Footer page={"Property"} />
     </div>
   );
 };

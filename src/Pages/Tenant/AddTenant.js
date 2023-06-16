@@ -80,7 +80,7 @@ const AddTenant = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer page={"Tenants"} />
     </div>
   );
 };

@@ -6,31 +6,48 @@ import FooterUnit from "./FooterUnit";
 const property = [
   {
     title: "Home",
-    icon: "Assets/Footer/apartment.png",
+    icon: "Assets/Footer/home.png",
+    iconSelected: "Assets/Footer/home_selected.png",
+    link: "/home",
   },
   {
     title: "Money",
-    icon: "Assets/Footer/apartment.png",
+    icon: "Assets/Footer/wallet.png",
+    iconSelected: "Assets/Footer/wallet_selected.png",
+    link: "/home",
   },
   {
     title: "Add",
     icon: "Assets/Footer/plus.png",
+    iconSelected: "Assets/Footer/plus_selected.png",
+    link: "/home",
   },
   {
-    title: "Money",
-    icon: "Assets/Footer/apartment.png",
+    title: "Tenants",
+    icon: "Assets/Footer/group.png",
+    iconSelected: "Assets/Footer/group_selected.png",
+    link: "/addTenant",
   },
   {
     title: "Property",
     icon: "Assets/Footer/apartment.png",
+    iconSelected: "Assets/Footer/apartment_selected.png",
+    link: "/property",
   },
 ];
-const Footer = () => {
+const Footer = ({ page = "Home" }) => {
   return (
     <div className="footer">
       <div className="footerContainer">
         {property.map((item, keyVal) => (
-          <FooterUnit title={item.title} icon={item.icon} key={keyVal} />
+          <FooterUnit
+            title={item.title}
+            icon={item.icon}
+            iconSelected={item.iconSelected}
+            key={keyVal}
+            link={item.link}
+            page={page}
+          />
         ))}
       </div>
     </div>

@@ -34,7 +34,7 @@ const RoomUnit = () => {
         </div>
         {navActive === "details" ? <RoomSection /> : <TenantDetails />}
       </div>
-      <Footer />
+      <Footer page={"Property"} />
     </div>
   );
 };

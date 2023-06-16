@@ -21,7 +21,7 @@ export const dueData = [
   },
   {
     title: "Maintenance",
-    img: "Assets/Dues/maintenence.png",
+    img: "Assets/Dues/maintenance.png",
   },
   {
     title: "Police Verification",

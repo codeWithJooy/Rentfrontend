@@ -9,7 +9,7 @@ const Property = () => {
     <div className="propertyHome">
       <Header />
       <PropertyInit />
-      <Footer />
+      <Footer page={"Property"} />
     </div>
   );
 };

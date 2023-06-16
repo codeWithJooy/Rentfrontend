@@ -14,7 +14,7 @@ const Dues = () => {
           <DueCard key={index} title={data.title} img={data.img} />
         ))}
       </div>
-      <Footer />
+      <Footer page={"Money"} />
     </div>
   );
 };

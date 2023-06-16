@@ -1,16 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./Expense.css";
 
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
 const ExpenseDetails = () => {
+  const category = useSelector((state) => state.expense.category);
   return (
     <div className="expenseMain">
-      <Header name={"Add Expense"} />
+      <Header name={"Add Expense"} type="back" link="/expense" />
       <div className="pageHeader">
-        <img src="Assets/Property/bed.png" />
-        <p>Grocery</p>
+        <img src={category.img} />
+        <p>{category.title}</p>
       </div>
       <div className="expenseHolder">
         <div className="expenseAddSection">
@@ -46,20 +48,20 @@ const ExpenseDetails = () => {
         <p>Payment Mode</p>
         <div className="paymentHolder">
           <div className="paymentUnits paymentActive">
-            <img src="Assets/Property/bed.png" />
+            <img src="Assets/Payment/cash.png" />
             <p>Cash</p>
           </div>
           <div className="paymentUnits">
-            <img src="Assets/Property/bed.png" />
-            <p>Cash</p>
+            <img src="Assets/Payment/gpay.png" />
+            <p>GPay</p>
           </div>
           <div className="paymentUnits">
-            <img src="Assets/Property/bed.png" />
-            <p>Cash</p>
+            <img src="Assets/Payment/phonepe.png" />
+            <p>PhonePe</p>
           </div>
           <div className="paymentUnits">
-            <img src="Assets/Property/bed.png" />
-            <p>Cash</p>
+            <img src="Assets/Payment/paytm.png" />
+            <p>Paytm</p>
           </div>
         </div>
       </div>
