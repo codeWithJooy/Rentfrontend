@@ -9,7 +9,20 @@ const Header = ({ name = "AbhiPg", link = "/home", type = "header" }) => {
     <div className="header">
       <div className="headerContainer">
         <div className="logo">
-          <img src="Assets/Header/RentPG.jpg" />
+          {type === "header" && (
+            <img
+              src="Assets/Header/RentPG.jpg"
+              style={{ height: "36px", width: "36px" }}
+              onClick={() => history.push(link)}
+            />
+          )}
+          {type === "back" && (
+            <img
+              src="Assets/Header/left-arrow.png"
+              style={{ height: "22px", width: "22px" }}
+              onClick={() => history.push(link)}
+            />
+          )}
         </div>
         <div className="headerTitle">
           <p>{name}</p>

@@ -117,6 +117,8 @@
 .duesRoom {
   width: 100%;
   padding: 0px 10px;
+  font-size: 13px;
+  color: #a4161a;
 }
 
 .categoryMain {

@@ -1,29 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Dues.css";
 
 import Header from "../../Components/Header/Header";
 const DueAdd = () => {
+  const [nav, setNav] = useState(true);
   return (
     <div className="duesMain">
-      <Header />
+      <Header type="back" name="Electricity Due" link="/dues" />
       <div className="duesNavbar">
-        <div className="navUnit activeUnit">
-          <img src="Assets/Property/bed.png" />
+        <div
+          className={`navUnit ${nav ? "activeUnit" : ""}`}
+          onClick={() => setNav(!nav)}
+        >
+          <img
+            src={`${
+              nav
+                ? "Assets/Footer/apartment_selected.png"
+                : "Assets/Footer/apartment.png"
+            }`}
+          />
           <div className="navTitle">
             <p>Rooms</p>
             <p className="roomTotal">3 Rooms</p>
           </div>
         </div>
-        <div className="navUnit">
-          <img src="Assets/Property/bed.png" />
+        <div
+          className={`navUnit ${nav ? "" : "activeUnit"}`}
+          onClick={() => setNav(!nav)}
+        >
+          <img
+            src={`${
+              nav
+                ? "Assets/Footer/group.png"
+                : "Assets/Footer/group_selected.png"
+            }`}
+          />
           <div className="navTitle">
-            <p>Rooms</p>
-            <p className="roomTotal">3 Rooms</p>
+            <p>Tenants</p>
+            <p className="roomTotal">1 Tenant</p>
           </div>
         </div>
       </div>
       <DuesUnit />
-      <DueCategory />
     </div>
   );
 };
@@ -35,14 +53,14 @@ const DuesUnit = () => {
     <div className="duesCard">
       <div className="duesTop">
         <div className="duesTopTitle">
-          <p>Room Ground1</p>
+          <p>Abhi Hazra</p>
         </div>
         <div className="duesTopButton">
           <button>Add Dues</button>
         </div>
       </div>
       <div className="duesRoom">
-        <p>Room Ground1</p>
+        <p>Room:Ground1</p>
       </div>
     </div>
   );
