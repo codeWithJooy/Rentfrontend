@@ -18,19 +18,19 @@ const AddTenant = () => {
     <div className="tenantMain">
       <Header />
       <div className="tenantSection">
-        <div className="tenantAddSection">
+        <div className="tenantInput">
           <p>Tenant Name</p>
           <input type="text" />
         </div>
-        <div className="tenantAddSection">
+        <div className="tenantInput">
           <p>Phone Number</p>
           <input type="text" />
         </div>
-        <div className="tenantAddSection">
+        <div className="tenantInput">
           <p>Tenant Room</p>
           <input type="text" />
         </div>
-        <div className="tenantAddSection">
+        <div className="tenantInput">
           <p>Date of Joining</p>
           <input type="date" value={currentDate} onChange={onChangeDate} />
         </div>
