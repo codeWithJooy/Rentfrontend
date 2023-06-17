@@ -81,8 +81,62 @@ const AddTenant = () => {
         </div>
       </div>
       <Footer page={"Tenants"} />
+      <TenantPayment />
     </div>
   );
 };
 
 export default AddTenant;
+
+const TenantPayment = () => {
+  return (
+    <div className="categoryMain">
+      <div className="categoryCross">
+        <img src="Assets/components/cross.png" />
+      </div>
+      <div className="categoryContainer">
+        <div className="categoryTitle">Rent</div>
+        <div className="tenantInput">
+          <p>Due Amount</p>
+          <input type="text" readOnly />
+        </div>
+        <div className="tenantInput">
+          <p>Collection</p>
+          <input type="text" />
+        </div>
+        <div className="tenantInput">
+          <p>Description</p>
+          <input type="text" />
+        </div>
+        <div className="tenantInput">
+          <p>Payment Date</p>
+          <input type="date" />
+        </div>
+        <div className="paymentMode">
+          <p>Payment Mode</p>
+          <div className="paymentHolder">
+            <div className="paymentUnits paymentActive">
+              <img src="Assets/Payment/cash.png" />
+              <p>Cash</p>
+            </div>
+            <div className="paymentUnits">
+              <img src="Assets/Payment/gpay.png" />
+              <p>GPay</p>
+            </div>
+            <div className="paymentUnits">
+              <img src="Assets/Payment/phonepe.png" />
+              <p>PhonePe</p>
+            </div>
+            <div className="paymentUnits">
+              <img src="Assets/Payment/paytm.png" />
+              <p>Paytm</p>
+            </div>
+          </div>
+        </div>
+        <div className="tenantButton">
+          <button style={{ width: "90%", margin: "5%" }}>Save</button>
+        </div>
+      </div>
+    </div>
+  );
+};
