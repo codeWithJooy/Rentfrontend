@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setTotalFloors } from "../../actions/floorActions";
 
-const PropertyInit = () => {
+const PropertyInit = ({ setToast }) => {
   const [floors, setFloors] = useState(0);
   const floorPresent = useSelector((state) => state.floor.floorPresent);
   const history = useHistory();
@@ -15,6 +15,8 @@ const PropertyInit = () => {
     }
   }, []);
   const handleFloors = () => {
+    setToast(true);
+    setTimeout(() => {}, 3000);
     let data = {};
     let arr = [];
     for (let i = 0; i <= floors; i++) {

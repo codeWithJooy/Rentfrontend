@@ -6,9 +6,12 @@ import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
 import { useHistory } from "react-router-dom";
 import { roomUpdate, selectedRoom } from "../../../actions/roomActions";
+import Toast from "../../../Components/Toast/Toast";
 
 const RoomUnit = () => {
   const [navActive, setNavActive] = useState("details");
+  const [toast, setToast] = useState(false);
+  const [updateToast, setUpdateToast] = useState(false);
 
   const handleDetailsNav = () => {
     setNavActive("details");
@@ -35,9 +38,30 @@ const RoomUnit = () => {
             {"Room Details"}
           </div>
         </div>
-        {navActive === "details" ? <RoomSection /> : <TenantDetails />}
+        {navActive === "details" ? (
+          <RoomSection
+            toast={toast}
+            setToast={setToast}
+            updateToast={updateToast}
+            setUpdateToast={setUpdateToast}
+          />
+        ) : (
+          <TenantDetails />
+        )}
       </div>
       <Footer page={"Property"} />
+      <Toast
+        toast={toast}
+        setToast={setToast}
+        title={"Edit Mode On"}
+        msg={"Can Edit Room Name and Rate"}
+      />
+      <Toast
+        toast={updateToast}
+        setToast={setUpdateToast}
+        title={"SuccessFully Edited"}
+        msg={"Changes updated Successfully"}
+      />
     </div>
   );
 };
@@ -62,15 +86,20 @@ const TenantDetails = () => {
     </div>
   );
 };
-const RoomSection = () => {
+const RoomSection = ({ toast, setToast, updateToast, setUpdateToast }) => {
   return (
     <>
-      <RoomDetails />
+      <RoomDetails
+        toast={toast}
+        setToast={setToast}
+        updateToast={updateToast}
+        setUpdateToast={setUpdateToast}
+      />
       <RoomFacilities />
     </>
   );
 };
-const RoomDetails = () => {
+const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
   const room = useSelector((state) => state.room.selectedRoom);
   const roomDispatch = useDispatch();
   const { floor, name, rate, status, type } = room;
@@ -82,9 +111,11 @@ const RoomDetails = () => {
     rent: rate,
   });
   const handleEdit = () => {
+    setToast(true);
     setEdit(!edit);
   };
   const handleUpdate = () => {
+    setUpdateToast(true);
     roomDispatch(roomUpdate(data));
     setEdit(!edit);
   };

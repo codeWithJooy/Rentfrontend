@@ -1,0 +1,87 @@
+.toast {
+  width: 80%;
+  height: 55px;
+  background-color: #fff;
+  box-shadow: 0 0 15px #d3d3d3;
+  position: fixed;
+  bottom: 100px;
+  left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
+  border-radius: 5px;
+  overflow: hidden;
+  visibility: hidden;
+}
+.toastIndicator {
+  width: 5%;
+  height: 55px;
+  background-color: green;
+}
+.toastBody {
+  width: 95%;
+  height: 50px;
+  padding: 0px 10px;
+}
+.toastTitle {
+  font-size: 16px;
+  font-weight: bold;
+  color: #a4161a;
+}
+.toastMessage {
+  font-size: 13px;
+  color: #b1a7a6;
+}
+.show {
+  visibility: visible; /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3.5s;
+  animation: fadein 0.5s, fadeout 0.5s 3.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 100px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 100px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 100px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 100px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
