@@ -4,6 +4,7 @@ import "./Rooms.css";
 import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
+import { useHistory } from "react-router-dom";
 import { roomUpdate, selectedRoom } from "../../../actions/roomActions";
 
 const RoomUnit = () => {
@@ -43,6 +44,10 @@ const RoomUnit = () => {
 export default RoomUnit;
 
 const TenantDetails = () => {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push("/addtenant");
+  };
   return (
     <div className="tenantDetails">
       <div className="tenantEmpty">
@@ -51,7 +56,7 @@ const TenantDetails = () => {
         </div>
         <div className="emptyText">{"No Tenants added yet."}</div>
         <div className="emptyButton">
-          <button>Add Tenant</button>
+          <button onClick={handleClick}>Add Tenant</button>
         </div>
       </div>
     </div>
