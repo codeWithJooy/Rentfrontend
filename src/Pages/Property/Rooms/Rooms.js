@@ -19,6 +19,7 @@ const Rooms = () => {
             name={data.name}
             status={data.status}
             type={data.type}
+            rate={data.rate}
             key={index}
           />
         ))}

@@ -5,6 +5,7 @@
   position: relative;
   padding-bottom: 100px;
   margin-bottom: 100px;
+  position: relative;
 }
 .roomsHolder {
   width: 100%;
@@ -282,3 +283,18 @@
 /*=============================================*/
 
 /*=============================================*/
+.editButton {
+  position: absolute;
+  right: 30px;
+  top: 115px;
+  max-width: 35px !important;
+  max-height: 35px !important;
+  min-width: 35px !important;
+  min-height: 35px !important;
+  z-index: 100000;
+}
+.rateInput {
+  width: 50px;
+  margin: 0px 5px;
+  text-align: center;
+}

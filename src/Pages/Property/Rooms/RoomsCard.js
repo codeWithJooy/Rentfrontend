@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectedRoom } from "../../../actions/roomActions";
 import "./Rooms.css";
 
-const RoomsCard = ({ name, type, status }) => {
+const RoomsCard = ({ name, type, status, rate }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const rooms = useSelector((state) => state.room.rooms);
@@ -30,7 +30,7 @@ const RoomsCard = ({ name, type, status }) => {
             </div>
           </div>
           <div className="roomsRate">
-            <p>Rs 0 / bed</p>
+            <p>Rs {rate} / bed</p>
           </div>
         </div>
         <div className="roomsUnitFacility">

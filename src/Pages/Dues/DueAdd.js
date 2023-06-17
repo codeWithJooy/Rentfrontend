@@ -4,6 +4,7 @@ import "./Dues.css";
 import Header from "../../Components/Header/Header";
 const DueAdd = () => {
   const [nav, setNav] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <div className="duesMain">
       <Header type="back" name="Electricity Due" link="/dues" />
@@ -21,7 +22,6 @@ const DueAdd = () => {
           />
           <div className="navTitle">
             <p>Rooms</p>
-            <p className="roomTotal">3 Rooms</p>
           </div>
         </div>
         <div
@@ -37,18 +37,21 @@ const DueAdd = () => {
           />
           <div className="navTitle">
             <p>Tenants</p>
-            <p className="roomTotal">1 Tenant</p>
           </div>
         </div>
       </div>
-      <DuesUnit />
+      <DuesUnit setOpen={setOpen} />
+      {open && <DueCategory setOpen={setOpen} />}
     </div>
   );
 };
 
 export default DueAdd;
 
-const DuesUnit = () => {
+const DuesUnit = ({ setOpen }) => {
+  const handleOpen = () => {
+    setOpen(true);
+  };
   return (
     <div className="duesCard">
       <div className="duesTop">
@@ -56,7 +59,7 @@ const DuesUnit = () => {
           <p>Abhi Hazra</p>
         </div>
         <div className="duesTopButton">
-          <button>Add Dues</button>
+          <button onClick={handleOpen}>Add Dues</button>
         </div>
       </div>
       <div className="duesRoom">
@@ -66,11 +69,14 @@ const DuesUnit = () => {
   );
 };
 
-const DueCategory = () => {
+const DueCategory = ({ setOpen }) => {
+  const handleCross = () => {
+    setOpen(false);
+  };
   return (
     <div className="categoryMain">
       <div className="categoryCross">
-        <img src="Assets/components/cross.png" />
+        <img src="Assets/components/cross.png" onClick={handleCross} />
       </div>
       <div className="categoryContainer">
         <div className="categoryTitle">Select Expense Category </div>

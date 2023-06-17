@@ -1,22 +1,24 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./Rooms.css";
 import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
-import { selectedRoom } from "../../../actions/roomActions";
+import { roomUpdate, selectedRoom } from "../../../actions/roomActions";
 
 const RoomUnit = () => {
   const [navActive, setNavActive] = useState("details");
+
   const handleDetailsNav = () => {
     setNavActive("details");
   };
   const handleTenantNav = () => {
     setNavActive("tenant");
   };
+
   return (
     <div className="rooms">
-      <Header />
+      <Header type={"back"} name={"Room"} link={"/rooms"} />
       <div className="roomMain">
         <div className="roomNavbar">
           <div
@@ -65,7 +67,28 @@ const RoomSection = () => {
 };
 const RoomDetails = () => {
   const room = useSelector((state) => state.room.selectedRoom);
+  const roomDispatch = useDispatch();
   const { floor, name, rate, status, type } = room;
+  const [edit, setEdit] = useState(false);
+  const [data, setData] = useState({
+    floor: floor,
+    name: name,
+    title: name,
+    rent: rate,
+  });
+  const handleEdit = () => {
+    setEdit(!edit);
+  };
+  const handleUpdate = () => {
+    roomDispatch(roomUpdate(data));
+    setEdit(!edit);
+  };
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div className="roomDetails">
       <div className="detailsHeader">Room Details</div>
@@ -76,7 +99,13 @@ const RoomDetails = () => {
               <p>{"Room Name"}</p>
             </div>
             <div className="detailsInput">
-              <p>{name}</p>
+              <input
+                type="text"
+                name="title"
+                defaultValue={data.title}
+                onChange={handleChange}
+                readOnly={!edit}
+              />
             </div>
           </div>
         </div>
@@ -120,11 +149,27 @@ const RoomDetails = () => {
               <p>{"Rent"}</p>
             </div>
             <div className="detailsInput">
-              <p>Rs {rate} / bed</p>
+              Rs
+              <input
+                type="text"
+                name="rent"
+                value={data.rent}
+                onChange={handleChange}
+                className="rateInput"
+                readOnly={!edit}
+              />{" "}
+              / bed
             </div>
           </div>
         </div>
       </div>
+      <img
+        src={`${
+          edit ? "Assets/Property/done.png" : "Assets/Property/edit.png"
+        }`}
+        className="editButton"
+        onClick={edit ? handleUpdate : handleEdit}
+      />
     </div>
   );
 };

@@ -1,4 +1,8 @@
-import { FLOOR_ROOMS_ADDED, SET_ROOM } from "../actionTypes/roomActionsType";
+import {
+  FLOOR_ROOMS_ADDED,
+  SET_ROOM,
+  ROOM_UPDATE,
+} from "../actionTypes/roomActionsType";
 
 const initial = {
   rooms: [],
@@ -15,6 +19,19 @@ const roomReducer = (state = initial, action) => {
       return {
         ...state,
         selectedRoom: action.payload,
+      };
+    case ROOM_UPDATE:
+      const room = state.rooms.find((p) => p.name === action.payload.name);
+      return {
+        ...state,
+        rooms: [
+          ...state.rooms.filter((p) => p !== room),
+          {
+            ...room,
+            name: action.payload.title,
+            rate: action.payload.rent,
+          },
+        ],
       };
     default:
       return state;

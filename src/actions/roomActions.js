@@ -1,4 +1,8 @@
-import { FLOOR_ROOMS_ADDED, SET_ROOM } from "../actionTypes/roomActionsType";
+import {
+  FLOOR_ROOMS_ADDED,
+  SET_ROOM,
+  ROOM_UPDATE,
+} from "../actionTypes/roomActionsType";
 
 export const setRooms = (data) => {
   return {
@@ -9,6 +13,12 @@ export const setRooms = (data) => {
 export const selectedRoom = (data) => {
   return {
     type: SET_ROOM,
+    payload: data,
+  };
+};
+export const roomUpdate = (data) => {
+  return {
+    type: ROOM_UPDATE,
     payload: data,
   };
 };
