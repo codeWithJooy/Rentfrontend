@@ -4,27 +4,62 @@ import "./Tenant.css";
 import moment from "moment/moment";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
+import { calculateDue, monthName } from "../../helper";
 
 const AddTenant = () => {
   const rooms = useSelector((state) => state.room.rooms);
   const [rent, setRent] = useState(rooms[0].rate);
+  console.log();
+  const [day, setDay] = useState({
+    date: new Date().getDate(),
+    month: monthName(new Date().getMonth()).name,
+    maxDays: monthName(new Date().getMonth()).days,
+  });
+
   const [currentDate, setCurrentDate] = useState(moment().format("YYYY-MM-DD"));
-  const [edit, setEdit] = useState(false);
+  const [rentEdit, setRentEdit] = useState(false);
+  const [securityEdit, setSecurityEdit] = useState(false);
   const [tenant, setTenant] = useState({
     name: "",
     number: "",
     room: "",
     doj: currentDate,
-    dues: [],
+  });
+  const [tenantRentDue, setTenantRentDue] = useState({
+    type: "Rent",
+    due: calculateDue(rent, day.date, day.maxDays),
+    collection: 0,
+    description: "",
+    dateOfPayment: currentDate,
+    mode: "Cash",
+  });
+  const [tenantSecurityDue, setTenantSecurityDue] = useState({
+    type: "Security Deposit",
+    due: 0,
+    collection: 0,
+    description: "",
+    dateOfPayment: currentDate,
+    mode: "Cash",
   });
 
+  //Handle To Open Rent Edit Page
+  const handleRentEdit = () => {
+    setRentEdit(true);
+    setSecurityEdit(false);
+  };
+  //Handle To Open Rent Edit Page
+  const handleSecurityEdit = () => {
+    setSecurityEdit(true);
+    setRentEdit(false);
+  };
   const handleOnChange = (e) => {
     setTenant({
       ...tenant,
       [e.target.name]: e.target.value,
     });
-    console.log(tenant);
   };
+
+  //Room Change Handle
   const handleRoomChange = (e) => {
     setTenant({
       ...tenant,
@@ -32,22 +67,38 @@ const AddTenant = () => {
     });
     let newRoom = rooms.find((r) => r.name == e.target.value);
     setRent(newRoom.rate);
+    setTenantRentDue({
+      ...tenantRentDue,
+      due: calculateDue(newRoom.rate, day.date, day.maxDays),
+    });
   };
-  const handleEdit = () => {
-    setEdit(true);
-  };
+
+  //Handle To Run In case of Date Change
   const onChangeDate = (e) => {
     const d = new Date(e.target.value);
-    console.log(d.getMonth() + 1);
-    console.log(d.getDate());
+    setDay({
+      ...day,
+      date: new Date(e.target.value).getDate(),
+      month: monthName(new Date(e.target.value).getMonth()).name,
+      maxDays: monthName(new Date(e.target.value).getMonth()).days,
+    });
+    setTenantRentDue({
+      ...tenantRentDue,
+      due: calculateDue(
+        rent,
+        new Date(e.target.value).getDate(),
+        monthName(new Date(e.target.value).getMonth()).days
+      ),
+    });
+
     const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
     setCurrentDate(newDate);
     setTenant({
       ...tenant,
       doj: newDate,
     });
-    console.log(tenant);
   };
+
   return (
     <div className="tenantMain">
       <Header />
@@ -96,22 +147,24 @@ const AddTenant = () => {
           <div className="section">
             <div className="sectionUnit unitMain">Rent</div>
             <div className="sectionUnit">
-              <p className="rate">Rs 400</p>
-              <p className="range">14 June to 30 June</p>
+              <p className="rate">Rs {tenantRentDue.due}</p>
+              <p className="range">
+                {day.date} {day.month} to {day.maxDays} {day.month}
+              </p>
             </div>
             <div className="sectionUnit collected">
-              <img src="Assets/Tenant/edit.png" onClick={handleEdit} />
-              <p>0</p>
+              <img src="Assets/Tenant/edit.png" onClick={handleRentEdit} />
+              <p>{tenantRentDue.collection}</p>
             </div>
           </div>
           <div className="section">
             <div className="sectionUnit unitMain">Security Deposit</div>
             <div className="sectionUnit">
               <p className="rate">Rs 400</p>
-              <p className="range">14 June to 30 June</p>
+              <p className="range">One-Time</p>
             </div>
             <div className="sectionUnit collected">
-              <img src="Assets/Tenant/edit.png" onClick={handleEdit} />
+              <img src="Assets/Tenant/edit.png" onClick={handleSecurityEdit} />
               <p>0</p>
             </div>
           </div>
@@ -121,36 +174,50 @@ const AddTenant = () => {
         </div>
       </div>
       <Footer page={"Tenants"} />
-      {edit && <TenantPayment setEdit={setEdit} />}
+      {rentEdit && (
+        <TenantPayment
+          setEdit={setRentEdit}
+          data={tenantRentDue}
+          setDue={setTenantRentDue}
+        />
+      )}
+      {securityEdit && (
+        <TenantPayment
+          setEdit={setSecurityEdit}
+          data={tenantSecurityDue}
+          setDue={setTenantSecurityDue}
+        />
+      )}
     </div>
   );
 };
 
 export default AddTenant;
 
-const TenantPayment = ({ setEdit }) => {
+const TenantPayment = ({ setEdit, data, setDue }) => {
+  const { type, due, collection, description, dateOfPayment, mode } = data;
   return (
     <div className="categoryMain">
       <div className="categoryCross">
         <img src="Assets/components/cross.png" onClick={() => setEdit(false)} />
       </div>
       <div className="categoryContainer">
-        <div className="categoryTitle">Rent</div>
+        <div className="categoryTitle">{type}</div>
         <div className="tenantInput">
           <p>Due Amount</p>
-          <input type="text" readOnly />
+          <input type="text" value={due} readOnly />
         </div>
         <div className="tenantInput">
           <p>Collection</p>
-          <input type="text" />
+          <input type="text" value={collection} />
         </div>
         <div className="tenantInput">
           <p>Description</p>
-          <input type="text" />
+          <input type="text" value={description} />
         </div>
         <div className="tenantInput">
           <p>Payment Date</p>
-          <input type="date" />
+          <input type="date" value={dateOfPayment} />
         </div>
         <div className="paymentMode">
           <p>Payment Mode</p>

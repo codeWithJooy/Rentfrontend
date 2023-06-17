@@ -81,3 +81,23 @@ export const roomAddHelper = (floorName, roomTypes) => {
   }
   return arr;
 };
+export const monthName = (number) => {
+  const months = [
+    { name: "Jan", days: 31 },
+    { name: "Feb", days: 28 },
+    { name: "March", days: 31 },
+    { name: "April", days: 30 },
+    { name: "May", days: 31 },
+    { name: "Jun", days: 30 },
+    { name: "July", days: 31 },
+    { name: "Aug", days: 31 },
+    { name: "Sep", days: 30 },
+    { name: "Oct", days: 31 },
+    { name: "Nov", days: 30 },
+    { name: "Dec", days: 31 },
+  ];
+  return months[number];
+};
+export const calculateDue = (rent, day, maxDay) => {
+  return Math.floor((rent * (maxDay - day + 1)) / maxDay);
+};
