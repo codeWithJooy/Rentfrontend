@@ -6,6 +6,10 @@ import Footer from "../../Components/Footer/Footer";
 
 const AddTenant = () => {
   const [currentDate, setCurrentDate] = useState(moment().format("YYYY-MM-DD"));
+  const [edit, setEdit] = useState(false);
+  const handleEdit = () => {
+    setEdit(true);
+  };
   const onChangeDate = (e) => {
     const d = new Date(e.target.value);
     console.log(d.getMonth() + 1);
@@ -28,7 +32,10 @@ const AddTenant = () => {
         </div>
         <div className="tenantInput">
           <p>Tenant Room</p>
-          <input type="text" />
+          <select>
+            <option>Hii</option>
+            <option>Hello</option>
+          </select>
         </div>
         <div className="tenantInput">
           <p>Date of Joining</p>
@@ -60,7 +67,7 @@ const AddTenant = () => {
               <p className="range">14 June to 30 June</p>
             </div>
             <div className="sectionUnit collected">
-              <img src="Assets/Tenant/edit.png" />
+              <img src="Assets/Tenant/edit.png" onClick={handleEdit} />
               <p>0</p>
             </div>
           </div>
@@ -71,7 +78,7 @@ const AddTenant = () => {
               <p className="range">14 June to 30 June</p>
             </div>
             <div className="sectionUnit collected">
-              <img src="Assets/Tenant/edit.png" />
+              <img src="Assets/Tenant/edit.png" onClick={handleEdit} />
               <p>0</p>
             </div>
           </div>
@@ -81,18 +88,18 @@ const AddTenant = () => {
         </div>
       </div>
       <Footer page={"Tenants"} />
-      <TenantPayment />
+      {edit && <TenantPayment setEdit={setEdit} />}
     </div>
   );
 };
 
 export default AddTenant;
 
-const TenantPayment = () => {
+const TenantPayment = ({ setEdit }) => {
   return (
     <div className="categoryMain">
       <div className="categoryCross">
-        <img src="Assets/components/cross.png" />
+        <img src="Assets/components/cross.png" onClick={() => setEdit(false)} />
       </div>
       <div className="categoryContainer">
         <div className="categoryTitle">Rent</div>

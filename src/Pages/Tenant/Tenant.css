@@ -52,6 +52,12 @@ input {
   border: none;
   outline: none;
 }
+.tenantInput select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
 .tenantBalanceHeader {
   width: 90%;
   margin: 0px 5%;
