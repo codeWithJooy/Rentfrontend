@@ -1,12 +1,38 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "./Tenant.css";
 import moment from "moment/moment";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
 const AddTenant = () => {
+  const rooms = useSelector((state) => state.room.rooms);
+  const [rent, setRent] = useState(rooms[0].rate);
   const [currentDate, setCurrentDate] = useState(moment().format("YYYY-MM-DD"));
   const [edit, setEdit] = useState(false);
+  const [tenant, setTenant] = useState({
+    name: "",
+    number: "",
+    room: "",
+    doj: currentDate,
+    dues: [],
+  });
+
+  const handleOnChange = (e) => {
+    setTenant({
+      ...tenant,
+      [e.target.name]: e.target.value,
+    });
+    console.log(tenant);
+  };
+  const handleRoomChange = (e) => {
+    setTenant({
+      ...tenant,
+      room: e.target.value,
+    });
+    let newRoom = rooms.find((r) => r.name == e.target.value);
+    setRent(newRoom.rate);
+  };
   const handleEdit = () => {
     setEdit(true);
   };
@@ -16,7 +42,11 @@ const AddTenant = () => {
     console.log(d.getDate());
     const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
     setCurrentDate(newDate);
-    console.log(newDate); //value picked from date picker
+    setTenant({
+      ...tenant,
+      doj: newDate,
+    });
+    console.log(tenant);
   };
   return (
     <div className="tenantMain">
@@ -24,17 +54,20 @@ const AddTenant = () => {
       <div className="tenantSection">
         <div className="tenantInput">
           <p>Tenant Name</p>
-          <input type="text" />
+          <input type="text" name="name" onChange={handleOnChange} />
         </div>
         <div className="tenantInput">
           <p>Phone Number</p>
-          <input type="text" />
+          <input type="number" name="number" onChange={handleOnChange} />
         </div>
         <div className="tenantInput">
           <p>Tenant Room</p>
-          <select>
-            <option>Hii</option>
-            <option>Hello</option>
+          <select name="room" value={tenant.room} onChange={handleRoomChange}>
+            {rooms.map((unit, index) => (
+              <option key={index} value={unit.name}>
+                {unit.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="tenantInput">
@@ -44,7 +77,7 @@ const AddTenant = () => {
         <div className="tenantAddHalf">
           <div className="tenantAddLeftSection">
             <p>Room Rent</p>
-            <input type="number" />
+            <input type="number" value={rent} readOnly />
           </div>
           <div className="tenantAddRightSection">
             <p>Security Deposit</p>

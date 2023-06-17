@@ -49,6 +49,7 @@
 }
 input {
   width: 100%;
+  background: transparent;
   border: none;
   outline: none;
 }
