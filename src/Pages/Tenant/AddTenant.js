@@ -176,7 +176,7 @@ const AddTenant = () => {
             </div>
             <div className="sectionUnit collected">
               <img src="Assets/Tenant/edit.png" onClick={handleSecurityEdit} />
-              <p>0</p>
+              <p>{tenantSecurityDue.collection}</p>
             </div>
           </div>
           <div className="tenantButton">
@@ -207,6 +207,17 @@ export default AddTenant;
 
 const TenantPayment = ({ setEdit, data, setDue }) => {
   const { type, due, collection, description, dateOfPayment, mode } = data;
+  const [pay, setPayment] = useState(data);
+  const handleSave = () => {
+    setDue(pay);
+    setEdit(false);
+  };
+  const handlePaymentChange = (e) => {
+    setPayment({
+      ...pay,
+      [e.target.name]: e.target.value,
+    });
+  };
   return (
     <div className="categoryMain">
       <div className="categoryCross">
@@ -216,19 +227,29 @@ const TenantPayment = ({ setEdit, data, setDue }) => {
         <div className="categoryTitle">{type}</div>
         <div className="tenantInput">
           <p>Due Amount</p>
-          <input type="text" value={due} readOnly />
+          <input type="text" value={pay.due} readOnly />
         </div>
         <div className="tenantInput">
           <p>Collection</p>
-          <input type="text" value={collection} />
+          <input
+            type="text"
+            value={pay.collection}
+            name="collection"
+            onChange={handlePaymentChange}
+          />
         </div>
         <div className="tenantInput">
           <p>Description</p>
-          <input type="text" value={description} />
+          <input
+            type="text"
+            value={pay.description}
+            name="description"
+            onChange={handlePaymentChange}
+          />
         </div>
         <div className="tenantInput">
           <p>Payment Date</p>
-          <input type="date" value={dateOfPayment} />
+          <input type="date" value={pay.dateOfPayment} />
         </div>
         <div className="paymentMode">
           <p>Payment Mode</p>
@@ -252,7 +273,9 @@ const TenantPayment = ({ setEdit, data, setDue }) => {
           </div>
         </div>
         <div className="tenantButton">
-          <button style={{ width: "90%", margin: "5%" }}>Save</button>
+          <button style={{ width: "90%", margin: "5%" }} onClick={handleSave}>
+            Save
+          </button>
         </div>
       </div>
     </div>
