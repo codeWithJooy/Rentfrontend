@@ -99,6 +99,13 @@ const AddTenant = () => {
     });
   };
 
+  //handler to run security due change
+  const handleSecurityDueEdit = (e) => {
+    setTenantSecurityDue({
+      ...tenantSecurityDue,
+      due: e.target.value,
+    });
+  };
   return (
     <div className="tenantMain">
       <Header />
@@ -132,7 +139,11 @@ const AddTenant = () => {
           </div>
           <div className="tenantAddRightSection">
             <p>Security Deposit</p>
-            <input type="number" />
+            <input
+              type="number"
+              value={tenantSecurityDue.due}
+              onChange={handleSecurityDueEdit}
+            />
           </div>
         </div>
         <div className="tenantBalanceHeader">
@@ -160,7 +171,7 @@ const AddTenant = () => {
           <div className="section">
             <div className="sectionUnit unitMain">Security Deposit</div>
             <div className="sectionUnit">
-              <p className="rate">Rs 400</p>
+              <p className="rate">Rs {tenantSecurityDue.due}</p>
               <p className="range">One-Time</p>
             </div>
             <div className="sectionUnit collected">
