@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addTenant } from "../../actions/tenantAction";
+import { useHistory } from "react-router-dom";
 import "./Tenant.css";
 import moment from "moment/moment";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { calculateDue, monthName } from "../../helper";
-
+import Toast from "../../Components/Toast/Toast";
 const AddTenant = () => {
   const rooms = useSelector((state) => state.room.rooms);
+  const [toast, setToast] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [rent, setRent] = useState(rooms[0].rate);
   console.log();
   const [day, setDay] = useState({
@@ -22,7 +27,7 @@ const AddTenant = () => {
   const [tenant, setTenant] = useState({
     name: "",
     number: "",
-    room: "",
+    room: rooms[0].name,
     doj: currentDate,
   });
   const [tenantRentDue, setTenantRentDue] = useState({
@@ -106,6 +111,20 @@ const AddTenant = () => {
       due: e.target.value,
     });
   };
+
+  const handleAdd = () => {
+    let obj = {};
+    obj = tenant;
+    obj.dues = [];
+    obj.dues.push(tenantRentDue);
+    obj.dues.push(tenantSecurityDue);
+    dispatch(addTenant(obj));
+    setToast(true);
+    setTimeout(() => {
+      history.push("/tenant");
+    }, 4000);
+  };
+
   return (
     <div className="tenantMain">
       <Header />
@@ -180,7 +199,7 @@ const AddTenant = () => {
             </div>
           </div>
           <div className="tenantButton">
-            <button>Add Tenant</button>
+            <button onClick={handleAdd}>Add Tenant</button>
           </div>
         </div>
       </div>
@@ -199,6 +218,12 @@ const AddTenant = () => {
           setDue={setTenantSecurityDue}
         />
       )}
+      <Toast
+        toast={toast}
+        setToast={setToast}
+        title={"Tenant Added"}
+        msg={"Tenant Added Successfully"}
+      />
     </div>
   );
 };

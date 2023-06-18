@@ -1,8 +1,8 @@
 export const homeData = [
   {
-    title: "Add Tenant",
+    title: "Tenant",
     img: "Assets/Home/renter.png",
-    link: "/home",
+    link: "/tenant",
   },
   {
     title: "Receive Payment",

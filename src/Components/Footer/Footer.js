@@ -26,7 +26,7 @@ const property = [
     title: "Tenants",
     icon: "Assets/Footer/group.png",
     iconSelected: "Assets/Footer/group_selected.png",
-    link: "/addTenant",
+    link: "/Tenant",
   },
   {
     title: "Property",
