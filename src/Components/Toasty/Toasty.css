@@ -1,6 +1,6 @@
 .toastContainer {
   width: 250px;
-  height: 50px;
+  min-height: 50px;
   background-color: #fff;
   position: fixed;
   bottom: 100px;
@@ -24,17 +24,25 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
+  height: 50px;
+  width: calc(100% - 10px);
+  position: relative;
 }
 .toastHeader {
-  font-size: 15px;
-  font-weight: bold;
   width: 100%;
 }
+.toastHeader p {
+  font-size: 15px;
+  font-weight: bold;
+}
 .toastMessage {
+  position: relative;
+  top: -2px;
+  width: 100%;
+}
+.toastMessage p {
   font-size: 12px;
   color: #d3d3d3;
-  position: relative;
-  top: -5px;
 }
 .show {
   visibility: visible; /* Show the snackbar */

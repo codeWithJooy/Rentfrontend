@@ -13,7 +13,6 @@ export const CodeAnalogy = Object.freeze({
 });
 
 const Toasty = () => {
-  const [toast, setToast] = useState(true);
   const toastSelector = useSelector((state) => state.toast);
   const { visible, code, title, message } = toastSelector;
   useEffect(() => {
@@ -25,8 +24,11 @@ const Toasty = () => {
     <div className={`${visible ? "toastContainer show" : "toastContainer"}`}>
       <div className="toastIcon" style={{ background: code }}></div>
       <div className="toastData">
-        <div className="toastHeader" style={{ color: code }}>
-          <p>{title}</p>
+        <div className="toastHeader">
+          <p style={{ color: code }}>{title}</p>
+        </div>
+        <div className="toastMessage">
+          <p>{message}</p>
         </div>
       </div>
     </div>

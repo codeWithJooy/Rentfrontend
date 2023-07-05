@@ -3,6 +3,8 @@ import { userApi } from "../apis/apis";
 import { dispatchAction } from "./actionHelper";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { updateToast } from "./toastActions";
+import { signupValidation } from "../validations/signupValidation";
+
 export const userSignup = async (data) => {
   try {
     let user = {
@@ -11,6 +13,8 @@ export const userSignup = async (data) => {
       email: data.email,
       password: data.password,
     };
+    if (!signupValidation(user)) return;
+
     const response = await userApi.post("/signup", user);
     if (response.data.code == 200) {
       updateToast({
@@ -18,6 +22,7 @@ export const userSignup = async (data) => {
         title: "Signup Successful",
         message: "Welcome To RentPG",
       });
+      return;
     } else if (response.data.code == 409) {
       updateToast({
         code: CodeAnalogy.ERROR,
@@ -25,6 +30,7 @@ export const userSignup = async (data) => {
         message: "Login TO RentPG",
       });
     }
+    return;
   } catch (error) {
     console.log(error);
   }
