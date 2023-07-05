@@ -22,7 +22,8 @@ export const userSignup = async (data) => {
         title: "Signup Successful",
         message: "Welcome To RentPG",
       });
-      return;
+      dispatchAction(USER_SIGNUP, response.data);
+      return true;
     } else if (response.data.code == 409) {
       updateToast({
         code: CodeAnalogy.ERROR,

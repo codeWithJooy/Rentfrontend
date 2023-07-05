@@ -20,6 +20,9 @@ import DueAdd from "./Pages/Dues/DueAdd";
 
 import Expense from "./Pages/Expense/Expense";
 import ExpenseDetails from "./Pages/Expense/ExpenseDetails";
+import Toast from "./Components/Toast/Toast";
+import { REVOKE_TOAST } from "./actionTypes/toastTypes";
+import Toasty from "./Components/Toasty/Toasty";
 
 const App = () => {
   return (
@@ -45,6 +48,7 @@ const App = () => {
         <Route path="/expense" component={Expense} />
         <Route path="/expensedetails" component={ExpenseDetails} />
       </Switch>
+      <Toasty />
     </BrowserRouter>
   );
 };

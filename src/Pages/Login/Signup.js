@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Login.css";
 import Toasty from "../../Components/Toasty/Toasty";
 import { userSignup } from "../../actions/userAction";
 
 const Signup = () => {
+  const userPresent = useSelector((state) => state.user);
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -16,12 +18,17 @@ const Signup = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const handleSignUp = () => {
-    //history.push("/add");
     userSignup(user);
   };
   const handleSignIn = () => {
     history.push("/login");
   };
+
+  useEffect(() => {
+    if (userPresent.userId !== "") {
+      history.push("/add");
+    }
+  }, [userPresent.userId]);
   return (
     <div className="mainEntry">
       <div className="mainEntryContainer">
@@ -76,7 +83,7 @@ const Signup = () => {
             </p>
           </div>
         </div>
-        <Toasty />
+        {/* <Toasty /> */}
       </div>
     </div>
   );
