@@ -23,12 +23,14 @@ const Login = () => {
     userLogin(user);
   };
   useEffect(() => {
-    if (propertyId == "") {
-      history.push("/add");
-    } else if (userId != "") {
-      history.push("/home");
+    if (userId != "") {
+      if (propertyId == "") {
+        history.push("/add");
+      } else {
+        history.push("/home");
+      }
     }
-  });
+  }, [userId]);
   return (
     <div className="mainEntry">
       <div className="mainEntryContainer">
