@@ -6,6 +6,7 @@ import { updateToast } from "./toastActions";
 import {
   signupValidation,
   propertyValidation,
+  loginValidation,
 } from "../validations/signupValidation";
 
 export const userSignup = async (data) => {
@@ -33,8 +34,8 @@ export const userSignup = async (data) => {
         title: "User Present Already",
         message: "Login TO RentPG",
       });
+      return;
     }
-    return;
   } catch (error) {
     console.log(error);
   }
@@ -62,5 +63,43 @@ export const userProperty = async (data, userId) => {
     }
   } catch (error) {
     return error;
+  }
+};
+export const userLogin = async (data) => {
+  try {
+    const user = {
+      email: data.email,
+      password: data.password,
+    };
+
+    if (!loginValidation(user)) return;
+
+    const response = await userApi.post("/login", user);
+
+    if (response.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: "Login Successful",
+        message: "Welcome To RentPG",
+      });
+      dispatchAction(USER_SIGNUP, response.data);
+      return true;
+    } else if (response.data.code == 404) {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "User Not Present",
+        message: "Signup to RentPg",
+      });
+      return;
+    } else if (response.data.code == 401) {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Password didn't Match",
+        message: "Check Your Password",
+      });
+      return;
+    }
+  } catch (error) {
+    console.log(error);
   }
 };

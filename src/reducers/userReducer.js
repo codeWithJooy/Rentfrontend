@@ -1,4 +1,9 @@
-import { USER_PROPERTY, USER_SIGNUP } from "../actionTypes/userAction";
+import { act } from "react-dom/test-utils";
+import {
+  USER_LOGIN,
+  USER_PROPERTY,
+  USER_SIGNUP,
+} from "../actionTypes/userAction";
 
 const initialize = {
   userId: "",
@@ -16,6 +21,13 @@ const userReducer = (state = initialize, action) => {
     case USER_PROPERTY:
       return {
         ...state,
+        propertyId: action.payload.propertyId,
+        propertyName: action.payload.propertyName,
+      };
+    case USER_LOGIN:
+      return {
+        ...state,
+        userId: action.payload.userId,
         propertyId: action.payload.propertyId,
         propertyName: action.payload.propertyName,
       };
