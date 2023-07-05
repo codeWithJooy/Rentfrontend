@@ -41,3 +41,32 @@ export const signupValidation = (user) => {
   }
   return true;
 };
+
+export const propertyValidation = (property) => {
+  const { name, contact, pincode } = property;
+  if (name == "") {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Add Property Name",
+      message: "Property Name Cannot be Empty",
+    });
+    return false;
+  }
+  if (contact == "") {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Add Property Contact",
+      message: "Property Contact Cannot be Empty",
+    });
+    return false;
+  }
+  if (name == "") {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Add Property Pincode",
+      message: "Property Pincode Cannot be Empty",
+    });
+    return false;
+  }
+  return true;
+};

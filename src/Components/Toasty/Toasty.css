@@ -12,6 +12,7 @@
   border-radius: 5px;
   overflow: hidden;
   visibility: hidden;
+  z-index: 99999999;
 }
 .toastIcon {
   width: 10px;

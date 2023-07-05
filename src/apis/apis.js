@@ -2,6 +2,7 @@ import axios from "axios";
 
 const devApis = {
   USER_API: "http://localhost:5000/api/auth",
+  SETUP_API: "http://localhost:5000/api/setup",
 };
 
 const getApiUrls = () => {
@@ -18,4 +19,7 @@ export const APIS = getApiUrls();
 
 export const userApi = axios.create({
   baseURL: APIS.USER_API,
+});
+export const setupApi = axios.create({
+  baseURL: APIS.SETUP_API,
 });
