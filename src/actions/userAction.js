@@ -1,4 +1,8 @@
-import { USER_SIGNUP, USER_PROPERTY } from "../actionTypes/userAction";
+import {
+  USER_SIGNUP,
+  USER_PROPERTY,
+  USER_LOGIN,
+} from "../actionTypes/userAction";
 import { userApi, setupApi } from "../apis/apis";
 import { dispatchAction } from "./actionHelper";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
@@ -82,7 +86,7 @@ export const userLogin = async (data) => {
         title: "Login Successful",
         message: "Welcome To RentPG",
       });
-      dispatchAction(USER_SIGNUP, response.data);
+      dispatchAction(USER_LOGIN, response.data);
       return true;
     } else if (response.data.code == 404) {
       updateToast({
