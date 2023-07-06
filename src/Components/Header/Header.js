@@ -1,10 +1,14 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Header.css";
 
-const Header = ({ name = "AbhiPg", link = "/home", type = "header" }) => {
+const Header = ({ name, link = "/home", type = "header" }) => {
   const history = useHistory();
-
+  const title = useSelector((state) => state.user.propertyName);
+  if (!name) {
+    name = title;
+  }
   return (
     <div className="header">
       <div className="headerContainer">

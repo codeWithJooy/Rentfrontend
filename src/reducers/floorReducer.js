@@ -27,7 +27,7 @@ const floorReducer = (state = initial, action) => {
         ...state,
         totalFloors: action.payload.totalFloors,
         floorPresent: true,
-        floors: action.payload.floors,
+        //floors: action.payload.floors,
       };
     case ROOMS_ADDED:
       const floor = state.floors.find((p) => p.name === action.payload.name);

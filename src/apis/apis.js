@@ -3,6 +3,7 @@ import axios from "axios";
 const devApis = {
   USER_API: "http://localhost:5000/api/auth",
   SETUP_API: "http://localhost:5000/api/setup",
+  FLOOR_API: "http://localhost:5000/api/floor",
 };
 
 const getApiUrls = () => {
@@ -22,4 +23,7 @@ export const userApi = axios.create({
 });
 export const setupApi = axios.create({
   baseURL: APIS.SETUP_API,
+});
+export const floorApi = axios.create({
+  baseURL: APIS.FLOOR_API,
 });
