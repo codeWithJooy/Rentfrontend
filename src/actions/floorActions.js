@@ -5,7 +5,7 @@ import {
 } from "../actionTypes/floorActionsType";
 import { floorApi } from "../apis/apis";
 import { checkFloors } from "../validations/floorValidation";
-import { dispatchAction } from "./actionHelper";
+import { dispatchAction, getHeaders } from "./actionHelper";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 
@@ -44,6 +44,28 @@ export const getTotalFloors = async (userId, propertyId) => {
   };
   const response = await floorApi.post("/getFloorPresent", data);
   if (response.data.code == 200) return response.data.floorPresent;
+};
+export const getFloors = async (userId, propertyId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    });
+    const response = await floorApi.get("/getFloors", headers);
+    if (response.data.code == 200) {
+      return response.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Unable to fetch Floor Data",
+      });
+      return [];
+    }
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
 export const addRooms = (data) => {
   return {
