@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./Rooms.css";
 import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
 import { useHistory } from "react-router-dom";
-import { roomUpdate, selectedRoom } from "../../../actions/roomActions";
+import {
+  getSingleRoom,
+  roomUpdate,
+  selectedRoom,
+} from "../../../actions/roomActions";
 import Toast from "../../../Components/Toast/Toast";
 
 const RoomUnit = () => {
@@ -100,23 +104,19 @@ const RoomSection = ({ toast, setToast, updateToast, setUpdateToast }) => {
   );
 };
 const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
-  const room = useSelector((state) => state.room.selectedRoom);
-  const roomDispatch = useDispatch();
-  const { floor, name, rate, status, type } = room;
+  const roomName = useSelector((state) => state.room.selectedRoom);
+  const floorName = useSelector((state) => state.floor.selectedFloor);
+  const user = useSelector((state) => state.user);
+
   const [edit, setEdit] = useState(false);
-  const [data, setData] = useState({
-    floor: floor,
-    name: name,
-    title: name,
-    rent: rate,
-  });
+  const [data, setData] = useState([]);
+
   const handleEdit = () => {
     setToast(true);
     setEdit(!edit);
   };
   const handleUpdate = () => {
     setUpdateToast(true);
-    roomDispatch(roomUpdate(data));
     setEdit(!edit);
   };
   const handleChange = (e) => {
@@ -125,6 +125,17 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
       [e.target.name]: e.target.value,
     });
   };
+  useEffect(() => {
+    (async () => {
+      let roomData = await getSingleRoom(
+        user.userId,
+        user.propertyId,
+        floorName,
+        roomName
+      );
+      setData(roomData);
+    })();
+  }, []);
   return (
     <div className="roomDetails">
       <div className="detailsHeader">Room Details</div>
@@ -137,8 +148,8 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
             <div className="detailsInput">
               <input
                 type="text"
-                name="title"
-                defaultValue={data.title}
+                name="name"
+                defaultValue={data.name}
                 onChange={handleChange}
                 readOnly={!edit}
               />
@@ -163,7 +174,7 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
               <p>{"Floor"}</p>
             </div>
             <div className="detailsInput">
-              <p>{floor}</p>
+              <p>{data.floor}</p>
             </div>
           </div>
         </div>
@@ -175,7 +186,7 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
               <p>{"Sharing Type"}</p>
             </div>
             <div className="detailsInput">
-              <p>{type}</p>
+              <p>{data.type}</p>
             </div>
           </div>
         </div>
@@ -188,8 +199,8 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
               Rs
               <input
                 type="text"
-                name="rent"
-                value={data.rent}
+                name="rate"
+                value={data.rate}
                 onChange={handleChange}
                 className="rateInput"
                 readOnly={!edit}

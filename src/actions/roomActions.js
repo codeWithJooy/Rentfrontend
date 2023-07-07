@@ -29,6 +29,36 @@ export const getRooms = async (userId, propertyId, floorName) => {
     console.log(error);
   }
 };
+
+export const getSingleRoom = async (
+  userId,
+  propertyId,
+  floorName,
+  roomName
+) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+      floorName,
+      roomName,
+    });
+    const res = await roomApi.get("/getSingleRoom", header);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Cannot Retrive Room Data",
+      });
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const setRooms = (data) => {
   return {
     type: FLOOR_ROOMS_ADDED,
