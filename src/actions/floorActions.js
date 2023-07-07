@@ -75,30 +75,34 @@ export const addRooms = async (
   double,
   triple
 ) => {
-  const floor = {
-    userId,
-    propertyId,
-    floorName,
-    single,
-    double,
-    triple,
-  };
+  try {
+    const floor = {
+      userId,
+      propertyId,
+      floorName,
+      single,
+      double,
+      triple,
+    };
 
-  const res = await floorApi.post("/addRoom", floor);
-  if (res.data.code == 200) {
-    updateToast({
-      code: CodeAnalogy.SUCCESS,
-      title: "Rooms Added",
-      message: "Succesfully Added The Rooms",
-    });
-    return;
-  } else {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Something Went Wrong",
-      message: "Rooms couldnt be added",
-    });
-    return;
+    const res = await floorApi.post("/addRoom", floor);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: "Rooms Added",
+        message: "Succesfully Added The Rooms",
+      });
+      return;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Rooms couldnt be added",
+      });
+      return;
+    }
+  } catch (error) {
+    console.log(error.message);
   }
 };
 export const setFloor = (data) => {
