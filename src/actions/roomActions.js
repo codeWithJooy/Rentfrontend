@@ -62,7 +62,7 @@ export const updateRoom = async (userId, propertyId, data) => {
   const headers = getHeaders({
     userId,
     propertyId,
-    floorName: data.floorName,
+    floorName: data.floor,
     id: data.id,
   });
   const update = {
