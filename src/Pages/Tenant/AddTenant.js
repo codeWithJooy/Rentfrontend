@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTenant } from "../../actions/tenantAction";
 import { useHistory } from "react-router-dom";
@@ -8,12 +8,15 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { calculateDue, monthName } from "../../helper";
 import Toast from "../../Components/Toast/Toast";
+import { getAllRooms } from "../../actions/roomActions";
 const AddTenant = () => {
-  const rooms = useSelector((state) => state.room.rooms);
+  const [rooms, setRooms] = useState([]);
+  const user = useSelector((state) => state.user);
+  const [forceUpdate, setForceUpdate] = useState(true);
   const [toast, setToast] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
-  const [rent, setRent] = useState(rooms[0].rate);
+  const [rent, setRent] = useState(rooms.length > 0 ? rooms[0].rate : 0);
   console.log();
   const [day, setDay] = useState({
     date: new Date().getDate(),
@@ -25,13 +28,17 @@ const AddTenant = () => {
   const [rentEdit, setRentEdit] = useState(false);
   const [securityEdit, setSecurityEdit] = useState(false);
   const [tenant, setTenant] = useState({
+    userId: user.userId,
+    propertyId: user.propertyId,
+    roomId: rooms.length > 0 ? rooms[0].id : 0,
     name: "",
     number: "",
-    room: rooms[0].name,
+    room: rooms.length > 0 ? rooms[0].name : "",
     doj: currentDate,
   });
   const [tenantRentDue, setTenantRentDue] = useState({
     type: "Rent",
+    rent: rent,
     due: calculateDue(rent, day.date, day.maxDays),
     collection: 0,
     description: "",
@@ -46,6 +53,13 @@ const AddTenant = () => {
     dateOfPayment: currentDate,
     mode: "Cash",
   });
+  const handleRentDueEdit = (e) => {
+    setTenantRentDue({
+      ...tenantRentDue,
+      rent: e.target.value,
+      due: calculateDue(e.target.value, day.date, day.maxDays),
+    });
+  };
 
   //Handle To Open Rent Edit Page
   const handleRentEdit = () => {
@@ -66,14 +80,17 @@ const AddTenant = () => {
 
   //Room Change Handle
   const handleRoomChange = (e) => {
+    let newRoom = rooms ? rooms.find((r) => r.name == e.target.value) : null;
     setTenant({
       ...tenant,
       room: e.target.value,
+      roomId: newRoom.id,
     });
-    let newRoom = rooms.find((r) => r.name == e.target.value);
+
     setRent(newRoom.rate);
     setTenantRentDue({
       ...tenantRentDue,
+      rent: newRoom.rate,
       due: calculateDue(newRoom.rate, day.date, day.maxDays),
     });
   };
@@ -118,114 +135,138 @@ const AddTenant = () => {
     obj.dues = [];
     obj.dues.push(tenantRentDue);
     obj.dues.push(tenantSecurityDue);
-    dispatch(addTenant(obj));
-    setToast(true);
+    addTenant(obj);
+    // setToast(true);
     setTimeout(() => {
       history.push("/tenant");
     }, 4000);
   };
-
-  return (
-    <div className="tenantMain">
-      <Header />
-      <div className="tenantSection">
-        <div className="tenantInput">
-          <p>Tenant Name</p>
-          <input type="text" name="name" onChange={handleOnChange} />
-        </div>
-        <div className="tenantInput">
-          <p>Phone Number</p>
-          <input type="number" name="number" onChange={handleOnChange} />
-        </div>
-        <div className="tenantInput">
-          <p>Tenant Room</p>
-          <select name="room" value={tenant.room} onChange={handleRoomChange}>
-            {rooms.map((unit, index) => (
-              <option key={index} value={unit.name}>
-                {unit.name}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="tenantInput">
-          <p>Date of Joining</p>
-          <input type="date" value={currentDate} onChange={onChangeDate} />
-        </div>
-        <div className="tenantAddHalf">
-          <div className="tenantAddLeftSection">
-            <p>Room Rent</p>
-            <input type="number" value={rent} readOnly />
+  useEffect(() => {
+    if (forceUpdate) {
+      (async () => {
+        let data = await getAllRooms(user.userId, user.propertyId);
+        setRooms(data);
+        setTenant({ ...tenant, room: data ? data[0].name : "Unknown" });
+        setRent(data ? data[0].rate : 0);
+        setTenantRentDue({
+          ...tenantRentDue,
+          rent: data ? data[0].rate : 0,
+          due: calculateDue(data ? data[0].rate : 0, day.date, day.maxDays),
+        });
+        setForceUpdate(false);
+      })();
+    }
+  }, [rooms]);
+  if (rooms.length > 0) {
+    return (
+      <div className="tenantMain">
+        <Header />
+        <div className="tenantSection">
+          <div className="tenantInput">
+            <p>Tenant Name</p>
+            <input type="text" name="name" onChange={handleOnChange} />
           </div>
-          <div className="tenantAddRightSection">
-            <p>Security Deposit</p>
-            <input
-              type="number"
-              value={tenantSecurityDue.due}
-              onChange={handleSecurityDueEdit}
-            />
+          <div className="tenantInput">
+            <p>Phone Number</p>
+            <input type="number" name="number" onChange={handleOnChange} />
           </div>
-        </div>
-        <div className="tenantBalanceHeader">
-          <p>Opening Balance of Tenant</p>
-        </div>
-        <div className="tenantBalanceSection">
-          <div className="section">
-            <div className="sectionUnitHeader">Dues Type</div>
-            <div className="sectionUnitHeader">Due</div>
-            <div className="sectionUnitHeader">Collected</div>
+          <div className="tenantInput">
+            <p>Tenant Room</p>
+            <select name="room" value={tenant.room} onChange={handleRoomChange}>
+              {rooms.map((unit, index) => (
+                <option key={index} value={unit.name}>
+                  {unit.name}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className="section">
-            <div className="sectionUnit unitMain">Rent</div>
-            <div className="sectionUnit">
-              <p className="rate">Rs {tenantRentDue.due}</p>
-              <p className="range">
-                {day.date} {day.month} to {day.maxDays} {day.month}
-              </p>
+          <div className="tenantInput">
+            <p>Date of Joining</p>
+            <input type="date" value={currentDate} onChange={onChangeDate} />
+          </div>
+          <div className="tenantAddHalf">
+            <div className="tenantAddLeftSection">
+              <p>Room Rent</p>
+              <input
+                type="number"
+                value={tenantRentDue.rent}
+                onChange={handleRentDueEdit}
+              />
             </div>
-            <div className="sectionUnit collected">
-              <img src="Assets/Tenant/edit.png" onClick={handleRentEdit} />
-              <p>{tenantRentDue.collection}</p>
+            <div className="tenantAddRightSection">
+              <p>Security Deposit</p>
+              <input
+                type="number"
+                value={tenantSecurityDue.due}
+                onChange={handleSecurityDueEdit}
+              />
             </div>
           </div>
-          <div className="section">
-            <div className="sectionUnit unitMain">Security Deposit</div>
-            <div className="sectionUnit">
-              <p className="rate">Rs {tenantSecurityDue.due}</p>
-              <p className="range">One-Time</p>
-            </div>
-            <div className="sectionUnit collected">
-              <img src="Assets/Tenant/edit.png" onClick={handleSecurityEdit} />
-              <p>{tenantSecurityDue.collection}</p>
-            </div>
+          <div className="tenantBalanceHeader">
+            <p>Opening Balance of Tenant</p>
           </div>
-          <div className="tenantButton">
-            <button onClick={handleAdd}>Add Tenant</button>
+          <div className="tenantBalanceSection">
+            <div className="section">
+              <div className="sectionUnitHeader">Dues Type</div>
+              <div className="sectionUnitHeader">Due</div>
+              <div className="sectionUnitHeader">Collected</div>
+            </div>
+            <div className="section">
+              <div className="sectionUnit unitMain">Rent</div>
+              <div className="sectionUnit">
+                <p className="rate">Rs {tenantRentDue.due}</p>
+                <p className="range">
+                  {day.date} {day.month} to {day.maxDays} {day.month}
+                </p>
+              </div>
+              <div className="sectionUnit collected">
+                <img src="Assets/Tenant/edit.png" onClick={handleRentEdit} />
+                <p>{tenantRentDue.collection}</p>
+              </div>
+            </div>
+            <div className="section">
+              <div className="sectionUnit unitMain">Security Deposit</div>
+              <div className="sectionUnit">
+                <p className="rate">Rs {tenantSecurityDue.due}</p>
+                <p className="range">One-Time</p>
+              </div>
+              <div className="sectionUnit collected">
+                <img
+                  src="Assets/Tenant/edit.png"
+                  onClick={handleSecurityEdit}
+                />
+                <p>{tenantSecurityDue.collection}</p>
+              </div>
+            </div>
+            <div className="tenantButton">
+              <button onClick={handleAdd}>Add Tenant</button>
+            </div>
           </div>
         </div>
+        <Footer page={"Tenants"} />
+        {rentEdit && (
+          <TenantPayment
+            setEdit={setRentEdit}
+            data={tenantRentDue}
+            setDue={setTenantRentDue}
+          />
+        )}
+        {securityEdit && (
+          <TenantPayment
+            setEdit={setSecurityEdit}
+            data={tenantSecurityDue}
+            setDue={setTenantSecurityDue}
+          />
+        )}
+        <Toast
+          toast={toast}
+          setToast={setToast}
+          title={"Tenant Added"}
+          msg={"Tenant Added Successfully"}
+        />
       </div>
-      <Footer page={"Tenants"} />
-      {rentEdit && (
-        <TenantPayment
-          setEdit={setRentEdit}
-          data={tenantRentDue}
-          setDue={setTenantRentDue}
-        />
-      )}
-      {securityEdit && (
-        <TenantPayment
-          setEdit={setSecurityEdit}
-          data={tenantSecurityDue}
-          setDue={setTenantSecurityDue}
-        />
-      )}
-      <Toast
-        toast={toast}
-        setToast={setToast}
-        title={"Tenant Added"}
-        msg={"Tenant Added Successfully"}
-      />
-    </div>
-  );
+    );
+  } else return <></>;
 };
 
 export default AddTenant;

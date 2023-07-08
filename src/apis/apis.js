@@ -5,6 +5,7 @@ const devApis = {
   SETUP_API: "http://localhost:5000/api/setup",
   FLOOR_API: "http://localhost:5000/api/floor",
   ROOM_API: "http://localhost:5000/api/room",
+  TENANT_API: "http://localhost:5000/api/tenant",
 };
 
 const getApiUrls = () => {
@@ -30,4 +31,7 @@ export const floorApi = axios.create({
 });
 export const roomApi = axios.create({
   baseURL: APIS.ROOM_API,
+});
+export const tenantApi = axios.create({
+  baseURL: APIS.TENANT_API,
 });
