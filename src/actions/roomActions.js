@@ -58,6 +58,34 @@ export const getSingleRoom = async (
     console.log(error);
   }
 };
+export const updateRoom = async (userId, propertyId, data) => {
+  const headers = getHeaders({
+    userId,
+    propertyId,
+    floorName: data.floorName,
+    id: data.id,
+  });
+  const update = {
+    name: data.name,
+    rate: data.rate,
+  };
+  const res = await roomApi.put("/updateRoom", update, headers);
+  if (res.data.code == 200) {
+    updateToast({
+      code: CodeAnalogy.SUCCESS,
+      title: "Successfully Updated",
+      message: "Changes Updated Successfully",
+    });
+    return;
+  } else {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Something Went Wrong",
+      message: "Unable to update data",
+    });
+    return;
+  }
+};
 
 export const setRooms = (data) => {
   return {

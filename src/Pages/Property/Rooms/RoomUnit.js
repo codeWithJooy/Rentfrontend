@@ -9,13 +9,13 @@ import {
   getSingleRoom,
   roomUpdate,
   selectedRoom,
+  updateRoom,
 } from "../../../actions/roomActions";
-import Toast from "../../../Components/Toast/Toast";
+import { updateToast } from "../../../actions/toastActions";
+import { CodeAnalogy } from "../../../Components/Toasty/Toasty";
 
 const RoomUnit = () => {
   const [navActive, setNavActive] = useState("details");
-  const [toast, setToast] = useState(false);
-  const [updateToast, setUpdateToast] = useState(false);
 
   const handleDetailsNav = () => {
     setNavActive("details");
@@ -42,30 +42,9 @@ const RoomUnit = () => {
             {"Room Details"}
           </div>
         </div>
-        {navActive === "details" ? (
-          <RoomSection
-            toast={toast}
-            setToast={setToast}
-            updateToast={updateToast}
-            setUpdateToast={setUpdateToast}
-          />
-        ) : (
-          <TenantDetails />
-        )}
+        {navActive === "details" ? <RoomSection /> : <TenantDetails />}
       </div>
       <Footer page={"Property"} />
-      <Toast
-        toast={toast}
-        setToast={setToast}
-        title={"Edit Mode On"}
-        msg={"Can Edit Room Name and Rate"}
-      />
-      <Toast
-        toast={updateToast}
-        setToast={setUpdateToast}
-        title={"SuccessFully Edited"}
-        msg={"Changes updated Successfully"}
-      />
     </div>
   );
 };
@@ -90,20 +69,15 @@ const TenantDetails = () => {
     </div>
   );
 };
-const RoomSection = ({ toast, setToast, updateToast, setUpdateToast }) => {
+const RoomSection = () => {
   return (
     <>
-      <RoomDetails
-        toast={toast}
-        setToast={setToast}
-        updateToast={updateToast}
-        setUpdateToast={setUpdateToast}
-      />
+      <RoomDetails />
       <RoomFacilities />
     </>
   );
 };
-const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
+const RoomDetails = () => {
   const roomName = useSelector((state) => state.room.selectedRoom);
   const floorName = useSelector((state) => state.floor.selectedFloor);
   const user = useSelector((state) => state.user);
@@ -112,11 +86,15 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
   const [data, setData] = useState([]);
 
   const handleEdit = () => {
-    setToast(true);
     setEdit(!edit);
+    updateToast({
+      code: CodeAnalogy.SUCCESS,
+      title: "Edit Mode On",
+      message: "Can Edit Now",
+    });
   };
   const handleUpdate = () => {
-    setUpdateToast(true);
+    updateRoom(user.userId, user.propertyId, data);
     setEdit(!edit);
   };
   const handleChange = (e) => {
@@ -126,16 +104,18 @@ const RoomDetails = ({ toast, setToast, updateToast, setUpdateToast }) => {
     });
   };
   useEffect(() => {
-    (async () => {
-      let roomData = await getSingleRoom(
-        user.userId,
-        user.propertyId,
-        floorName,
-        roomName
-      );
-      setData(roomData);
-    })();
-  }, []);
+    if (!edit) {
+      (async () => {
+        let roomData = await getSingleRoom(
+          user.userId,
+          user.propertyId,
+          floorName,
+          roomName
+        );
+        setData(roomData);
+      })();
+    }
+  }, [edit]);
   return (
     <div className="roomDetails">
       <div className="detailsHeader">Room Details</div>
