@@ -101,3 +101,22 @@ export const monthName = (number) => {
 export const calculateDue = (rent, day, maxDay) => {
   return Math.floor((rent * (maxDay - day + 1)) / maxDay);
 };
+export const calculateTotalDues = (arr) => {
+  let val = 0;
+  let data = arr.map((data) => {
+    val = val + parseInt(data.due) - parseInt(data.collection);
+  });
+  return val;
+};
+export const allDues = (arr) => {
+  let val = 0;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].dues.length; j++) {
+      val =
+        val +
+        parseInt(arr[i].dues[j].due) -
+        parseInt(arr[i].dues[j].collection);
+    }
+  }
+  return val;
+};

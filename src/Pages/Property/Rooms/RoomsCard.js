@@ -9,8 +9,7 @@ const RoomsCard = ({ name, type, status, rate }) => {
   const dispatch = useDispatch();
   const rooms = useSelector((state) => state.room.rooms);
   const handleCardClick = () => {
-    const data = rooms.find((unit) => unit.name === name);
-    dispatch(selectedRoom(data));
+    dispatch(selectedRoom(name));
     history.push("/room");
   };
   return (

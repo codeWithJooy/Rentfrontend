@@ -1,0 +1,42 @@
+.duesRoom {
+  width: 100%;
+  height: 80vh;
+  padding: 10px 15px 50px;
+  background-color: #f5f3f4;
+  overflow-y: auto;
+}
+
+.roomDuesCard {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px 15px;
+}
+.roomDuesTop {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 0px;
+  margin-bottom: 5px;
+}
+.roomDuesroom {
+  width: 70%;
+}
+.roomDuesroom p {
+  font-size: 15px;
+  font-weight: bold;
+  color: #161a1d;
+}
+.roomDuesButton {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+.roomDuesButton button {
+  padding: 7px 15px;
+  background-color: #a4161a;
+  color: #fff;
+  font-size: 14px;
+}

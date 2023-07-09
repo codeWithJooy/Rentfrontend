@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import "./Dues.css";
-
+import { useSelector } from "react-redux";
 import Header from "../../Components/Header/Header";
+import DuesUnitRoom from "../../Components/Dues/DuesUnitRoom";
+import DuesUnitTenant from "../../Components/Dues/DuesUnitTenanat";
 const DueAdd = () => {
-  const [nav, setNav] = useState(true);
+  const [nav, setNav] = useState("room");
   const [open, setOpen] = useState(false);
+  const dueType = useSelector((state) => state.due.dueType);
+  console.log(dueType);
   return (
     <div className="duesMain">
-      <Header type="back" name="Electricity Due" link="/dues" />
+      <Header type="back" name={dueType} link="/dues" />
       <div className="duesNavbar">
         <div
-          className={`navUnit ${nav ? "activeUnit" : ""}`}
-          onClick={() => setNav(!nav)}
+          className={`navUnit ${nav == "room" ? "activeUnit" : ""}`}
+          onClick={() => setNav("room")}
         >
           <img
             src={`${
@@ -25,8 +29,8 @@ const DueAdd = () => {
           </div>
         </div>
         <div
-          className={`navUnit ${nav ? "" : "activeUnit"}`}
-          onClick={() => setNav(!nav)}
+          className={`navUnit ${nav == "tenant" ? "activeUnit" : ""}`}
+          onClick={() => setNav("tenant")}
         >
           <img
             src={`${
@@ -40,7 +44,9 @@ const DueAdd = () => {
           </div>
         </div>
       </div>
-      <DuesUnit setOpen={setOpen} />
+      {/* <DuesUnit setOpen={setOpen} /> */}
+      {nav == "room" && <DuesUnitRoom />}
+      {nav == "tenant" && <DuesUnitTenant />}
       {open && <DueCategory setOpen={setOpen} />}
     </div>
   );

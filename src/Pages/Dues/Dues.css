@@ -3,11 +3,43 @@
   height: 100vh;
   background: #f5f3f4;
 }
-.duesContainer {
+.duesMainContainer {
   width: 100%;
   height: 80vh;
   overflow: auto;
+}
+.duesContainer {
+  width: 100%;
+  height: calc(80vh - 30px);
+  overflow: auto;
   padding: 15px;
+}
+.duesNav {
+  width: 100%;
+  height: 45px;
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #d3d3d3;
+}
+.duesNavUnit {
+  width: 20%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+}
+.duesNavUnit p {
+  font-size: 13px;
+  color: #b1a7a6;
+}
+.duesNavActive {
+  border-bottom: 2px solid #a4161a;
+}
+.duesNavActive p {
+  color: #a4161a;
 }
 .duesUnit {
   width: 100%;

@@ -1,0 +1,88 @@
+.duesDataCard {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 10px 0px;
+  padding: 5px;
+}
+.ddcHead {
+  width: 100%;
+  padding: 5px 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ddcTitle {
+  width: 60%;
+  font-size: 15px;
+  font-weight: bold;
+  color: #a4161a;
+}
+.ddcDue {
+  width: 40%;
+  font-size: 15px;
+  font-weight: bold;
+  color: #a4161a;
+  display: flex;
+  justify-content: flex-end;
+}
+.ddcRoom {
+  width: 60%;
+}
+.ddcDueDate {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+}
+.ddcBottom {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 0px;
+}
+.ddcRecord {
+  padding: 7px 10px;
+  border-radius: 2px;
+  background-color: #a4161a;
+  color: #fff;
+  border: 1px solid #a4161a;
+  margin-right: 40px;
+}
+.ddcRemind {
+  padding: 7px 10px;
+  border-radius: 2px;
+  color: #a4161a;
+  background-color: #fff;
+  border: 1px solid #a4161a;
+  margin-left: 40px;
+}
+.duePaymentMode {
+  width: 80%;
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.modeUnit {
+  width: 25%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+}
+.modeUnit img {
+  width: 25px;
+  height: 25px;
+}
+.modeUnit p {
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+}
+.modeActiveUnit {
+  border: 1px solid #a4161a;
+}

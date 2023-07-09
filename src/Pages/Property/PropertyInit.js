@@ -2,44 +2,29 @@ import React, { useState, useEffect } from "react";
 import "./Property.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setTotalFloors } from "../../actions/floorActions";
+import { getTotalFloors, setTotalFloors } from "../../actions/floorActions";
 
 const PropertyInit = ({ setToast }) => {
   const [floors, setFloors] = useState(0);
+  const [forceUpdate, setForceUpdate] = useState(true);
   const floorPresent = useSelector((state) => state.floor.floorPresent);
+  const user = useSelector((state) => state.user);
+  const { userId, propertyId } = user;
   const history = useHistory();
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    if (floorPresent) {
-      history.push("/floor");
+    if (forceUpdate) {
+      (async () => {
+        if (await getTotalFloors(userId, propertyId)) {
+          history.push("/floor");
+        }
+      })();
     }
-  }, []);
+    setForceUpdate(false);
+  }, [forceUpdate]);
   const handleFloors = () => {
-    setToast(true);
-    setTimeout(() => {}, 3000);
-    let data = {};
-    let arr = [];
-    for (let i = 0; i <= floors; i++) {
-      if (i == 0) {
-        arr.push({
-          name: "Ground Floor",
-          roomsAdded: false,
-          roomsType: {},
-          rooms: [],
-        });
-      } else {
-        arr.push({
-          name: "Floor " + i,
-          roomsAdded: false,
-          roomsType: {},
-          rooms: [],
-        });
-      }
-    }
-    data.floors = arr;
-    data.totalFloors = floors;
-    dispatch(setTotalFloors(data));
-    history.push("/floor");
+    setForceUpdate(true);
+    setTotalFloors(userId, propertyId, floors);
   };
   return (
     <div className="propertyContainer">

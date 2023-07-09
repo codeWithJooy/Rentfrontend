@@ -49,10 +49,11 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
 export default AddFloor;
 
 const AddUnit = ({ floorName, setFloorDetails }) => {
+  const user = useSelector((state) => state.user);
   const [roomTypes, setRoomTypes] = useState({
-    single: "",
-    double: "",
-    triple: "",
+    single: 0,
+    double: 0,
+    triple: 0,
   });
   const history = useHistory();
   const dispatch = useDispatch();
@@ -60,11 +61,20 @@ const AddUnit = ({ floorName, setFloorDetails }) => {
     setRoomTypes({ ...roomTypes, [e.target.name]: e.target.value });
   };
   const handleRoomsAdd = () => {
-    const arr = roomAddHelper(floorName, roomTypes);
-    dispatch(addRooms({ name: floorName, roomsType: roomTypes }));
-    dispatch(setRooms(arr));
-    setFloorDetails(false);
-    history.push("/floor");
+    (async () => {
+      if (
+        await addRooms(
+          user.userId,
+          user.propertyId,
+          floorName,
+          roomTypes.single,
+          roomTypes.double,
+          roomTypes.triple
+        )
+      ) {
+        setFloorDetails(false);
+      }
+    })();
   };
 
   return (
@@ -101,7 +111,9 @@ const AddUnit = ({ floorName, setFloorDetails }) => {
           <p>Triple Sharing</p>
         </div>
       </div>
-      <button onClick={handleRoomsAdd}>Add Unit</button>
+      <button className="addRoomButton" onClick={handleRoomsAdd}>
+        Add Unit
+      </button>
     </div>
   );
 };

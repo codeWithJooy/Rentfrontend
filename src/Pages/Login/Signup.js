@@ -1,19 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Login.css";
+import Toasty from "../../Components/Toasty/Toasty";
+import { userSignup } from "../../actions/userAction";
 
 const Signup = () => {
+  const userPresent = useSelector((state) => state.user);
   const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
   const history = useHistory();
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
   const handleSignUp = () => {
-    history.push("/add");
+    userSignup(user);
   };
   const handleSignIn = () => {
     history.push("/login");
   };
+
+  useEffect(() => {
+    if (userPresent.userId !== "") {
+      history.push("/add");
+    }
+  }, [userPresent.userId]);
   return (
     <div className="mainEntry">
       <div className="mainEntryContainer">
@@ -23,16 +38,40 @@ const Signup = () => {
         </div>
         <div className="entryData">
           <div className="entryDataUnit">
-            <input type="text" placeholder="First Name" />
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={user.firstName}
+              onChange={handleChange}
+            />
           </div>
           <div className="entryDataUnit">
-            <input type="text" placeholder="Last Name" />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={user.lastName}
+              onChange={handleChange}
+            />
           </div>
           <div className="entryDataUnit">
-            <input type="text" placeholder="Email" />
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={user.email}
+              onChange={handleChange}
+            />
           </div>
           <div className="entryDataUnit">
-            <input type="password" placeholder="Password" />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={user.password}
+              onChange={handleChange}
+            />
           </div>
           <div className="entryDataButton">
             <button onClick={handleSignUp}>Sign Up</button>
@@ -44,6 +83,7 @@ const Signup = () => {
             </p>
           </div>
         </div>
+        {/* <Toasty /> */}
       </div>
     </div>
   );
