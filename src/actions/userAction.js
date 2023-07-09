@@ -104,6 +104,6 @@ export const userLogin = async (data) => {
       return;
     }
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
