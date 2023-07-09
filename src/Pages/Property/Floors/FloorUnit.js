@@ -57,7 +57,7 @@ const FloorUnit = ({ floorData, setFloorDetails, setFloorName }) => {
             {"+ Add Unit"}
           </button>
         )}
-        {(single > 1 || double > 1 || triple > 1) && (
+        {(single >= 1 || double >= 1 || triple >= 1) && (
           <button onClick={handleFloorCheckout} className="floorCheckoutButton">
             {"Checkout Unit"}
           </button>

@@ -92,7 +92,7 @@ export const addRooms = async (
         title: "Rooms Added",
         message: "Succesfully Added The Rooms",
       });
-      return;
+      return true;
     } else {
       updateToast({
         code: CodeAnalogy.ERROR,
