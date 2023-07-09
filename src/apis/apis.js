@@ -20,11 +20,11 @@ const getApiUrls = () => {
   console.log(environment);
   switch (environment) {
     case "dev":
-      return devApis;
+      return prodApis;
     case "prod":
       return prodApis;
     default:
-      return devApis;
+      return prodApis;
   }
 };
 
