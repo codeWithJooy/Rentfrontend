@@ -56,3 +56,33 @@
   border: 1px solid #a4161a;
   margin-left: 40px;
 }
+.duePaymentMode {
+  width: 80%;
+  margin-left: 10%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.modeUnit {
+  width: 25%;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+}
+.modeUnit img {
+  width: 25px;
+  height: 25px;
+}
+.modeUnit p {
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+}
+.modeActiveUnit {
+  border: 1px solid #a4161a;
+}

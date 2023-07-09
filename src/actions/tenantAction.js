@@ -1,4 +1,4 @@
-import { TENANT_ADDED } from "../actionTypes/tenantActionsType";
+import { SET_TENANT, TENANT_ADDED } from "../actionTypes/tenantActionsType";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { tenantApi } from "../apis/apis";
@@ -65,4 +65,11 @@ export const getTenantsCount = async (userId, propertyId) => {
     });
     return;
   }
+};
+
+export const setTenant = (data) => {
+  return {
+    type: SET_TENANT,
+    payload: data,
+  };
 };
