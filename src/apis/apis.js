@@ -7,12 +7,22 @@ const devApis = {
   ROOM_API: "http://localhost:5000/api/room",
   TENANT_API: "http://localhost:5000/api/tenant",
 };
+const prodApis = {
+  USER_API: "http://18.220.185.71:5000/api/auth",
+  SETUP_API: "http://18.220.185.71:5000/api/setup",
+  FLOOR_API: "http://18.220.185.71:5000/api/floor",
+  ROOM_API: "http://18.220.185.71:5000/api/room",
+  TENANT_API: "http://18.220.185.71:5000/api/tenant",
+};
 
 const getApiUrls = () => {
-  const environment = process.env.APP_ENVIRONMENT;
+  const environment = process.env.REACT_APP_ENV;
+  console.log(environment);
   switch (environment) {
     case "dev":
       return devApis;
+    case "prod":
+      return prodApis;
     default:
       return devApis;
   }
