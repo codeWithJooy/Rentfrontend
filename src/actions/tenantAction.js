@@ -13,7 +13,7 @@ export const addTenant = async (data) => {
         message: "Tenant added Successfully",
       });
       return;
-    } else if (res.data.code == 404) {
+    } else if (res.data.code == 403) {
       updateToast({
         code: CodeAnalogy.ERROR,
         title: "Tenant Present",
@@ -40,6 +40,23 @@ export const getTenants = async (userId, propertyId) => {
   const res = await tenantApi.get("/getTenants", header);
   if (res.data.code == 200) {
     return res.data.model;
+  } else {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Something Went Wrong",
+      message: "Error While Fetching Tenant",
+    });
+    return;
+  }
+};
+export const getTenantsCount = async (userId, propertyId) => {
+  const header = getHeaders({
+    userId,
+    propertyId,
+  });
+  const res = await tenantApi.get("/getTenants", header);
+  if (res.data.code == 200) {
+    return res.data.model.length;
   } else {
     updateToast({
       code: CodeAnalogy.ERROR,

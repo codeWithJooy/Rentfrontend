@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./Dues.css";
 import { setDuesPage } from "../../actions/duesAction";
 import Dues from "./Dues";
+import DuesIndex from "./DuesIndex";
 const DuesMain = () => {
   const [page, setPage] = useState(useSelector((state) => state.due.duePage));
   return (
@@ -13,6 +14,7 @@ const DuesMain = () => {
       <div className="duesMainContainer">
         <DuesNav page={page} setPage={setPage} />
         {page == "add" && <Dues />}
+        {page == "dues" && <DuesIndex />}
       </div>
       <Footer page={"Money"} />
     </div>
