@@ -32,7 +32,7 @@ export const homeData = [
   {
     title: "Food Menu",
     img: "Assets/Home/food.png",
-    link: "/home",
+    link: "/food",
   },
   {
     title: "Add UPI",
