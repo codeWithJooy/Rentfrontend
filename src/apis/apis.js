@@ -6,13 +6,14 @@ const devApis = {
   FLOOR_API: "http://localhost:5000/api/floor",
   ROOM_API: "http://localhost:5000/api/room",
   TENANT_API: "http://localhost:5000/api/tenant",
+  EXPENSE_API: "http://localhost:5000/api/expense",
 };
 const prodApis = {
-  USER_API: "http://18.220.185.71:5000/api/auth",
-  SETUP_API: "http://18.220.185.71:5000/api/setup",
-  FLOOR_API: "http://18.220.185.71:5000/api/floor",
-  ROOM_API: "http://18.220.185.71:5000/api/room",
-  TENANT_API: "http://18.220.185.71:5000/api/tenant",
+  USER_API: "http://www.18.220.185.71:5000/api/auth",
+  SETUP_API: "http://www.18.220.185.71:5000/api/setup",
+  FLOOR_API: "http://www.18.220.185.71:5000/api/floor",
+  ROOM_API: "http://www.18.220.185.71:5000/api/room",
+  TENANT_API: "http://www.18.220.185.71:5000/api/tenant",
 };
 
 const getApiUrls = () => {
@@ -20,11 +21,11 @@ const getApiUrls = () => {
   console.log(environment);
   switch (environment) {
     case "dev":
-      return prodApis;
+      return devApis;
     case "prod":
       return prodApis;
     default:
-      return prodApis;
+      return devApis;
   }
 };
 
@@ -44,4 +45,7 @@ export const roomApi = axios.create({
 });
 export const tenantApi = axios.create({
   baseURL: APIS.TENANT_API,
+});
+export const expenseApi = axios.create({
+  baseURL: APIS.EXPENSE_API,
 });

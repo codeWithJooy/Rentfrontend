@@ -30,7 +30,34 @@ const Expense = () => {
 
 export default Expense;
 const ExpenseUnitCard = () => {
-  return <div className="expenseMainCard"></div>;
+  return (
+    <div className="expenseMainCard">
+      <div className="expenseTop">
+        <div className="expenseUnit">
+          <div className="expenseType">
+            <p>Grocery</p>
+          </div>
+          <div className="expenseAmount">
+            <p>Rs 1000</p>
+          </div>
+        </div>
+        <div className="expenseUnit">
+          <div className="expenseType"></div>
+          <div className="expenseAmountPay">
+            <p>Google Pay</p>
+          </div>
+        </div>
+      </div>
+      <div className="expenseBottom">
+        <div className="paid">
+          <p>Paid By Owner</p>
+        </div>
+        <div className="paid mid">
+          <p>Paid To Ram </p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 const ExpenseCategory = ({ setCat }) => {
