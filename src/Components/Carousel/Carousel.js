@@ -29,7 +29,6 @@ const Carousel = (props) => {
   const handleTouchStart = (e) => {
     e.preventDefault();
     const touchDown = e.touches[0].clientX;
-    alert(touchDown);
     setTouchPosition(touchDown);
   };
   const handleTouchMove = (e) => {
