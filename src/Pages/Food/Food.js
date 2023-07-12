@@ -4,11 +4,13 @@ import Footer from "../../Components/Footer/Footer";
 import "./Food.css";
 import FoodInit from "./FoodInit";
 import FoodAdd from "./FoodAdd";
+import FoodList from "./FoodList";
+import FoodListTest from "./FoodListTest";
 const Food = () => {
   return (
     <div className="foodMain">
       <Header />
-      <FoodAdd />
+      <FoodListTest />
       <Footer />
     </div>
   );
