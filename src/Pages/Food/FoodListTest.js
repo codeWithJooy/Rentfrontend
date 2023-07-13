@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Carousel from "../../Components/Carousel/Carousel";
+import { useSelector } from "react-redux";
 const FoodListTest = () => {
   const daysArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const [days, setDays] = useState(0);
@@ -78,14 +79,20 @@ const FoodListPage = ({ day }) => {
       <div className="foodListTitle">
         <p>{day}</p>
       </div>
-      <FoodListUnit meal={"BreakFast"} />
-      <FoodListUnit meal={"Lunch"} />
-      <FoodListUnit meal={"Snacks"} />
-      <FoodListUnit meal={"Dinner"} />
+      <FoodListUnit day={day} meal={"Breakfast"} />
+      <FoodListUnit day={day} meal={"Lunch"} />
+      <FoodListUnit day={day} meal={"Snacks"} />
+      <FoodListUnit day={day} meal={"Dinner"} />
+      <div className="foodEdit">
+        <img src="Assets/Food/food.png" />
+      </div>
     </div>
   );
 };
-const FoodListUnit = ({ meal }) => {
+const FoodListUnit = ({ day, meal }) => {
+  const food = useSelector((state) => state.food);
+  const time = food.time.find((unit) => unit.title == meal);
+  const foodValue = food.days.find((unit) => unit.title == day);
   return (
     <div className="foodListUnit">
       <div className="listImg">
@@ -94,10 +101,10 @@ const FoodListUnit = ({ meal }) => {
       <div className="listDetails">
         <div className="listDetailsTop">
           <div className="mealType">{meal}</div>
-          <div className="mealTime">{"8:00 AM to 10:00 AM"}</div>
+          <div className="mealTime">{`${time.start} to ${time.end}`}</div>
         </div>
         <div className="listDetailsBottom">
-          <input type="text" />
+          <input type="text" value={foodValue[meal.toLowerCase()]} />
         </div>
       </div>
     </div>

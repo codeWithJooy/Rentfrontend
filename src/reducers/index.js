@@ -7,6 +7,8 @@ import tenantReducer from "./tenantReducer";
 import toastReducer from "./toastReducers";
 import userReducer from "./userReducer";
 import dueReducer from "./dueReducer";
+import foodReducer from "./foodReducer";
+
 const rootReducer = combineReducers({
   floor: floorReducer,
   room: roomReducer,
@@ -15,6 +17,7 @@ const rootReducer = combineReducers({
   toast: toastReducer,
   user: userReducer,
   due: dueReducer,
+  food: foodReducer,
 });
 
 export default rootReducer;

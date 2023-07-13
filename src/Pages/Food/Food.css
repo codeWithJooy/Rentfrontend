@@ -245,6 +245,17 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .listDetailsBottom input {
   width: 100%;
 }
+.foodEdit {
+  position: relative;
+  display: flex;
+  margin-top: 5px;
+  padding-right: 40px;
+  justify-content: flex-end;
+}
+.foodEdit img {
+  width: 30px;
+  height: 30px;
+}
 /*=============================================
   Food List Ends
 =============================================*/
