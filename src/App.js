@@ -23,6 +23,11 @@ import Expense from "./Pages/Expense/Expense";
 import ExpenseDetails from "./Pages/Expense/ExpenseDetails";
 
 import Food from "./Pages/Food/Food";
+
+import Member from "./Pages/Member/Member";
+
+import Announcement from "./Pages/Announcement/Announcement";
+import AddAnnouncement from "./Pages/Announcement/AddAnnouncement";
 import Toasty from "./Components/Toasty/Toasty";
 
 const App = () => {
@@ -50,6 +55,11 @@ const App = () => {
         <Route path="/expensedetails" component={ExpenseDetails} />
 
         <Route path="/food" component={Food} />
+
+        <Route path="/member" component={Member} />
+
+        <Route path="/announcement" component={Announcement} />
+        <Route path="/addann" component={AddAnnouncement} />
       </Switch>
       <Toasty />
     </BrowserRouter>

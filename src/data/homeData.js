@@ -22,7 +22,7 @@ export const homeData = [
   {
     title: "Announce ment",
     img: "Assets/Home/announcement.png",
-    link: "/home",
+    link: "/announcement",
   },
   {
     title: "Add Member",
