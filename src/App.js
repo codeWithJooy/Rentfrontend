@@ -25,6 +25,7 @@ import ExpenseDetails from "./Pages/Expense/ExpenseDetails";
 import Food from "./Pages/Food/Food";
 
 import Member from "./Pages/Member/Member";
+import MemberAdd from "./Pages/Member/MemberAdd";
 
 import Announcement from "./Pages/Announcement/Announcement";
 import AddAnnouncement from "./Pages/Announcement/AddAnnouncement";
@@ -57,6 +58,7 @@ const App = () => {
         <Route path="/food" component={Food} />
 
         <Route path="/member" component={Member} />
+        <Route path="/addMember" component={MemberAdd} />
 
         <Route path="/announcement" component={Announcement} />
         <Route path="/addann" component={AddAnnouncement} />

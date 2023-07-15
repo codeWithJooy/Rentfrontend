@@ -27,7 +27,7 @@ export const homeData = [
   {
     title: "Add Member",
     img: "Assets/Home/team.png",
-    link: "/home",
+    link: "/member",
   },
   {
     title: "Food Menu",

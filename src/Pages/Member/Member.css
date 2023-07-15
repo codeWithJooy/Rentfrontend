@@ -5,3 +5,114 @@
   background-color: #f5f3f4;
   z-index: 1;
 }
+.memNav {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.memNavUnit {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b1a7a6;
+  cursor: pointer;
+  border-bottom: 2px solid #f5f3f4;
+}
+.memNavActive {
+  border-bottom: 2px solid #a4161a;
+  color: #a4161a;
+}
+.memContainer {
+  width: 100%;
+  height: 80vh;
+  background-color: #fff;
+  padding: 10px 15px;
+  overflow-y: scroll;
+  position: relative;
+}
+.memEdit {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: #a4161a;
+  color: #fff;
+  cursor: pointer;
+}
+.section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 0px 30px;
+}
+.sectionHeader {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.sectionTitle {
+  width: 90%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #a4161a;
+}
+.sectionToggle {
+  width: 10%;
+}
+.sectionToggle img {
+  width: 20px;
+  height: 20px;
+}
+.sectionContainer {
+  width: 100%;
+}
+.sectionContainer button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #a4161a;
+  color: #fff;
+  margin-top: 30px;
+  border-radius: 5px;
+}
+.sectionIpFull {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.sectionIpHalf {
+  width: 48%;
+}
+.sectionIpHeader {
+  width: 100%;
+  font-size: 14px;
+  color: #161a1d;
+}
+.sectionIpInput {
+  width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #b1a7a6;
+}
+.sectionIpInput input {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.sectionIpInput select {
+  width: 100%;
+  border: none;
+  background: transparent;
+}
