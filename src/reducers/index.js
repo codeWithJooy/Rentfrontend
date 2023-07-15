@@ -8,6 +8,7 @@ import toastReducer from "./toastReducers";
 import userReducer from "./userReducer";
 import dueReducer from "./dueReducer";
 import foodReducer from "./foodReducer";
+import memberReducer from "./memberReducer";
 
 const rootReducer = combineReducers({
   floor: floorReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   due: dueReducer,
   food: foodReducer,
+  member: memberReducer,
 });
 
 export default rootReducer;
