@@ -6,7 +6,12 @@ import "./Tenant.css";
 import moment from "moment/moment";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
-import { calculateDue, monthName } from "../../helper";
+import {
+  calculateDue,
+  generateLockIn,
+  monthName,
+  monthNameByDate,
+} from "../../helper";
 import Toast from "../../Components/Toast/Toast";
 import { getAllRooms } from "../../actions/roomActions";
 const AddTenant = () => {
@@ -17,13 +22,11 @@ const AddTenant = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [rent, setRent] = useState(rooms.length > 0 ? rooms[0].rate : 0);
-  console.log();
   const [day, setDay] = useState({
     date: new Date().getDate(),
     month: monthName(new Date().getMonth()).name,
     maxDays: monthName(new Date().getMonth()).days,
   });
-
   const [currentDate, setCurrentDate] = useState(moment().format("YYYY-MM-DD"));
   const [rentEdit, setRentEdit] = useState(false);
   const [securityEdit, setSecurityEdit] = useState(false);
@@ -42,7 +45,7 @@ const AddTenant = () => {
     due: calculateDue(rent, day.date, day.maxDays),
     collection: 0,
     description: "",
-    dateOfPayment: currentDate,
+    dueDate: currentDate,
     mode: "Cash",
   });
   const [tenantSecurityDue, setTenantSecurityDue] = useState({
@@ -50,15 +53,25 @@ const AddTenant = () => {
     due: 0,
     collection: 0,
     description: "",
-    dateOfPayment: currentDate,
+    dueDate: currentDate,
     mode: "Cash",
   });
+  const [lockin, setLocking] = useState("");
+  const [lockinRents, setLockingRents] = useState([]);
+
+  const handleLockin = (e) => {
+    setLocking(e.target.value);
+    setLockingRents(
+      generateLockIn(e.target.value, currentDate, tenantRentDue.rent)
+    );
+  };
   const handleRentDueEdit = (e) => {
     setTenantRentDue({
       ...tenantRentDue,
       rent: e.target.value,
       due: calculateDue(e.target.value, day.date, day.maxDays),
     });
+    setLockingRents(generateLockIn(lockin, currentDate, e.target.value));
   };
 
   //Handle To Open Rent Edit Page
@@ -93,6 +106,7 @@ const AddTenant = () => {
       rent: newRoom.rate,
       due: calculateDue(newRoom.rate, day.date, day.maxDays),
     });
+    setLockingRents(generateLockIn(lockin, currentDate, newRoom.rate));
   };
 
   //Handle To Run In case of Date Change
@@ -134,6 +148,9 @@ const AddTenant = () => {
     obj = tenant;
     obj.dues = [];
     obj.dues.push(tenantRentDue);
+    for (let i = 0; i < lockinRents.length; i++) {
+      obj.dues.push(lockinRents[i]);
+    }
     obj.dues.push(tenantSecurityDue);
     addTenant(obj);
     // setToast(true);
@@ -202,6 +219,10 @@ const AddTenant = () => {
               />
             </div>
           </div>
+          <div className="tenantInput">
+            <p>Locking Period in Months(optional)</p>
+            <input type="number" value={lockin} onChange={handleLockin} />
+          </div>
           <div className="tenantBalanceHeader">
             <p>Opening Balance of Tenant</p>
           </div>
@@ -212,7 +233,9 @@ const AddTenant = () => {
               <div className="sectionUnitHeader">Collected</div>
             </div>
             <div className="section">
-              <div className="sectionUnit unitMain">Rent</div>
+              <div className="sectionUnit unitMain">
+                {monthNameByDate(currentDate).name} Rent
+              </div>
               <div className="sectionUnit">
                 <p className="rate">Rs {tenantRentDue.due}</p>
                 <p className="range">
@@ -224,6 +247,21 @@ const AddTenant = () => {
                 <p>{tenantRentDue.collection}</p>
               </div>
             </div>
+            {lockinRents &&
+              lockinRents.length > 0 &&
+              lockinRents.map((data, val) => (
+                <div className="section">
+                  <div className="sectionUnit unitMain">{data.type}</div>
+                  <div className="sectionUnit">
+                    <p className="rate">Rs {data.due}</p>
+                    <p className="range">{`Due ${data.dueDate}`}</p>
+                  </div>
+                  <div className="sectionUnit collected">
+                    <img src="Assets/Tenant/edit.png" />
+                    <p>{data.collection}</p>
+                  </div>
+                </div>
+              ))}
             <div className="section">
               <div className="sectionUnit unitMain">Security Deposit</div>
               <div className="sectionUnit">
