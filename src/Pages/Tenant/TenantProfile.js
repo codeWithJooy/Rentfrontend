@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import "./Member.css";
+import "./Tenant.css";
 import Header from "../../Components/Header/Header";
-import Footer from "../../Components/Footer/Footer";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const TenantProfile = () => {
   const history = useHistory();
@@ -28,23 +30,61 @@ const TenantProfile = () => {
           <p>Passbook</p>
         </div>
       </div>
-      <MemberPersonal />
+      {navActive == "profile" && <TenantPersonal />}
+      {navActive != "profile" && <TenantPassBook />}
     </div>
   );
 };
 
-export default MemberProfile;
+export default TenantProfile;
 
-const MemberPersonal = () => {
+const TenantPassBook = () => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2.5,
+    slidesToScroll: 0.5,
+  };
+  return (
+    <div className="tenantHolder">
+      <div className="passbookTop">
+        <Slider {...settings}>
+          <PassbookTopUnit />
+          <PassbookTopUnit />
+          <PassbookTopUnit />
+          <PassbookTopUnit />
+        </Slider>
+      </div>
+    </div>
+  );
+};
+const PassbookTopUnit = () => {
+  return (
+    <div className="passTopUnit">
+      <div className="passUnitTop">
+        <p>Rs 30000</p>
+      </div>
+      <div className="passBottom">
+        <div className="passBottomName">
+          <p>Current Deposit</p>
+        </div>
+        <div className="passBottomImg">
+          <img src="Assets/Announcement.png" />
+        </div>
+      </div>
+    </div>
+  );
+};
+const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
   return (
-    <div className="memContainer">
+    <div className="tenantHolder">
       <Personal edit={edit} />
       <Kyc />
-      <Current edit={edit} />
-      <Permanent edit={edit} />
-      <Job />
-      <Bank edit={edit} />
+      <Parent edit={edit} />
+      <Guardian edit={edit} />
+      <ParentID />
       <div className="memEdit" onClick={() => setEdit(!edit)}>
         {edit ? "Edit" : "Save"}
       </div>
@@ -92,21 +132,35 @@ const Personal = ({ edit }) => {
             </div>
           </div>
           <div className="sectionIpFull">
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>Designation</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
+            <div className="sectionIpHeader">
+              <p>Alternate Number</p>
             </div>
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>Salary</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
+            </div>
+          </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
+              <p>Email</p>
+            </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
+            </div>
+          </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
+              <p>Date Of Birth</p>
+            </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
+            </div>
+          </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
+              <p>Blood Group</p>
+            </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -132,7 +186,7 @@ const Kyc = () => {
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
         <div className="sectionTitle">
-          <p>Kyc Documents</p>
+          <p>Documents</p>
         </div>
         <div className="sectionToggle">
           <img
@@ -148,7 +202,7 @@ const Kyc = () => {
   );
 };
 
-const Current = ({ edit }) => {
+const Parent = ({ edit }) => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
@@ -157,7 +211,7 @@ const Current = ({ edit }) => {
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
         <div className="sectionTitle">
-          <p>Current Address Details</p>
+          <p>Parent Details</p>
         </div>
         <div className="sectionToggle">
           <img
@@ -173,33 +227,39 @@ const Current = ({ edit }) => {
         <div className="sectionContainer">
           <div className="sectionIpFull">
             <div className="sectionIpHeader">
-              <p>Current Address</p>
+              <p>Father's Name</p>
             </div>
             <div className="sectionIpInput">
               <input type="text" readOnly={edit} />
             </div>
           </div>
           <div className="sectionIpFull">
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>Pincode</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
+            <div className="sectionIpHeader">
+              <p>Father's Phone Number</p>
             </div>
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>City</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
             </div>
           </div>
           <div className="sectionIpFull">
             <div className="sectionIpHeader">
-              <p>State</p>
+              <p>Mother's Name</p>
+            </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
+            </div>
+          </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
+              <p>Mother's Phone Number</p>
+            </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
+            </div>
+          </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
+              <p>Parent Occupation</p>
             </div>
             <div className="sectionIpInput">
               <input type="text" readOnly={edit} />
@@ -210,8 +270,7 @@ const Current = ({ edit }) => {
     </div>
   );
 };
-
-const Permanent = ({ edit }) => {
+const Guardian = ({ edit }) => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
@@ -220,7 +279,7 @@ const Permanent = ({ edit }) => {
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
         <div className="sectionTitle">
-          <p>Permanent Address Details</p>
+          <p>Local Guardian Details</p>
         </div>
         <div className="sectionToggle">
           <img
@@ -236,33 +295,23 @@ const Permanent = ({ edit }) => {
         <div className="sectionContainer">
           <div className="sectionIpFull">
             <div className="sectionIpHeader">
-              <p>Permanent Address</p>
+              <p>Guardian's Name</p>
             </div>
             <div className="sectionIpInput">
               <input type="text" readOnly={edit} />
             </div>
           </div>
           <div className="sectionIpFull">
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>Pincode</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
+            <div className="sectionIpHeader">
+              <p>Guardian's Phone Number</p>
             </div>
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>City</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
+            <div className="sectionIpInput">
+              <input type="text" readOnly={edit} />
             </div>
           </div>
           <div className="sectionIpFull">
             <div className="sectionIpHeader">
-              <p>State</p>
+              <p>Guardian's Address</p>
             </div>
             <div className="sectionIpInput">
               <input type="text" readOnly={edit} />
@@ -274,7 +323,7 @@ const Permanent = ({ edit }) => {
   );
 };
 
-const Job = () => {
+const ParentID = () => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
@@ -283,7 +332,7 @@ const Job = () => {
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
         <div className="sectionTitle">
-          <p>Job Details</p>
+          <p>Parent IDs</p>
         </div>
         <div className="sectionToggle">
           <img
@@ -295,69 +344,6 @@ const Job = () => {
           />
         </div>
       </div>
-    </div>
-  );
-};
-
-const Bank = ({ edit }) => {
-  const [toggle, setToggle] = useState(false);
-  const handleToggle = () => {
-    setToggle(!toggle);
-  };
-  return (
-    <div className="section">
-      <div className="sectionHeader" onClick={handleToggle}>
-        <div className="sectionTitle">
-          <p>Bank Details</p>
-        </div>
-        <div className="sectionToggle">
-          <img
-            src={`${
-              toggle
-                ? "Assets/components/down.png"
-                : "Assets/components/right.png"
-            }`}
-          />
-        </div>
-      </div>
-      {toggle && (
-        <div className="sectionContainer">
-          <div className="sectionIpFull">
-            <div className="sectionIpHeader">
-              <p>Bank A/c No</p>
-            </div>
-            <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
-            </div>
-          </div>
-          <div className="sectionIpFull">
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>Bank Name</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
-            </div>
-            <div className="sectionIpHalf">
-              <div className="sectionIpHeader">
-                <p>IFSC Code</p>
-              </div>
-              <div className="sectionIpInput">
-                <input type="text" readOnly={edit} />
-              </div>
-            </div>
-          </div>
-          <div className="sectionIpFull">
-            <div className="sectionIpHeader">
-              <p>Account Holder Name</p>
-            </div>
-            <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
