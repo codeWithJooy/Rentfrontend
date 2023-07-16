@@ -12,6 +12,36 @@ export const announcementData = [
   {
     title: "Lunch Is ready",
     messgae: "Dear Tenat, Today's lunch is hot and ready for you",
-    tag: "Festival",
+    tag: "Food",
+  },
+  {
+    title: "Dinner Is ready",
+    messgae:
+      "Dear Tenat, After a whole day of hard work a tasty dinner is all you need.",
+    tag: "Food",
+  },
+  {
+    title: "Collect Tenant Kit",
+    messgae:
+      "Dear Tenat, After a whole day of hard work a tasty dinner is all you need.",
+    tag: "Joining",
+  },
+  {
+    title: "Complete Your Police Verificaion",
+    messgae:
+      "Dear Tenat, After a whole day of hard work a tasty dinner is all you need.",
+    tag: "Joining",
+  },
+  {
+    title: "Collect Tenant Kit",
+    messgae:
+      "Dear Tenat, After a whole day of hard work a tasty dinner is all you need.",
+    tag: "Payments",
+  },
+  {
+    title: "Complete Your Police Verificaion",
+    messgae:
+      "Dear Tenat, After a whole day of hard work a tasty dinner is all you need.",
+    tag: "Payments",
   },
 ];

@@ -9,6 +9,7 @@ import userReducer from "./userReducer";
 import dueReducer from "./dueReducer";
 import foodReducer from "./foodReducer";
 import memberReducer from "./memberReducer";
+import annReducer from "./annReducer";
 
 const rootReducer = combineReducers({
   floor: floorReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   due: dueReducer,
   food: foodReducer,
   member: memberReducer,
+  ann: annReducer,
 });
 
 export default rootReducer;
