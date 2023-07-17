@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./Announcement.css";
 import Header from "../../Components/Header/Header";
+import { useSelector } from "react-redux";
 const AddAnnouncement = () => {
   const [navActive, setNavActive] = useState("new");
+  const { title, message } = useSelector((state) => state.ann);
   return (
     <div className="annMain">
       <Header name={"Send Message"} link={"/announcement"} type={"back"} />
@@ -14,7 +16,12 @@ const AddAnnouncement = () => {
               <img src="Assets/Announcement/write.png" />
             </div>
             <div className="addCardInstrument">
-              <input type="text" placeholder="Type Message Title" />
+              <input
+                type="text"
+                placeholder="Type Message Title"
+                value={title}
+                onChange={() => console.log()}
+              />
             </div>
           </div>
         </div>
@@ -26,7 +33,11 @@ const AddAnnouncement = () => {
               <img src="Assets/Announcement/write.png" />
             </div>
             <div className="addCardInstrument">
-              <textarea placeholder="Type Message Body"></textarea>
+              <textarea
+                placeholder="Type Message Body"
+                value={message}
+                onChange={() => console.log()}
+              ></textarea>
             </div>
           </div>
         </div>
@@ -41,7 +52,7 @@ const AddAnnouncement = () => {
           </div>
         </div>
         <div className="newMsg">
-          <button>Write New Message</button>
+          <button>Send Announcement</button>
         </div>
       </div>
     </div>

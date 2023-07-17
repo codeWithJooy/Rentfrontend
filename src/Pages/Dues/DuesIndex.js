@@ -33,6 +33,7 @@ const DuesIndex = () => {
 };
 export default DuesIndex;
 
+//Due Card For Each Tenant
 const DuesDataCard = ({ data, setOpen }) => {
   const dispatch = useDispatch();
 
@@ -69,6 +70,8 @@ const DuesDataCard = ({ data, setOpen }) => {
     </div>
   );
 };
+
+//Top Card To Record All Dues and ToTal Tenants
 const DuesMainCard = ({ tenantCount, dues }) => {
   return (
     <div className="expenseMainCard">
@@ -104,6 +107,8 @@ const DuesMainCard = ({ tenantCount, dues }) => {
     </div>
   );
 };
+
+//Pop Up To Add Collection
 const DueCategory = ({ setOpen }) => {
   const tenant = useSelector((state) => state.tenant.selectedTenant);
   const [tenantFinance, setTenantFinance] = useState({

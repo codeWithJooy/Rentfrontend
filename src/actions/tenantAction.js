@@ -1,8 +1,13 @@
-import { SET_TENANT, TENANT_ADDED } from "../actionTypes/tenantActionsType";
+import {
+  SET_TENANT,
+  TENANT_ADDED,
+  SET_TENANT_DATA,
+  SET_SINGLE_TENANT,
+} from "../actionTypes/tenantActionsType";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
-import { tenantApi } from "../apis/apis";
-import { getHeaders } from "./actionHelper";
+import { tenantApi, collectionApi } from "../apis/apis";
+import { getHeaders, dispatchAction } from "./actionHelper";
 export const addTenant = async (data) => {
   try {
     const res = await tenantApi.post("/addTenant", data);
@@ -64,6 +69,17 @@ export const getTenantsCount = async (userId, propertyId) => {
       message: "Error While Fetching Tenant",
     });
     return;
+  }
+};
+export const getATenant = async (userId, propertyId, tenantId) => {
+  const headers = getHeaders({
+    userId,
+    propertyId,
+    tenantId,
+  });
+  const res = await tenantApi.get("/getATenant", headers);
+  if (res.data.code == 200) {
+    dispatchAction(SET_SINGLE_TENANT, res.data.model);
   }
 };
 

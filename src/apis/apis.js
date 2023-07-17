@@ -8,6 +8,8 @@ const devApis = {
   TENANT_API: "http://localhost:5000/api/tenant",
   EXPENSE_API: "http://localhost:5000/api/expense",
   FOOD_API: "http://localhost:5000/api/food",
+  MEMBER_API: "http://localhost:5000/api/member",
+  COLLECTION_API: "http://localhost:5000/api/collection",
 };
 const prodApis = {
   USER_API: "http://www.18.220.185.71:5000/api/auth",
@@ -16,6 +18,7 @@ const prodApis = {
   ROOM_API: "http://www.18.220.185.71:5000/api/room",
   TENANT_API: "http://www.18.220.185.71:5000/api/tenant",
   FOOD_API: "http://www.18.220.185.71:5000/api/food",
+  MEMBER_API: "http://localhost:5000/api/member",
 };
 
 const getApiUrls = () => {
@@ -53,4 +56,10 @@ export const expenseApi = axios.create({
 });
 export const foodApi = axios.create({
   baseURL: APIS.FOOD_API,
+});
+export const memberApi = axios.create({
+  baseURL: APIS.MEMBER_API,
+});
+export const collectionApi = axios.create({
+  baseURL: APIS.COLLECTION_API,
 });

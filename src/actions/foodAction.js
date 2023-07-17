@@ -2,7 +2,7 @@ import { foodApi } from "../apis/apis";
 import { dispatchAction, getHeaders } from "./actionHelper";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
-import { SET_FOOD_DATA } from "../actionTypes/foodActionType";
+import { SET_FOOD_DATA, SET_FOOD_TIME } from "../actionTypes/foodActionType";
 
 export const activateFood = async (userId, propertyId) => {
   try {
@@ -49,4 +49,9 @@ export const getActivated = async (userId, propertyId) => {
     });
     console.log(error.message);
   }
+};
+export const timeActivated = (data) => {
+  return {
+    type: SET_FOOD_TIME,
+  };
 };

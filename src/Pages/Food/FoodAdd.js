@@ -1,19 +1,29 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { timeActivated } from "../../actions/foodAction";
 const FoodAdd = () => {
+  const time = useSelector((state) => state.food.time);
+  const dispatch = useDispatch();
+  const handleSave = () => {
+    dispatch(timeActivated());
+  };
+  useEffect(() => {
+    if (timeActivated) {
+    }
+  }, []);
   return (
     <div className="foodAddContainer">
       <div className="foodAddTitle">
         <p>Choose food timings for your Property</p>
       </div>
       <div className="foodAddSection">
-        <FoodTime type="Breakfast" />
-        <FoodTime type="Lunch" />
-        <FoodTime type="Snacks" />
-        <FoodTime type="Dinner" />
+        {time.map((data, val) => (
+          <FoodTime type={data.title} start={data.start} end={data.end} />
+        ))}
       </div>
       <div className="foodAddButton">
-        <button>Save</button>
+        <button onClick={handleSave}>Save</button>
       </div>
     </div>
   );
@@ -21,7 +31,7 @@ const FoodAdd = () => {
 
 export default FoodAdd;
 
-const FoodTime = ({ type }) => {
+const FoodTime = ({ type, start, end }) => {
   return (
     <div className="addContainerHeader">
       <div className="addMeal">
@@ -33,10 +43,10 @@ const FoodTime = ({ type }) => {
         </div>
       </div>
       <div className="addMealTime">
-        <input type="time" value="08:00" />
+        <input type="time" value={start} />
       </div>
       <div className="addMealTime">
-        <input type="time" value="10:00" />
+        <input type="time" value={end} />
       </div>
       {/* <div className="addMealTick">
         <input type="checkbox" />

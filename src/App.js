@@ -14,6 +14,7 @@ import RoomUnit from "./Pages/Property/Rooms/RoomUnit";
 
 import AddTenant from "./Pages/Tenant/AddTenant";
 import Tenant from "./Pages/Tenant/Tenant";
+import TenantProfile from "./Pages/Tenant/TenantProfile";
 
 import DuesMain from "./Pages/Dues/DuesMain";
 import Dues from "./Pages/Dues/Dues";
@@ -30,6 +31,7 @@ import MemberAdd from "./Pages/Member/MemberAdd";
 import Announcement from "./Pages/Announcement/Announcement";
 import AddAnnouncement from "./Pages/Announcement/AddAnnouncement";
 import Toasty from "./Components/Toasty/Toasty";
+import MemberProfile from "./Pages/Member/MemberProfile";
 
 const App = () => {
   return (
@@ -48,7 +50,7 @@ const App = () => {
 
         <Route path="/tenant" component={Tenant} />
         <Route path="/addtenant" component={AddTenant} />
-
+        <Route path="/tenantProfile" component={TenantProfile} />
         <Route path="/dues" component={DuesMain} />
         <Route path="/dueadd" component={DueAdd} />
 
@@ -59,6 +61,7 @@ const App = () => {
 
         <Route path="/member" component={Member} />
         <Route path="/addMember" component={MemberAdd} />
+        <Route path="/memberProfile" component={MemberProfile} />
 
         <Route path="/announcement" component={Announcement} />
         <Route path="/addann" component={AddAnnouncement} />

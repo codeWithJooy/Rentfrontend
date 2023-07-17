@@ -11,6 +11,7 @@ import { getActivated } from "../../actions/foodAction";
 const Food = () => {
   const { userId, propertyId } = useSelector((state) => state.user);
   const activated = useSelector((state) => state.food.activated);
+  const timeActivated = useSelector((state) => state.food.timeActivated);
   useEffect(() => {
     getActivated(userId, propertyId);
   }, [activated]);
@@ -18,7 +19,8 @@ const Food = () => {
     <div className="foodMain">
       <Header />
       {!activated && <FoodInit />}
-      {activated && <FoodListTest />}
+      {activated && !timeActivated && <FoodAdd />}
+      {activated && timeActivated && <FoodListTest />}
       <Footer />
     </div>
   );

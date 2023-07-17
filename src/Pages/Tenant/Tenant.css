@@ -8,6 +8,7 @@
   height: 80vh;
   overflow-y: auto;
   margin-bottom: 100px;
+  padding: 10px 15px 100px;
   padding-bottom: 100px;
   background: #f5f3f4;
   position: relative;
@@ -287,4 +288,54 @@ input {
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-between;
+}
+
+.passbookTop {
+  position: fixed;
+  top: 120px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  padding: 10px 15px;
+  background: #fff;
+  z-index: 1000000;
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 0 3px #d3d3d3;
+}
+.passTopUnit {
+  width: 100px;
+  height: 80px;
+  box-shadow: 0 0 2px #d3d3d3;
+  padding: 5px;
+  border-radius: 5px;
+}
+.passUnitTop {
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+}
+.passBottom {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.passBottomName {
+  width: 50%;
+  font-size: 11px;
+}
+.passBottomImg {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.passBottomImg img {
+  width: 20px;
+  height: 20px;
+}
+.passbookBody {
+  position: relative;
+  width: 100%;
+
+  top: 110px;
 }
