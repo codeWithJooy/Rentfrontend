@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Tenant.css";
 import Header from "../../Components/Header/Header";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { getATenant } from "../../actions/tenantAction";
+import { getTenantCollection } from "../../actions/collectionAction";
+import { calculateTotalDues } from "../../duesHelper";
 
 const TenantProfile = () => {
   const history = useHistory();
   const [navActive, setNavActive] = useState("profile");
+  const { userId, propertyId } = useSelector((state) => state.user);
+  const tenantId = useSelector((state) => state.tenant.selectedTenant);
+  useEffect(() => {
+    getATenant(userId, propertyId, tenantId);
+    getTenantCollection(userId, propertyId, tenantId);
+  }, []);
   return (
     <div className="tenant">
       <Header name={"Tenants Profile"} link={"/tenant"} type={"back"} />
@@ -43,34 +53,76 @@ const TenantPassBook = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 2.5,
-    slidesToScroll: 0.5,
+    slidesToShow: 3,
+    swipeToSlide: true,
   };
+  const [type, setType] = useState("dues");
+  const dues = useSelector((state) => state.tenant.singleTenant.dues);
+  const collections = useSelector((state) => state.collection.tenantCollection);
+  const { due, collection } = calculateTotalDues(dues, collections);
+
   return (
     <div className="tenantHolder">
       <div className="passbookTop">
         <Slider {...settings}>
-          <PassbookTopUnit />
-          <PassbookTopUnit />
-          <PassbookTopUnit />
-          <PassbookTopUnit />
+          <PassbookTopUnit amount={due} title={"Total Dues"} />
+          <PassbookTopUnit amount={collection} title={"Total Collection"} />
+          <PassbookTopUnit amount={4000} title={"Current Deposit"} />
+          <PassbookTopUnit amount={4000} title={"Total Discounts"} />
         </Slider>
+      </div>
+      <div className="passbookBody">
+        <DuesDataCard />
+        <DuesDataCard />
+        <DuesDataCard />
+        <DuesDataCard />
+        <DuesDataCard />
+        <DuesDataCard />
       </div>
     </div>
   );
 };
-const PassbookTopUnit = () => {
+
+const DuesDataCard = () => {
+  return (
+    <div className="duesDataCard">
+      <div className="ddcTop">
+        <div className="ddcHead">
+          <div className="ddcTitle">
+            <p>Abhi</p>
+          </div>
+          <div className="ddcDue">
+            <p>Rs 1000</p>
+          </div>
+        </div>
+        <div className="ddcHead">
+          <div className="ddcRoom">
+            <p>Ground 1</p>
+          </div>
+          <div className="ddcDueDate">
+            <p>"12/12/14</p>
+          </div>
+        </div>
+      </div>
+      <div className="ddcBottom">
+        <button className="ddcRecord">Record Payment</button>
+        <button className="ddcRemind">Remind To Pay</button>
+      </div>
+    </div>
+  );
+};
+const PassbookTopUnit = ({ amount, title }) => {
   return (
     <div className="passTopUnit">
       <div className="passUnitTop">
-        <p>Rs 30000</p>
+        <p>Rs {amount}</p>
       </div>
       <div className="passBottom">
         <div className="passBottomName">
-          <p>Current Deposit</p>
+          <p>{title}</p>
         </div>
         <div className="passBottomImg">
-          <img src="Assets/Announcement.png" />
+          <img src="Assets/Announcement/write.png" />
         </div>
       </div>
     </div>

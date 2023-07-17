@@ -291,13 +291,16 @@ input {
 }
 
 .passbookTop {
-  position: absolute;
-  top: 5px;
-  left: 0px;
+  position: fixed;
+  top: 120px;
+  left: 0;
   width: 100%;
   height: 100px;
   padding: 10px 15px;
   background: #fff;
+  z-index: 1000000;
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 0 3px #d3d3d3;
 }
 .passTopUnit {
   width: 100px;
@@ -330,4 +333,10 @@ input {
 .passBottomImg img {
   width: 20px;
   height: 20px;
+}
+.passbookBody {
+  position: relative;
+  width: 100%;
+
+  top: 110px;
 }

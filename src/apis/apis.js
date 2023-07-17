@@ -9,6 +9,7 @@ const devApis = {
   EXPENSE_API: "http://localhost:5000/api/expense",
   FOOD_API: "http://localhost:5000/api/food",
   MEMBER_API: "http://localhost:5000/api/member",
+  COLLECTION_API: "http://localhost:5000/api/collection",
 };
 const prodApis = {
   USER_API: "http://www.18.220.185.71:5000/api/auth",
@@ -58,4 +59,7 @@ export const foodApi = axios.create({
 });
 export const memberApi = axios.create({
   baseURL: APIS.MEMBER_API,
+});
+export const collectionApi = axios.create({
+  baseURL: APIS.COLLECTION_API,
 });

@@ -16,6 +16,7 @@ import Toast from "../../Components/Toast/Toast";
 import { getAllRooms } from "../../actions/roomActions";
 const AddTenant = () => {
   const [rooms, setRooms] = useState([]);
+  const [collection, setCollections] = useState([]);
   const user = useSelector((state) => state.user);
   const [forceUpdate, setForceUpdate] = useState(true);
   const [toast, setToast] = useState(false);
@@ -40,21 +41,17 @@ const AddTenant = () => {
     doj: currentDate,
   });
   const [tenantRentDue, setTenantRentDue] = useState({
-    type: "Rent",
+    type: monthNameByDate(currentDate).name + " Rent",
     rent: rent,
     due: calculateDue(rent, day.date, day.maxDays),
-    collection: 0,
     description: "",
     dueDate: currentDate,
-    mode: "Cash",
   });
   const [tenantSecurityDue, setTenantSecurityDue] = useState({
     type: "Security Deposit",
     due: 0,
-    collection: 0,
     description: "",
     dueDate: currentDate,
-    mode: "Cash",
   });
   const [lockin, setLocking] = useState("");
   const [lockinRents, setLockingRents] = useState([]);
@@ -152,8 +149,8 @@ const AddTenant = () => {
       obj.dues.push(lockinRents[i]);
     }
     obj.dues.push(tenantSecurityDue);
+    obj.collections = collection;
     addTenant(obj);
-    // setToast(true);
     setTimeout(() => {
       history.push("/tenant");
     }, 4000);
@@ -233,9 +230,7 @@ const AddTenant = () => {
               <div className="sectionUnitHeader">Collected</div>
             </div>
             <div className="section">
-              <div className="sectionUnit unitMain">
-                {monthNameByDate(currentDate).name} Rent
-              </div>
+              <div className="sectionUnit unitMain">{tenantRentDue.type}</div>
               <div className="sectionUnit">
                 <p className="rate">Rs {tenantRentDue.due}</p>
                 <p className="range">
@@ -286,19 +281,20 @@ const AddTenant = () => {
           <TenantPayment
             setEdit={setRentEdit}
             data={tenantRentDue}
-            setDue={setTenantRentDue}
+            setCollections={setCollections}
           />
         )}
         {securityEdit && (
           <TenantPayment
             setEdit={setSecurityEdit}
             data={tenantSecurityDue}
-            setDue={setTenantSecurityDue}
+            setCollections={setCollections}
           />
         )}
         <Toast
           toast={toast}
           setToast={setToast}
+          setDue={setTenantRentDue}
           title={"Tenant Added"}
           msg={"Tenant Added Successfully"}
         />
@@ -309,17 +305,28 @@ const AddTenant = () => {
 
 export default AddTenant;
 
-const TenantPayment = ({ setEdit, data, setDue }) => {
-  const { type, due, collection, description, dateOfPayment, mode } = data;
-  const [pay, setPayment] = useState(data);
+const TenantPayment = ({ setEdit, data, setCollections }) => {
+  const { type, due, dueDate } = data;
+  const [pay, setPayment] = useState({
+    type: type,
+    amount: 0,
+    date: moment(new Date(dueDate)).format("YYYY-MM-DD"),
+    mode: "Cash",
+  });
   const handleSave = () => {
-    setDue(pay);
+    if (pay.amount > 0) {
+      setCollections((collection) => [...collection, pay]);
+    }
     setEdit(false);
   };
   const handlePaymentChange = (e) => {
+    let value = e.target.value;
+    if (value > due) {
+      value = due;
+    }
     setPayment({
       ...pay,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   };
   return (
@@ -331,18 +338,18 @@ const TenantPayment = ({ setEdit, data, setDue }) => {
         <div className="categoryTitle">{type}</div>
         <div className="tenantInput">
           <p>Due Amount</p>
-          <input type="text" value={pay.due} readOnly />
+          <input type="text" value={data.due} readOnly />
         </div>
         <div className="tenantInput">
           <p>Collection</p>
           <input
             type="text"
-            value={pay.collection}
-            name="collection"
+            value={pay.amount}
+            name="amount"
             onChange={handlePaymentChange}
           />
         </div>
-        <div className="tenantInput">
+        {/* <div className="tenantInput">
           <p>Description</p>
           <input
             type="text"
@@ -350,27 +357,47 @@ const TenantPayment = ({ setEdit, data, setDue }) => {
             name="description"
             onChange={handlePaymentChange}
           />
-        </div>
+        </div> */}
         <div className="tenantInput">
           <p>Payment Date</p>
-          <input type="date" value={pay.dateOfPayment} />
+          <input type="date" value={pay.date} readOnly />
         </div>
         <div className="paymentMode">
           <p>Payment Mode</p>
           <div className="paymentHolder">
-            <div className="paymentUnits paymentActive">
+            <div
+              className={`paymentUnits ${
+                pay.mode == "Cash" ? "paymentActive" : ""
+              }`}
+              onClick={() => setPayment({ ...pay, mode: "Cash" })}
+            >
               <img src="Assets/Payment/cash.png" />
               <p>Cash</p>
             </div>
-            <div className="paymentUnits">
+            <div
+              className={`paymentUnits ${
+                pay.mode == "Gpay" ? "paymentActive" : ""
+              }`}
+              onClick={() => setPayment({ ...pay, mode: "Gpay" })}
+            >
               <img src="Assets/Payment/gpay.png" />
               <p>GPay</p>
             </div>
-            <div className="paymentUnits">
+            <div
+              className={`paymentUnits ${
+                pay.mode == "PhonePe" ? "paymentActive" : ""
+              }`}
+              onClick={() => setPayment({ ...pay, mode: "PhonePe" })}
+            >
               <img src="Assets/Payment/phonepe.png" />
               <p>PhonePe</p>
             </div>
-            <div className="paymentUnits">
+            <div
+              className={`paymentUnits ${
+                pay.mode == "Paytm" ? "paymentActive" : ""
+              }`}
+              onClick={() => setPayment({ ...pay, mode: "Paytm" })}
+            >
               <img src="Assets/Payment/paytm.png" />
               <p>Paytm</p>
             </div>
@@ -378,7 +405,7 @@ const TenantPayment = ({ setEdit, data, setDue }) => {
         </div>
         <div className="tenantButton">
           <button style={{ width: "90%", margin: "5%" }} onClick={handleSave}>
-            Save
+            Add Collection
           </button>
         </div>
       </div>
