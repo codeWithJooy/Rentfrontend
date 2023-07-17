@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import moment from "moment";
 import "./Tenant.css";
 import Header from "../../Components/Header/Header";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getATenant } from "../../actions/tenantAction";
-import { getTenantCollection } from "../../actions/collectionAction";
+import {
+  addCollection,
+  getTenantCollection,
+} from "../../actions/collectionAction";
 import {
   calculateDayDifference,
   calculateSingleDue,
@@ -19,10 +23,15 @@ const TenantProfile = () => {
   const [navActive, setNavActive] = useState("profile");
   const { userId, propertyId } = useSelector((state) => state.user);
   const tenantId = useSelector((state) => state.tenant.selectedTenant);
+  const [forceUpdate, setForceUpdate] = useState(true);
+
   useEffect(() => {
-    getATenant(userId, propertyId, tenantId);
-    getTenantCollection(userId, propertyId, tenantId);
-  }, []);
+    if (forceUpdate) {
+      getATenant(userId, propertyId, tenantId);
+      getTenantCollection(userId, propertyId, tenantId);
+      setForceUpdate(false);
+    }
+  }, [forceUpdate]);
   return (
     <div className="tenant">
       <Header name={"Tenants Profile"} link={"/tenant"} type={"back"} />
@@ -45,14 +54,16 @@ const TenantProfile = () => {
         </div>
       </div>
       {navActive == "profile" && <TenantPersonal />}
-      {navActive != "profile" && <TenantPassBook />}
+      {navActive != "profile" && (
+        <TenantPassBook setForceUpdate={setForceUpdate} />
+      )}
     </div>
   );
 };
 
 export default TenantProfile;
 
-const TenantPassBook = () => {
+const TenantPassBook = ({ setForceUpdate }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -65,6 +76,8 @@ const TenantPassBook = () => {
   const collections = useSelector((state) => state.collection.tenantCollection);
   const { due, collection } = calculateTotalDues(dues, collections);
   const [topActive, setTopActive] = useState("Total Dues");
+  const [openCategory, setOpenCategory] = useState(false);
+  const [dueDetail, setDueDetail] = useState({});
   return (
     <div className="tenantHolder">
       <div className="passbookTop">
@@ -104,6 +117,8 @@ const TenantPassBook = () => {
               due={dueData.due}
               dueDate={dueData.dueDate}
               collection={collections}
+              setOpenCategory={setOpenCategory}
+              setDueDetail={setDueDetail}
             />
           ))}
         {topActive == "Total Collection" &&
@@ -117,12 +132,35 @@ const TenantPassBook = () => {
             />
           ))}
       </div>
+      {openCategory && (
+        <DueCategory
+          data={dueDetail}
+          setOpenCategory={setOpenCategory}
+          setForceUpdate={setForceUpdate}
+        />
+      )}
     </div>
   );
 };
 
-const DuesDataCard = ({ type, due, dueDate, collection }) => {
+const DuesDataCard = ({
+  type,
+  due,
+  dueDate,
+  collection,
+  setOpenCategory,
+  setDueDetail,
+}) => {
   let finalDue = calculateSingleDue(type, due, collection);
+  let obj = {
+    type,
+    finalDue,
+    dueDate,
+  };
+  const handleRecord = () => {
+    setDueDetail(obj);
+    setOpenCategory(true);
+  };
   return (
     <div className="duesDataCard">
       <div className="ddcTop">
@@ -160,7 +198,9 @@ const DuesDataCard = ({ type, due, dueDate, collection }) => {
         </div>
       </div>
       <div className="ddcBottom">
-        <button className="ddcRecord">Record Payment</button>
+        <button className="ddcRecord" onClick={handleRecord}>
+          Record Payment
+        </button>
         <button className="ddcRemind">Remind To Pay</button>
       </div>
     </div>
@@ -487,6 +527,154 @@ const ParentID = () => {
             }`}
           />
         </div>
+      </div>
+    </div>
+  );
+};
+//Pop Up To Add Collection
+const DueCategory = ({ setOpenCategory, data, setForceUpdate }) => {
+  const tenantId = useSelector((state) => state.tenant.selectedTenant);
+  const { userId, propertyId } = useSelector((state) => state.user);
+
+  console.log(data);
+  const handleCross = () => {
+    setOpenCategory(false);
+  };
+  const [collection, setCollection] = useState({
+    userId,
+    propertyId,
+    tenantId,
+    type: data.type,
+    amount: data.finalDue,
+    date: moment(new Date()).format("YYYY-MM-DD"),
+    mode: "Cash",
+  });
+  const handlePayment = () => {
+    addCollection(
+      collection.userId,
+      collection.propertyId,
+      collection.tenantId,
+      collection.type,
+      collection.amount,
+      collection.date,
+      collection.mode
+    );
+    setForceUpdate(true);
+    setOpenCategory(false);
+  };
+  const handleAmount = (e) => {
+    let amt = e.target.value;
+    if (amt > data.finalDue) {
+      amt = data.finalDue;
+    }
+    setCollection({
+      ...collection,
+      amount: amt,
+    });
+  };
+  const handleTime = (e) => {
+    const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    setCollection({
+      ...collection,
+      date: newDate,
+    });
+  };
+
+  return (
+    <div className="categoryMain">
+      <div className="categoryCross">
+        <img src="Assets/components/cross.png" onClick={handleCross} />
+      </div>
+      <div className="categoryContainer">
+        <div className="categoryTitle">Record Payment</div>
+        <div
+          className="dueTenant"
+          style={{
+            width: "80%",
+            marginLeft: "10%",
+            position: "relative",
+            top: "-20px",
+          }}
+        >
+          <div className="ddcTop">
+            <div className="ddcHead">
+              <div className="ddcTitle">
+                <p>{data.type}</p>
+              </div>
+              <div className="ddcDue">
+                <p>Rs {data.finalDue}</p>
+              </div>
+            </div>
+            <div className="ddcHead">
+              <div className="ddcRoom">
+                <p>Room Name</p>
+              </div>
+              <div className="ddcDueDate">
+                <p>{data.dueDate}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="tenantAddSection">
+          <p>Amount</p>
+          <input
+            type="text"
+            value={collection.amount}
+            onChange={handleAmount}
+          />
+        </div>
+        <div className="tenantAddSection">
+          <p>Date Of Payment</p>
+          <input type="date" value={collection.date} onChange={handleTime} />
+        </div>
+        <div className="tenantAddSection">
+          <p>Description</p>
+          <input type="text" />
+        </div>
+        <div className="paymentMode">
+          <p>Payment Mode</p>
+          <div className="paymentHolder">
+            <div
+              className={`paymentUnits ${
+                collection.mode == "Cash" ? "paymentActive" : ""
+              }`}
+              onClick={() => setCollection({ ...collection, mode: "Cash" })}
+            >
+              <img src="Assets/Payment/cash.png" />
+              <p>Cash</p>
+            </div>
+            <div
+              className={`paymentUnits ${
+                collection.mode == "Gpay" ? "paymentActive" : ""
+              }`}
+              onClick={() => setCollection({ ...collection, mode: "Gpay" })}
+            >
+              <img src="Assets/Payment/gpay.png" />
+              <p>GPay</p>
+            </div>
+            <div
+              className={`paymentUnits ${
+                collection.mode == "PhonePe" ? "paymentActive" : ""
+              }`}
+              onClick={() => setCollection({ ...collection, mode: "PhonePe" })}
+            >
+              <img src="Assets/Payment/phonepe.png" />
+              <p>PhonePe</p>
+            </div>
+            <div
+              className={`paymentUnits ${
+                collection.mode == "Paytm" ? "paymentActive" : ""
+              }`}
+              onClick={() => setCollection({ ...collection, mode: "Paytm" })}
+            >
+              <img src="Assets/Payment/paytm.png" />
+              <p>Paytm</p>
+            </div>
+          </div>
+        </div>
+        <button className="dueButton" onClick={handlePayment}>
+          Record Payment
+        </button>
       </div>
     </div>
   );

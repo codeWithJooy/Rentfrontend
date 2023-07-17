@@ -123,22 +123,43 @@ export const calculateDue = (rent, day, maxDay) => {
 };
 export const calculateTotalDues = (arr) => {
   let val = 0;
+
   let data = arr.map((data) => {
     val = val + parseInt(data.due) - parseInt(data.collection);
   });
   return val;
 };
-export const allDues = (arr) => {
+export const allDues = (dues, collection) => {
   let val = 0;
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr[i].dues.length; j++) {
-      val =
-        val +
-        parseInt(arr[i].dues[j].due) -
-        parseInt(arr[i].dues[j].collection);
+  let col = 0;
+  for (let i = 0; i < dues.length; i++) {
+    for (let j = 0; j < dues[i].dues.length; j++) {
+      val = val + parseInt(dues[i].dues[j].due);
     }
   }
-  return val;
+  for (let i = 0; i < collection.length; i++) {
+    for (let j = 0; j < collection[i].collections.length; j++) {
+      col = col + parseInt(collection[i].collections[j].amount);
+    }
+  }
+  return val - col;
+};
+export const generateIndiDues = (dues, collection, tenantId) => {
+  const collections = collection.filter((unit) => unit.tenantId == tenantId);
+
+  let val = 0;
+  let col = 0;
+  for (let i = 0; i < dues.length; i++) {
+    val = val + parseInt(dues[i].due);
+  }
+
+  for (let i = 0; i < collections.length; i++) {
+    for (let j = 0; j < collections[i].collections.length; j++) {
+      col = col + parseInt(collection[i].collections[j].amount);
+    }
+  }
+
+  return val - col;
 };
 export const generateLockIn = (period, date, rent) => {
   const newDate = new Date(date);
