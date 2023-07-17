@@ -1,0 +1,232 @@
+.memberMain {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: #f5f3f4;
+  z-index: 1;
+}
+.memNav {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.memNavUnit {
+  width: 50%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b1a7a6;
+  cursor: pointer;
+  border-bottom: 2px solid #f5f3f4;
+}
+.memNavActive {
+  border-bottom: 2px solid #a4161a;
+  color: #a4161a;
+}
+.memContainer {
+  width: 100%;
+  height: 80vh;
+  background-color: #fff;
+  padding: 10px 15px;
+  overflow-y: scroll;
+  position: relative;
+}
+.searchMember {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.searchMemBar {
+  width: 65%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 10px 0px 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 3px #b1a7a6;
+}
+.searchMemBar img {
+  width: 20px;
+  height: 20px;
+}
+.searchMemBar input {
+  width: calc(100% - 30px);
+  margin-left: 10px;
+  padding: 10px 0px;
+  border: none;
+  outline: none;
+}
+.searchMember button {
+  width: 30%;
+  padding: 10px 5px;
+  border-radius: 5px;
+  background: #a4161a;
+  color: #fff;
+}
+.memCard {
+  width: 100%;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #b1a7a6;
+  margin: 10px 0px;
+}
+.memTop {
+  width: 100%;
+  padding: 10px 10px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border-bottom: 1px solid #b1a7a6;
+}
+.memPic {
+  width: 20%;
+}
+.memPic img {
+  width: 40px;
+  height: 40px;
+}
+.memDetails {
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.memDetailsTop {
+  width: 100%;
+  display: flex;
+}
+.memDetailsBottom {
+  width: 100%;
+  display: flex;
+  font-size: 12px;
+  color: #161a1d;
+}
+.memName {
+  width: 70%;
+  font-size: 17px;
+  font-weight: bold;
+  color: #a4161a;
+}
+.memDesig {
+  width: 30%;
+}
+.memDesignation {
+  padding: 5px;
+  background-color: #b1a7a6;
+  color: #161a1d;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.memBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 10px 5px 5px;
+}
+.memBottomUnit {
+  width: 25%;
+  text-align: center;
+  font-size: 12px;
+  font-size: bold;
+  color: #161a1d;
+}
+.memBottomUnit img {
+  width: 20px;
+  height: 20px;
+}
+.memEdit {
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background-color: #a4161a;
+  color: #fff;
+  cursor: pointer;
+}
+.section {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px 0px 30px;
+}
+.sectionHeader {
+  width: 100%;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.sectionTitle {
+  width: 90%;
+  font-size: 16px;
+  font-weight: bold;
+  color: #a4161a;
+}
+.sectionToggle {
+  width: 10%;
+}
+.sectionToggle img {
+  width: 20px;
+  height: 20px;
+}
+.sectionContainer {
+  width: 100%;
+}
+.sectionContainer button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #a4161a;
+  color: #fff;
+  margin-top: 30px;
+  border-radius: 5px;
+}
+.sectionIpFull {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.sectionIpHalf {
+  width: 48%;
+}
+.sectionIpHeader {
+  width: 100%;
+  font-size: 14px;
+  color: #161a1d;
+}
+.sectionIpInput {
+  width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #b1a7a6;
+}
+.sectionIpInput input {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+.sectionIpInput select {
+  width: 100%;
+  border: none;
+  background: transparent;
+}

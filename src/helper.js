@@ -1,3 +1,4 @@
+import moment from "moment";
 export const roomAddHelper = (floorName, roomTypes) => {
   const arr = [];
   let counter = 1;
@@ -98,6 +99,25 @@ export const monthName = (number) => {
   ];
   return months[number];
 };
+export const monthNameByDate = (date) => {
+  const months = [
+    { name: "Jan", days: 31 },
+    { name: "Feb", days: 28 },
+    { name: "March", days: 31 },
+    { name: "April", days: 30 },
+    { name: "May", days: 31 },
+    { name: "Jun", days: 30 },
+    { name: "July", days: 31 },
+    { name: "Aug", days: 31 },
+    { name: "Sep", days: 30 },
+    { name: "Oct", days: 31 },
+    { name: "Nov", days: 30 },
+    { name: "Dec", days: 31 },
+  ];
+  const newDate = new Date(date);
+  let present_month = newDate.getMonth();
+  return months[present_month];
+};
 export const calculateDue = (rent, day, maxDay) => {
   return Math.floor((rent * (maxDay - day + 1)) / maxDay);
 };
@@ -119,4 +139,32 @@ export const allDues = (arr) => {
     }
   }
   return val;
+};
+export const generateLockIn = (period, date, rent) => {
+  const newDate = new Date(date);
+  let present_month = newDate.getMonth();
+  let present_year = newDate.getFullYear();
+  let newYear = present_year;
+
+  let arr = [];
+  for (let i = 1; i < period; i++) {
+    let testMonth = (present_month + i) % 12;
+    if (testMonth < present_month) {
+      newYear = present_year + 1;
+    }
+
+    let obj = {
+      type: monthName(testMonth).name + " Rent",
+      rent: rent,
+      due: rent,
+      collection: 0,
+      description: "",
+      dueDate: moment({ year: newYear, month: testMonth, day: 1 }).format(
+        "YYYY-MM-DD"
+      ),
+    };
+    arr.push(obj);
+  }
+
+  return arr;
 };

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTotalFloors } from "../../actions/floorActions";
 import "./Tenant.css";
+import { setTenant } from "../../actions/tenantAction";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getTenants } from "../../actions/tenantAction";
@@ -60,6 +61,7 @@ const Tenant = () => {
         <div className="tenantHolder">
           {tenants.map((data, index) => (
             <TenantCard
+              tenantId={data._id}
               name={data.name}
               room={data.room}
               number={data.number}
@@ -82,15 +84,21 @@ const Tenant = () => {
 
 export default Tenant;
 
-const TenantCard = ({ name, room, number, doj, due }) => {
+const TenantCard = ({ tenantId, name, room, number, doj, due }) => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleClick = () => {
     setOpen(!open);
+  };
+  const handleCardClick = () => {
+    dispatch(setTenant(tenantId));
+    history.push("/tenantProfile");
   };
   console.log(due);
   return (
     <div className="tenantCard">
-      <div className="cardTop">
+      <div className="cardTop" onClick={handleCardClick}>
         <div className="cardName">{name}</div>
         <div className="cardRoom">{room}</div>
       </div>
@@ -111,7 +119,7 @@ const TenantCard = ({ name, room, number, doj, due }) => {
             {due.map((data, index) => (
               <div className="duesSection">
                 <div className="duesName">{data.type}</div>
-                <div className="duesValue">Rs {data.due - data.collection}</div>
+                <div className="duesValue">Rs {data.due}</div>
               </div>
             ))}
           </div>
