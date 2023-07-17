@@ -109,6 +109,7 @@ const AddTenant = () => {
   //Handle To Run In case of Date Change
   const onChangeDate = (e) => {
     const d = new Date(e.target.value);
+    const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
     setDay({
       ...day,
       date: new Date(e.target.value).getDate(),
@@ -122,9 +123,13 @@ const AddTenant = () => {
         new Date(e.target.value).getDate(),
         monthName(new Date(e.target.value).getMonth()).days
       ),
+      dueDate: newDate,
+    });
+    setTenantSecurityDue({
+      ...tenantSecurityDue,
+      dueDate: newDate,
     });
 
-    const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
     setCurrentDate(newDate);
     setTenant({
       ...tenant,
