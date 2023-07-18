@@ -1,6 +1,7 @@
 import {
   SET_TENANT_COLLECTION,
   SET_ALL_COLLECTION,
+  SET_TENANT_DISCOUNT,
 } from "../actionTypes/collectionType";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
@@ -84,6 +85,27 @@ export const getAllCollections = async (userId, propertyId) => {
         code: CodeAnalogy.ERROR,
         title: "Something Went Wrong",
         message: "Error Fetching Tenants Collections",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getTenantDiscount = async (userId, propertyId, tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await collectionApi.get("/getDiscount", headers);
+    if (res.data.code == 200) {
+      dispatchAction(SET_TENANT_DISCOUNT, res.data.model);
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error Fetching Tenant Discounts",
       });
     }
   } catch (error) {

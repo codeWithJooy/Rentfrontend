@@ -11,6 +11,7 @@ import { getATenant } from "../../actions/tenantAction";
 import {
   addCollection,
   getTenantCollection,
+  getTenantDiscount,
 } from "../../actions/collectionAction";
 import {
   calculateDayDifference,
@@ -29,6 +30,7 @@ const TenantProfile = () => {
     if (forceUpdate) {
       getATenant(userId, propertyId, tenantId);
       getTenantCollection(userId, propertyId, tenantId);
+      getTenantDiscount(userId, propertyId, tenantId);
       setForceUpdate(false);
     }
   }, [forceUpdate]);
@@ -74,7 +76,12 @@ const TenantPassBook = ({ setForceUpdate }) => {
   const [type, setType] = useState("dues");
   const dues = useSelector((state) => state.tenant.singleTenant.dues);
   const collections = useSelector((state) => state.collection.tenantCollection);
-  const { due, collection } = calculateTotalDues(dues, collections);
+  const discounts = useSelector((state) => state.collection.tenantDiscount);
+  const { due, collection, discount } = calculateTotalDues(
+    dues,
+    collections,
+    discounts
+  );
   const [topActive, setTopActive] = useState("Total Dues");
   const [openCategory, setOpenCategory] = useState(false);
   const [dueDetail, setDueDetail] = useState({});
@@ -101,7 +108,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
             setTopActive={setTopActive}
           />
           <PassbookTopUnit
-            amount={4000}
+            amount={discount}
             title={"Total Discounts"}
             topActive={topActive}
             setTopActive={setTopActive}
