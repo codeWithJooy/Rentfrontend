@@ -181,7 +181,7 @@ const AddTenant = () => {
   if (rooms.length > 0) {
     return (
       <div className="tenantMain">
-        <Header />
+        <Header name="Add Tenant" link="/tenant" type="back" />
         <div className="tenantSection">
           <div className="tenantInput">
             <p>Tenant Name</p>
@@ -202,7 +202,7 @@ const AddTenant = () => {
             </select>
           </div>
           <div className="tenantInput">
-            <p>Date of Joining</p>
+            <p>Date of Booking</p>
             <input type="date" value={currentDate} onChange={onChangeDate} />
           </div>
           <div className="tenantAddHalf">
@@ -288,6 +288,7 @@ const AddTenant = () => {
           <TenantPayment
             setEdit={setRentEdit}
             data={tenantRentDue}
+            setData={setTenantRentDue}
             setCollections={setCollections}
             setDiscount={setDiscount}
           />
@@ -296,6 +297,7 @@ const AddTenant = () => {
           <TenantPayment
             setEdit={setSecurityEdit}
             data={tenantSecurityDue}
+            setData={setTenantSecurityDue}
             setCollections={setCollections}
             setDiscount={setDiscount}
           />
@@ -314,8 +316,16 @@ const AddTenant = () => {
 
 export default AddTenant;
 
-const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
+const TenantPayment = ({
+  setEdit,
+  data,
+  setData,
+  setCollections,
+  setDiscount,
+}) => {
   const { type, due, dueDate } = data;
+  const [dummyDue, setDummyDue] = useState(due);
+
   const [pay, setPayment] = useState({
     type: type,
     amount: due,
@@ -336,6 +346,17 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
     }
     setEdit(false);
   };
+  const handleDateChange = (e) => {
+    const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    setPayment({
+      ...pay,
+      date: newDate,
+    });
+    setNewDis({
+      ...newDis,
+      date: newDate,
+    });
+  };
   const handlePaymentChange = (e) => {
     let value = e.target.value;
     if (value > due - newDis.amount) {
@@ -353,6 +374,13 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
     if (parseInt(value) > parseInt(due)) {
       value = due;
     }
+    if (value == "") {
+      setNewDis({
+        ...newDis,
+        amount: 0,
+      });
+    }
+    setDummyDue(due - value);
     setNewDis({
       ...newDis,
       amount: value,
@@ -362,6 +390,7 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
       amount: due - value,
     });
   };
+
   return (
     <div className="categoryMain">
       <div className="categoryCross">
@@ -371,7 +400,7 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
         <div className="categoryTitle">{type}</div>
         <div className="tenantInput">
           <p>Due Amount</p>
-          <input type="text" value={data.due} readOnly />
+          <input type="text" value={dummyDue} readOnly />
         </div>
         <div className="tenantInput">
           <p>Discount</p>
@@ -401,7 +430,7 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
         </div> */}
         <div className="tenantInput">
           <p>Payment Date</p>
-          <input type="date" value={pay.date} readOnly />
+          <input type="date" value={pay.date} onChange={handleDateChange} />
         </div>
         <div className="paymentMode">
           <p>Payment Mode</p>
