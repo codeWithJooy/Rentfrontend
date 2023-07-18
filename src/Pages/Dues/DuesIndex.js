@@ -6,26 +6,42 @@ import {
   getTenantsCount,
   setTenant,
 } from "../../actions/tenantAction";
-import { allDues, calculateTotalDues } from "../../helper";
+import { allDues, calculateTotalDues, generateIndiDues } from "../../helper";
+import { getAllCollections } from "../../actions/collectionAction";
 const DuesIndex = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.user);
   const [dues, setDues] = useState([]);
   const [tenantCount, setTenantCount] = useState(0);
+  const [collection, setCollection] = useState([]);
   useEffect(() => {
     (async () => {
       let data = await getTenants(user.userId, user.propertyId);
       let count = await getTenantsCount(user.userId, user.propertyId);
+      let collectionData = await getAllCollections(
+        user.userId,
+        user.propertyId
+      );
       setDues(data);
       setTenantCount(count);
+      setCollection(collectionData);
     })();
   }, []);
   return (
     <div className="duesContainer">
-      <DuesMainCard tenantCount={tenantCount} dues={dues} />
+      <DuesMainCard
+        tenantCount={tenantCount}
+        dues={dues}
+        collection={collection}
+      />
       {dues &&
         dues.map((data, index) => (
-          <DuesDataCard data={data} setOpen={setOpen} key={index} />
+          <DuesDataCard
+            data={data}
+            setOpen={setOpen}
+            collection={collection}
+            key={index}
+          />
         ))}
       {open && <DueCategory setOpen={setOpen} />}
     </div>
@@ -34,13 +50,13 @@ const DuesIndex = () => {
 export default DuesIndex;
 
 //Due Card For Each Tenant
-const DuesDataCard = ({ data, setOpen }) => {
+const DuesDataCard = ({ data, collection, setOpen }) => {
   const dispatch = useDispatch();
-
   const handleRecord = () => {
     dispatch(setTenant(data));
     setOpen(true);
   };
+
   return (
     <div className="duesDataCard">
       <div className="ddcTop">
@@ -49,7 +65,7 @@ const DuesDataCard = ({ data, setOpen }) => {
             <p>{data.name}</p>
           </div>
           <div className="ddcDue">
-            <p>Rs {calculateTotalDues(data.dues)}</p>
+            <p>Rs {generateIndiDues(data.dues, collection, data._id)}</p>
           </div>
         </div>
         <div className="ddcHead">
@@ -72,14 +88,11 @@ const DuesDataCard = ({ data, setOpen }) => {
 };
 
 //Top Card To Record All Dues and ToTal Tenants
-const DuesMainCard = ({ tenantCount, dues }) => {
+const DuesMainCard = ({ tenantCount, dues, collection }) => {
   return (
     <div className="expenseMainCard">
       <div className="expenseMainTop">
-        <div className="expenseDuration">Duration :</div>
-        <div className="expenseMonth">
-          <p>July</p>
-        </div>
+        <div className="expenseDuration">Duration : July</div>
       </div>
       <div className="expenseTracker">
         <div
@@ -87,7 +100,7 @@ const DuesMainCard = ({ tenantCount, dues }) => {
           style={{ borderRight: "2px solid #f5f3f4" }}
         >
           <div className="trackerTop">
-            <p>Rs {allDues(dues)}</p>
+            <p>Rs {allDues(dues, collection)}</p>
           </div>
           <div className="trackerTitle">
             <p>Total&nbsp; &nbsp; &nbsp; &nbsp;Dues</p>

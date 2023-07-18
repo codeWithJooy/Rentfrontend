@@ -17,6 +17,7 @@ import { getAllRooms } from "../../actions/roomActions";
 const AddTenant = () => {
   const [rooms, setRooms] = useState([]);
   const [collection, setCollections] = useState([]);
+  const [discount, setDiscount] = useState([]);
   const user = useSelector((state) => state.user);
   const [forceUpdate, setForceUpdate] = useState(true);
   const [toast, setToast] = useState(false);
@@ -38,7 +39,7 @@ const AddTenant = () => {
     name: "",
     number: "",
     room: rooms.length > 0 ? rooms[0].name : "",
-    doj: currentDate,
+    dob: currentDate,
   });
   const [tenantRentDue, setTenantRentDue] = useState({
     type: monthNameByDate(currentDate).name + " Rent",
@@ -133,7 +134,7 @@ const AddTenant = () => {
     setCurrentDate(newDate);
     setTenant({
       ...tenant,
-      doj: newDate,
+      dob: newDate,
     });
   };
 
@@ -155,6 +156,7 @@ const AddTenant = () => {
     }
     obj.dues.push(tenantSecurityDue);
     obj.collections = collection;
+    obj.discounts = discount;
     addTenant(obj);
     setTimeout(() => {
       history.push("/tenant");
@@ -287,6 +289,7 @@ const AddTenant = () => {
             setEdit={setRentEdit}
             data={tenantRentDue}
             setCollections={setCollections}
+            setDiscount={setDiscount}
           />
         )}
         {securityEdit && (
@@ -294,6 +297,7 @@ const AddTenant = () => {
             setEdit={setSecurityEdit}
             data={tenantSecurityDue}
             setCollections={setCollections}
+            setDiscount={setDiscount}
           />
         )}
         <Toast
@@ -310,28 +314,52 @@ const AddTenant = () => {
 
 export default AddTenant;
 
-const TenantPayment = ({ setEdit, data, setCollections }) => {
+const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
   const { type, due, dueDate } = data;
   const [pay, setPayment] = useState({
     type: type,
-    amount: 0,
+    amount: due,
     date: moment(new Date(dueDate)).format("YYYY-MM-DD"),
     mode: "Cash",
+  });
+  const [newDis, setNewDis] = useState({
+    type: type,
+    amount: 0,
+    date: moment(new Date(dueDate)).format("YYYY-MM-DD"),
   });
   const handleSave = () => {
     if (pay.amount > 0) {
       setCollections((collection) => [...collection, pay]);
     }
+    if (newDis.amount > 0) {
+      setDiscount((discount) => [...discount, newDis]);
+    }
     setEdit(false);
   };
   const handlePaymentChange = (e) => {
     let value = e.target.value;
-    if (value > due) {
-      value = due;
+    if (value > due - newDis.amount) {
+      value = due - newDis.amount;
     }
     setPayment({
       ...pay,
       [e.target.name]: value,
+    });
+  };
+
+  const handleDiscountChange = (e) => {
+    let value = e.target.value;
+
+    if (parseInt(value) > parseInt(due)) {
+      value = due;
+    }
+    setNewDis({
+      ...newDis,
+      amount: value,
+    });
+    setPayment({
+      ...pay,
+      amount: due - value,
     });
   };
   return (
@@ -344,6 +372,14 @@ const TenantPayment = ({ setEdit, data, setCollections }) => {
         <div className="tenantInput">
           <p>Due Amount</p>
           <input type="text" value={data.due} readOnly />
+        </div>
+        <div className="tenantInput">
+          <p>Discount</p>
+          <input
+            type="text"
+            value={newDis.amount}
+            onChange={handleDiscountChange}
+          />
         </div>
         <div className="tenantInput">
           <p>Collection</p>

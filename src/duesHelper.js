@@ -1,16 +1,20 @@
-export const calculateTotalDues = (dues, collections) => {
+export const calculateTotalDues = (dues, collections, discounts) => {
   let totalDues = 0;
   let totalCollection = 0;
-
+  let totalDiscount = 0;
   for (let i = 0; i < dues.length; i++) {
     totalDues = totalDues + parseInt(dues[i].due);
   }
   for (let i = 0; i < collections.length; i++) {
     totalCollection = totalCollection + parseInt(collections[i].amount);
   }
+  for (let i = 0; i < discounts.length; i++) {
+    totalDiscount = totalDiscount + parseInt(discounts[i].amount);
+  }
   return {
-    due: totalDues - totalCollection,
+    due: totalDues - totalCollection - totalDiscount,
     collection: totalCollection,
+    discount: totalDiscount,
   };
 };
 

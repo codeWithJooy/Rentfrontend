@@ -12,13 +12,14 @@ const devApis = {
   COLLECTION_API: "http://localhost:5000/api/collection",
 };
 const prodApis = {
-  USER_API: "http://www.18.220.185.71:5000/api/auth",
-  SETUP_API: "http://www.18.220.185.71:5000/api/setup",
-  FLOOR_API: "http://www.18.220.185.71:5000/api/floor",
-  ROOM_API: "http://www.18.220.185.71:5000/api/room",
-  TENANT_API: "http://www.18.220.185.71:5000/api/tenant",
-  FOOD_API: "http://www.18.220.185.71:5000/api/food",
-  MEMBER_API: "http://localhost:5000/api/member",
+  USER_API: "https://rentpg.onrender.com/api/auth",
+  SETUP_API: "https://rentpg.onrender.com/api/setup",
+  FLOOR_API: "https://rentpg.onrender.com/api/floor",
+  ROOM_API: "https://rentpg.onrender.com/api/room",
+  TENANT_API: "https://rentpg.onrender.com/api/tenant",
+  FOOD_API: "https://rentpg.onrender.com/api/food",
+  MEMBER_API: "https://rentpg.onrender.com/api/member",
+  COLLECTION_API: "https://rentpg.onrender.com/api/collection",
 };
 
 const getApiUrls = () => {
