@@ -288,6 +288,7 @@ const AddTenant = () => {
           <TenantPayment
             setEdit={setRentEdit}
             data={tenantRentDue}
+            setData={setTenantRentDue}
             setCollections={setCollections}
             setDiscount={setDiscount}
           />
@@ -296,6 +297,7 @@ const AddTenant = () => {
           <TenantPayment
             setEdit={setSecurityEdit}
             data={tenantSecurityDue}
+            setData={setTenantSecurityDue}
             setCollections={setCollections}
             setDiscount={setDiscount}
           />
@@ -314,8 +316,16 @@ const AddTenant = () => {
 
 export default AddTenant;
 
-const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
+const TenantPayment = ({
+  setEdit,
+  data,
+  setData,
+  setCollections,
+  setDiscount,
+}) => {
   const { type, due, dueDate } = data;
+  const [dummyDue, setDummyDue] = useState(due);
+
   const [pay, setPayment] = useState({
     type: type,
     amount: due,
@@ -364,6 +374,13 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
     if (parseInt(value) > parseInt(due)) {
       value = due;
     }
+    if (value == "") {
+      setNewDis({
+        ...newDis,
+        amount: 0,
+      });
+    }
+    setDummyDue(due - value);
     setNewDis({
       ...newDis,
       amount: value,
@@ -383,7 +400,7 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
         <div className="categoryTitle">{type}</div>
         <div className="tenantInput">
           <p>Due Amount</p>
-          <input type="text" value={data.due} readOnly />
+          <input type="text" value={dummyDue} readOnly />
         </div>
         <div className="tenantInput">
           <p>Discount</p>
