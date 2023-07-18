@@ -181,7 +181,7 @@ const AddTenant = () => {
   if (rooms.length > 0) {
     return (
       <div className="tenantMain">
-        <Header />
+        <Header name="Add Tenant" link="/tenant" type="back" />
         <div className="tenantSection">
           <div className="tenantInput">
             <p>Tenant Name</p>
@@ -202,7 +202,7 @@ const AddTenant = () => {
             </select>
           </div>
           <div className="tenantInput">
-            <p>Date of Joining</p>
+            <p>Date of Booking</p>
             <input type="date" value={currentDate} onChange={onChangeDate} />
           </div>
           <div className="tenantAddHalf">
@@ -336,6 +336,17 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
     }
     setEdit(false);
   };
+  const handleDateChange = (e) => {
+    const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    setPayment({
+      ...pay,
+      date: newDate,
+    });
+    setNewDis({
+      ...newDis,
+      date: newDate,
+    });
+  };
   const handlePaymentChange = (e) => {
     let value = e.target.value;
     if (value > due - newDis.amount) {
@@ -362,6 +373,7 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
       amount: due - value,
     });
   };
+
   return (
     <div className="categoryMain">
       <div className="categoryCross">
@@ -401,7 +413,7 @@ const TenantPayment = ({ setEdit, data, setCollections, setDiscount }) => {
         </div> */}
         <div className="tenantInput">
           <p>Payment Date</p>
-          <input type="date" value={pay.date} readOnly />
+          <input type="date" value={pay.date} onChange={handleDateChange} />
         </div>
         <div className="paymentMode">
           <p>Payment Mode</p>
