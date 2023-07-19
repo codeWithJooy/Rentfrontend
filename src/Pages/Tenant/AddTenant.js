@@ -160,7 +160,7 @@ const AddTenant = () => {
     addTenant(obj);
     setTimeout(() => {
       history.push("/tenant");
-    }, 4000);
+    }, 2000);
   };
   useEffect(() => {
     if (forceUpdate) {
@@ -242,6 +242,20 @@ const AddTenant = () => {
               <div className="sectionUnitHeader">Collected</div>
             </div>
             <div className="section">
+              <div className="sectionUnit unitMain">Security Deposit</div>
+              <div className="sectionUnit">
+                <p className="rate">Rs {tenantSecurityDue.due}</p>
+                <p className="range">One-Time</p>
+              </div>
+              <div className="sectionUnit collected">
+                <img
+                  src="Assets/Tenant/edit.png"
+                  onClick={handleSecurityEdit}
+                />
+                <p>{tenantSecurityDue.collection}</p>
+              </div>
+            </div>
+            <div className="section">
               <div className="sectionUnit unitMain">{tenantRentDue.type}</div>
               <div className="sectionUnit">
                 <p className="rate">Rs {tenantRentDue.due}</p>
@@ -269,20 +283,7 @@ const AddTenant = () => {
                   </div>
                 </div>
               ))}
-            <div className="section">
-              <div className="sectionUnit unitMain">Security Deposit</div>
-              <div className="sectionUnit">
-                <p className="rate">Rs {tenantSecurityDue.due}</p>
-                <p className="range">One-Time</p>
-              </div>
-              <div className="sectionUnit collected">
-                <img
-                  src="Assets/Tenant/edit.png"
-                  onClick={handleSecurityEdit}
-                />
-                <p>{tenantSecurityDue.collection}</p>
-              </div>
-            </div>
+
             <div className="tenantButton">
               <button onClick={handleAdd}>Add Tenant</button>
             </div>
