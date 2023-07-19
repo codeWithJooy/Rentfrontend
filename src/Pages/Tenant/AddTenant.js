@@ -167,7 +167,12 @@ const AddTenant = () => {
       (async () => {
         let data = await getAllRooms(user.userId, user.propertyId);
         setRooms(data);
-        setTenant({ ...tenant, room: data ? data[0].name : "Unknown" });
+        setTenant({
+          ...tenant,
+          room: data ? data[0].name : "Unknown",
+          roomId: data ? data[0].id : "0",
+        });
+
         setRent(data ? data[0].rate : 0);
         setTenantRentDue({
           ...tenantRentDue,

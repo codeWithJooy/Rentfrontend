@@ -7,7 +7,7 @@ export const homeData = [
   {
     title: "Receive Payment",
     img: "Assets/Home/payment.png",
-    link: "/home",
+    link: "/dues",
   },
   {
     title: "Add Expense",
