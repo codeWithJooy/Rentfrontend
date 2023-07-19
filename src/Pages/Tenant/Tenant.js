@@ -10,10 +10,10 @@ import { getTenants } from "../../actions/tenantAction";
 import { getAllRooms } from "../../actions/roomActions";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
-
+import TenantSkeleton from "../../Components/Skeletons/TenantSkeleton";
 const Tenant = () => {
   const user = useSelector((state) => state.user);
-  const [tenants, setTenants] = useState([]);
+  const [tenants, setTenants] = useState(null);
   const [forceUpdate, setForceUpdate] = useState(true);
   const history = useHistory();
   const handleClick = () => {
@@ -45,41 +45,43 @@ const Tenant = () => {
     }
     setForceUpdate(false);
   }, [forceUpdate]);
-  return (
-    <div className="tenant">
-      <Header />
+  if (tenants) {
+    return (
+      <div className="tenant">
+        <Header />
 
-      {tenants.length <= 0 && (
-        <div className="tenantAbsent">
-          <div className="absentBox">
-            <p>No Tenants Added</p>
-            <button onClick={handleFirstAdd}>Add Tenant</button>
+        {tenants.length <= 0 && (
+          <div className="tenantAbsent">
+            <div className="absentBox">
+              <p>No Tenants Added</p>
+              <button onClick={handleFirstAdd}>Add Tenant</button>
+            </div>
           </div>
-        </div>
-      )}
-      {tenants.length > 0 && (
-        <div className="tenantHolder">
-          {tenants.map((data, index) => (
-            <TenantCard
-              tenantId={data._id}
-              name={data.name}
-              room={data.room}
-              number={data.number}
-              doj={data.doj}
-              due={data.dues}
+        )}
+        {tenants.length > 0 && (
+          <div className="tenantHolder">
+            {tenants.map((data, index) => (
+              <TenantCard
+                tenantId={data._id}
+                name={data.name}
+                room={data.room}
+                number={data.number}
+                doj={data.doj}
+                due={data.dues}
+              />
+            ))}
+            <img
+              src="Assets/Tenant/plus.png"
+              className="fab"
+              onClick={handleClick}
             />
-          ))}
-          <img
-            src="Assets/Tenant/plus.png"
-            className="fab"
-            onClick={handleClick}
-          />
-        </div>
-      )}
+          </div>
+        )}
 
-      <Footer page={"Tenants"} />
-    </div>
-  );
+        <Footer page={"Tenants"} />
+      </div>
+    );
+  } else return <TenantSkeleton />;
 };
 
 export default Tenant;
