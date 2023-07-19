@@ -32,3 +32,14 @@
   border-radius: 5px;
   margin-top: 20px;
 }
+.skeletonCardTop {
+  width: 100%;
+  padding: 10px 15px;
+}
+.skeletonCardTop button {
+  width: 120px;
+  height: 40px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 1px solid #f5f3f4;
+}
