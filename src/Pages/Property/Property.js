@@ -5,21 +5,26 @@ import { useHistory } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import PropertyInit from "./PropertyInit";
+import { getTotalFloors } from "../../actions/floorActions";
 import FloorSkeleton from "../../Components/Skeletons/FloorSkeleton";
 const Property = () => {
   const history = useHistory();
-  const floorPresent = useSelector((state) => state.floor.floorPresent);
+  const user = useSelector((state) => state.user);
+  const { userId, propertyId } = user;
+  const [forceUpdate, setForceUpdate] = useState(true);
   useEffect(() => {
-    if (floorPresent) {
-      history.push("/floor");
-    }
+    (async () => {
+      if (await getTotalFloors(userId, propertyId)) {
+        history.push("/floor");
+      }
+      setForceUpdate(false);
+    })();
   }, []);
-  if (!floorPresent) {
+  if (!forceUpdate) {
     return (
       <div className="propertyHome">
         <Header />
-        {!floorPresent && <PropertyInit />}
-
+        <PropertyInit />
         <Footer page={"Property"} />
       </div>
     );

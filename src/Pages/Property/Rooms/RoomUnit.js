@@ -95,6 +95,7 @@ const RoomDetails = () => {
   };
   const handleUpdate = () => {
     updateRoom(user.userId, user.propertyId, data);
+    setData(data);
     setEdit(!edit);
   };
   const handleChange = (e) => {
@@ -115,7 +116,7 @@ const RoomDetails = () => {
         setData(roomData);
       })();
     }
-  }, [edit]);
+  }, []);
   return (
     <div className="roomDetails">
       <div className="detailsHeader">Room Details</div>

@@ -23,15 +23,17 @@ const Floors = () => {
     return (
       <div className="floorDiv">
         <Header />
-        {floorData != null &&
-          floorData.map((data, key) => (
-            <FloorUnit
-              floorData={data}
-              key={key}
-              setFloorDetails={setFloorDetails}
-              setFloorName={setFloorName}
-            />
-          ))}
+        <div className="floorContainer">
+          {floorData != null &&
+            floorData.map((data, key) => (
+              <FloorUnit
+                floorData={data}
+                key={key}
+                setFloorDetails={setFloorDetails}
+                setFloorName={setFloorName}
+              />
+            ))}
+        </div>
         {floorDetails && (
           <AddFloor floorName={floorName} setFloorDetails={setFloorDetails} />
         )}
