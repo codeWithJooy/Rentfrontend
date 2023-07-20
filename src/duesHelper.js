@@ -3,7 +3,8 @@ export const calculateTotalDues = (dues, collections, discounts) => {
   let totalCollection = 0;
   let totalDiscount = 0;
   for (let i = 0; i < dues.length; i++) {
-    totalDues = totalDues + parseInt(dues[i].due);
+    totalDues =
+      totalDues + parseInt(dues[i].due) - parseInt(dues[i].collection);
   }
   for (let i = 0; i < collections.length; i++) {
     totalCollection = totalCollection + parseInt(collections[i].amount);
@@ -11,10 +12,13 @@ export const calculateTotalDues = (dues, collections, discounts) => {
   for (let i = 0; i < discounts.length; i++) {
     totalDiscount = totalDiscount + parseInt(discounts[i].amount);
   }
+  let sdIndex = dues.findIndex((val) => val.type == "Security Deposit");
+
   return {
-    due: totalDues - totalCollection - totalDiscount,
+    due: totalDues,
     collection: totalCollection,
     discount: totalDiscount,
+    sd: dues[sdIndex].collection,
   };
 };
 
