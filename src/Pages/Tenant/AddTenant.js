@@ -173,11 +173,11 @@ const AddTenant = () => {
     obj.dues.push(tenantSecurityDue);
     obj.collections = collection;
     obj.discounts = discount;
-    console.log(obj);
-    // addTenant(obj);
-    // setTimeout(() => {
-    //   history.push("/tenant");
-    // }, 2000);
+
+    addTenant(obj);
+    setTimeout(() => {
+      history.push("/tenant");
+    }, 2000);
   };
   useEffect(() => {
     if (forceUpdate) {
