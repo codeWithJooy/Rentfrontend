@@ -7,7 +7,7 @@ import { setTenant } from "../../actions/tenantAction";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getTenants } from "../../actions/tenantAction";
-import { getAllRooms } from "../../actions/roomActions";
+import { getAllRooms, getRoomName } from "../../actions/roomActions";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 import TenantSkeleton from "../../Components/Skeletons/TenantSkeleton";
@@ -64,7 +64,7 @@ const Tenant = () => {
               <TenantCard
                 tenantId={data._id}
                 name={data.name}
-                room={data.room}
+                roomId={data.roomId}
                 number={data.number}
                 doj={data.doj}
                 due={data.dues}
@@ -86,7 +86,8 @@ const Tenant = () => {
 
 export default Tenant;
 
-const TenantCard = ({ tenantId, name, room, number, doj, due }) => {
+const TenantCard = ({ tenantId, name, roomId, number, doj, due }) => {
+  const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -97,7 +98,13 @@ const TenantCard = ({ tenantId, name, room, number, doj, due }) => {
     dispatch(setTenant(tenantId));
     history.push("/tenantProfile");
   };
-  console.log(due);
+  console.log(roomId);
+  const [room, setRoom] = useState("Unknown");
+  useEffect(() => {
+    (async () => {
+      setRoom(await getRoomName(user.userId, user.propertyId, roomId));
+    })();
+  }, []);
   return (
     <div className="tenantCard">
       <div className="cardTop" onClick={handleCardClick}>
