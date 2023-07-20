@@ -45,13 +45,19 @@ const AddTenant = () => {
   const [tenantRentDue, setTenantRentDue] = useState({
     type: monthNameByDate(currentDate).name + " Rent",
     rent: rent,
+    total: calculateDue(rent, day.date, day.maxDays),
     due: calculateDue(rent, day.date, day.maxDays),
+    collection: 0,
+    discount: 0,
     description: "",
     dueDate: currentDate,
   });
   const [tenantSecurityDue, setTenantSecurityDue] = useState({
     type: "Security Deposit",
+    total: 0,
     due: 0,
+    collection: 0,
+    discount: 0,
     description: "",
     dueDate: currentDate,
   });
@@ -68,8 +74,10 @@ const AddTenant = () => {
     setTenantRentDue({
       ...tenantRentDue,
       rent: e.target.value,
+      total: calculateDue(e.target.value, day.date, day.maxDays),
       due: calculateDue(e.target.value, day.date, day.maxDays),
     });
+    setRent(e.target.value);
     setLockingRents(generateLockIn(lockin, currentDate, e.target.value));
   };
 
@@ -103,6 +111,7 @@ const AddTenant = () => {
     setTenantRentDue({
       ...tenantRentDue,
       rent: newRoom.rate,
+      total: calculateDue(newRoom.rate, day.date, day.maxDays),
       due: calculateDue(newRoom.rate, day.date, day.maxDays),
     });
     setLockingRents(generateLockIn(lockin, currentDate, newRoom.rate));
@@ -120,6 +129,11 @@ const AddTenant = () => {
     });
     setTenantRentDue({
       ...tenantRentDue,
+      total: calculateDue(
+        rent,
+        new Date(e.target.value).getDate(),
+        monthName(new Date(e.target.value).getMonth()).days
+      ),
       due: calculateDue(
         rent,
         new Date(e.target.value).getDate(),
@@ -143,6 +157,7 @@ const AddTenant = () => {
   const handleSecurityDueEdit = (e) => {
     setTenantSecurityDue({
       ...tenantSecurityDue,
+      total: e.target.value,
       due: e.target.value,
     });
   };
@@ -158,10 +173,11 @@ const AddTenant = () => {
     obj.dues.push(tenantSecurityDue);
     obj.collections = collection;
     obj.discounts = discount;
-    addTenant(obj);
-    setTimeout(() => {
-      history.push("/tenant");
-    }, 2000);
+    console.log(obj);
+    // addTenant(obj);
+    // setTimeout(() => {
+    //   history.push("/tenant");
+    // }, 2000);
   };
   useEffect(() => {
     if (forceUpdate) {
@@ -178,6 +194,7 @@ const AddTenant = () => {
         setTenantRentDue({
           ...tenantRentDue,
           rent: data ? data[0].rate : 0,
+          total: calculateDue(data ? data[0].rate : 0, day.date, day.maxDays),
           due: calculateDue(data ? data[0].rate : 0, day.date, day.maxDays),
         });
         setForceUpdate(false);
@@ -224,7 +241,7 @@ const AddTenant = () => {
               <p>Security Deposit</p>
               <input
                 type="number"
-                value={tenantSecurityDue.due}
+                value={tenantSecurityDue.total}
                 onChange={handleSecurityDueEdit}
               />
             </div>
@@ -351,6 +368,7 @@ const TenantPayment = ({
     if (newDis.amount > 0) {
       setDiscount((discount) => [...discount, newDis]);
     }
+    setData({ ...data, due: dummyDue });
     setEdit(false);
   };
   const handleDateChange = (e) => {
@@ -373,6 +391,7 @@ const TenantPayment = ({
       ...pay,
       [e.target.name]: value,
     });
+    setData({ ...data, collection: value });
   };
 
   const handleDiscountChange = (e) => {
@@ -388,6 +407,8 @@ const TenantPayment = ({
       });
     }
     setDummyDue(due - value);
+    setData({ ...data, discount: value, collection: due - value });
+
     setNewDis({
       ...newDis,
       amount: value,
