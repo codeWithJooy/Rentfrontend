@@ -14,6 +14,7 @@ import {
 } from "../../helper";
 import Toast from "../../Components/Toast/Toast";
 import { getAllRooms } from "../../actions/roomActions";
+import { getReceiptId } from "../../actions/collectionAction";
 const AddTenant = () => {
   const [rooms, setRooms] = useState([]);
   const [collection, setCollections] = useState([]);
@@ -331,12 +332,12 @@ const TenantPayment = ({
 }) => {
   const { type, due, dueDate } = data;
   const [dummyDue, setDummyDue] = useState(due);
-
   const [pay, setPayment] = useState({
     type: type,
     amount: due,
     date: moment(new Date(dueDate)).format("YYYY-MM-DD"),
     mode: "Cash",
+    receiptId: "0",
   });
   const [newDis, setNewDis] = useState({
     type: type,
@@ -396,7 +397,22 @@ const TenantPayment = ({
       amount: due - value,
     });
   };
+  const { userId, propertyId, propertyName } = useSelector(
+    (state) => state.user
+  );
 
+  useEffect(() => {
+    (async () => {
+      let data = await getReceiptId(
+        userId,
+        propertyId,
+        propertyName,
+        type,
+        pay.date
+      );
+      setPayment({ ...pay, receiptId: data });
+    })();
+  }, [pay.date]);
   return (
     <div className="categoryMain">
       <div className="categoryCross">
