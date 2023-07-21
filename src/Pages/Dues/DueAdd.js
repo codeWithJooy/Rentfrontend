@@ -26,6 +26,7 @@ const DueAdd = () => {
           />
           <div className="navTitle">
             <p>Rooms</p>
+            <p style={{ fontSize: 12 }}>8 Rooms</p>
           </div>
         </div>
         <div
@@ -41,11 +42,12 @@ const DueAdd = () => {
           />
           <div className="navTitle">
             <p>Tenants</p>
+            <p style={{ fontSize: 12 }}>1 Tenant</p>
           </div>
         </div>
       </div>
       {/* <DuesUnit setOpen={setOpen} /> */}
-      {nav == "room" && <DuesUnitRoom />}
+      {nav == "room" && <DuesUnitRoom setOpen={setOpen} />}
       {nav == "tenant" && <DuesUnitTenant />}
       {open && <DueCategory setOpen={setOpen} />}
     </div>

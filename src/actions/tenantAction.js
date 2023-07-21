@@ -82,7 +82,23 @@ export const getATenant = async (userId, propertyId, tenantId) => {
     dispatchAction(SET_SINGLE_TENANT, res.data.model);
   }
 };
-
+export const getRoomTenants = async (userId, propertyId, roomId) => {
+  const headers = getHeaders({
+    userId,
+    propertyId,
+    roomId,
+  });
+  const res = await tenantApi.get("/getTenantCount", headers);
+  if (res.data.code == 200) {
+    return res.data.model;
+  } else {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Error Fetching Tenants",
+    });
+    return 0;
+  }
+};
 export const setTenant = (data) => {
   return {
     type: SET_TENANT,

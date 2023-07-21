@@ -33,6 +33,7 @@ import AddAnnouncement from "./Pages/Announcement/AddAnnouncement";
 import Toasty from "./Components/Toasty/Toasty";
 import MemberProfile from "./Pages/Member/MemberProfile";
 
+import Receipt from "./Pages/Receipt/Receipt";
 const App = () => {
   return (
     <BrowserRouter>
@@ -65,6 +66,8 @@ const App = () => {
 
         <Route path="/announcement" component={Announcement} />
         <Route path="/addann" component={AddAnnouncement} />
+
+        <Route path="/receipt" component={Receipt} />
       </Switch>
       <Toasty />
     </BrowserRouter>

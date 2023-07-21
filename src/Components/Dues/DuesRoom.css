@@ -34,9 +34,16 @@
   display: flex;
   align-items: center;
 }
-.roomDuesButton button {
+.roomDuesButton .buttonPresent {
   padding: 7px 15px;
   background-color: #a4161a;
   color: #fff;
   font-size: 14px;
+}
+.roomDuesButton .buttonAbsent {
+  padding: 7px 15px;
+  background-color: #d3d3d3;
+  color: #161a1d;
+  font-size: 14px;
+  pointer-events: none;
 }
