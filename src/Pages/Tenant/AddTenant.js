@@ -14,6 +14,7 @@ import {
 } from "../../helper";
 import Toast from "../../Components/Toast/Toast";
 import { getAllRooms } from "../../actions/roomActions";
+import { getReceiptId } from "../../actions/collectionAction";
 const AddTenant = () => {
   const [rooms, setRooms] = useState([]);
   const [collection, setCollections] = useState([]);
@@ -44,13 +45,19 @@ const AddTenant = () => {
   const [tenantRentDue, setTenantRentDue] = useState({
     type: monthNameByDate(currentDate).name + " Rent",
     rent: rent,
+    total: calculateDue(rent, day.date, day.maxDays),
     due: calculateDue(rent, day.date, day.maxDays),
+    collection: 0,
+    discount: 0,
     description: "",
     dueDate: currentDate,
   });
   const [tenantSecurityDue, setTenantSecurityDue] = useState({
     type: "Security Deposit",
+    total: 0,
     due: 0,
+    collection: 0,
+    discount: 0,
     description: "",
     dueDate: currentDate,
   });
@@ -67,8 +74,10 @@ const AddTenant = () => {
     setTenantRentDue({
       ...tenantRentDue,
       rent: e.target.value,
+      total: calculateDue(e.target.value, day.date, day.maxDays),
       due: calculateDue(e.target.value, day.date, day.maxDays),
     });
+    setRent(e.target.value);
     setLockingRents(generateLockIn(lockin, currentDate, e.target.value));
   };
 
@@ -102,6 +111,7 @@ const AddTenant = () => {
     setTenantRentDue({
       ...tenantRentDue,
       rent: newRoom.rate,
+      total: calculateDue(newRoom.rate, day.date, day.maxDays),
       due: calculateDue(newRoom.rate, day.date, day.maxDays),
     });
     setLockingRents(generateLockIn(lockin, currentDate, newRoom.rate));
@@ -119,6 +129,11 @@ const AddTenant = () => {
     });
     setTenantRentDue({
       ...tenantRentDue,
+      total: calculateDue(
+        rent,
+        new Date(e.target.value).getDate(),
+        monthName(new Date(e.target.value).getMonth()).days
+      ),
       due: calculateDue(
         rent,
         new Date(e.target.value).getDate(),
@@ -142,6 +157,7 @@ const AddTenant = () => {
   const handleSecurityDueEdit = (e) => {
     setTenantSecurityDue({
       ...tenantSecurityDue,
+      total: e.target.value,
       due: e.target.value,
     });
   };
@@ -157,21 +173,28 @@ const AddTenant = () => {
     obj.dues.push(tenantSecurityDue);
     obj.collections = collection;
     obj.discounts = discount;
+
     addTenant(obj);
     setTimeout(() => {
       history.push("/tenant");
-    }, 4000);
+    }, 2000);
   };
   useEffect(() => {
     if (forceUpdate) {
       (async () => {
         let data = await getAllRooms(user.userId, user.propertyId);
         setRooms(data);
-        setTenant({ ...tenant, room: data ? data[0].name : "Unknown" });
+        setTenant({
+          ...tenant,
+          room: data ? data[0].name : "Unknown",
+          roomId: data ? data[0].id : "0",
+        });
+
         setRent(data ? data[0].rate : 0);
         setTenantRentDue({
           ...tenantRentDue,
           rent: data ? data[0].rate : 0,
+          total: calculateDue(data ? data[0].rate : 0, day.date, day.maxDays),
           due: calculateDue(data ? data[0].rate : 0, day.date, day.maxDays),
         });
         setForceUpdate(false);
@@ -218,7 +241,7 @@ const AddTenant = () => {
               <p>Security Deposit</p>
               <input
                 type="number"
-                value={tenantSecurityDue.due}
+                value={tenantSecurityDue.total}
                 onChange={handleSecurityDueEdit}
               />
             </div>
@@ -235,6 +258,20 @@ const AddTenant = () => {
               <div className="sectionUnitHeader">Dues Type</div>
               <div className="sectionUnitHeader">Due</div>
               <div className="sectionUnitHeader">Collected</div>
+            </div>
+            <div className="section">
+              <div className="sectionUnit unitMain">Security Deposit</div>
+              <div className="sectionUnit">
+                <p className="rate">Rs {tenantSecurityDue.due}</p>
+                <p className="range">One-Time</p>
+              </div>
+              <div className="sectionUnit collected">
+                <img
+                  src="Assets/Tenant/edit.png"
+                  onClick={handleSecurityEdit}
+                />
+                <p>{tenantSecurityDue.collection}</p>
+              </div>
             </div>
             <div className="section">
               <div className="sectionUnit unitMain">{tenantRentDue.type}</div>
@@ -264,20 +301,7 @@ const AddTenant = () => {
                   </div>
                 </div>
               ))}
-            <div className="section">
-              <div className="sectionUnit unitMain">Security Deposit</div>
-              <div className="sectionUnit">
-                <p className="rate">Rs {tenantSecurityDue.due}</p>
-                <p className="range">One-Time</p>
-              </div>
-              <div className="sectionUnit collected">
-                <img
-                  src="Assets/Tenant/edit.png"
-                  onClick={handleSecurityEdit}
-                />
-                <p>{tenantSecurityDue.collection}</p>
-              </div>
-            </div>
+
             <div className="tenantButton">
               <button onClick={handleAdd}>Add Tenant</button>
             </div>
@@ -325,12 +349,12 @@ const TenantPayment = ({
 }) => {
   const { type, due, dueDate } = data;
   const [dummyDue, setDummyDue] = useState(due);
-
   const [pay, setPayment] = useState({
     type: type,
     amount: due,
     date: moment(new Date(dueDate)).format("YYYY-MM-DD"),
     mode: "Cash",
+    receiptId: "0",
   });
   const [newDis, setNewDis] = useState({
     type: type,
@@ -344,6 +368,7 @@ const TenantPayment = ({
     if (newDis.amount > 0) {
       setDiscount((discount) => [...discount, newDis]);
     }
+    setData({ ...data, due: dummyDue });
     setEdit(false);
   };
   const handleDateChange = (e) => {
@@ -366,6 +391,7 @@ const TenantPayment = ({
       ...pay,
       [e.target.name]: value,
     });
+    setData({ ...data, collection: value });
   };
 
   const handleDiscountChange = (e) => {
@@ -381,6 +407,8 @@ const TenantPayment = ({
       });
     }
     setDummyDue(due - value);
+    setData({ ...data, discount: value, collection: due - value });
+
     setNewDis({
       ...newDis,
       amount: value,
@@ -390,7 +418,22 @@ const TenantPayment = ({
       amount: due - value,
     });
   };
+  const { userId, propertyId, propertyName } = useSelector(
+    (state) => state.user
+  );
 
+  useEffect(() => {
+    (async () => {
+      let data = await getReceiptId(
+        userId,
+        propertyId,
+        propertyName,
+        type,
+        pay.date
+      );
+      setPayment({ ...pay, receiptId: data });
+    })();
+  }, [pay.date]);
   return (
     <div className="categoryMain">
       <div className="categoryCross">

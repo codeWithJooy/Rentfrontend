@@ -77,7 +77,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
   const dues = useSelector((state) => state.tenant.singleTenant.dues);
   const collections = useSelector((state) => state.collection.tenantCollection);
   const discounts = useSelector((state) => state.collection.tenantDiscount);
-  const { due, collection, discount } = calculateTotalDues(
+  const { due, collection, discount, sd } = calculateTotalDues(
     dues,
     collections,
     discounts
@@ -102,7 +102,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
             setTopActive={setTopActive}
           />
           <PassbookTopUnit
-            amount={4000}
+            amount={sd}
             title={"Current Deposit"}
             topActive={topActive}
             setTopActive={setTopActive}

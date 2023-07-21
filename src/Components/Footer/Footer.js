@@ -14,7 +14,7 @@ const property = [
     title: "Money",
     icon: "Assets/Footer/wallet.png",
     iconSelected: "Assets/Footer/wallet_selected.png",
-    link: "/home",
+    link: "/dues",
   },
   {
     title: "Add",

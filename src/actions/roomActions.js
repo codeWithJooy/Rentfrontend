@@ -29,6 +29,27 @@ export const getRooms = async (userId, propertyId, floorName) => {
     console.log(error);
   }
 };
+export const getRoomName = async (userId, propertyId, roomId) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+      roomId,
+    });
+    const res = await roomApi.get("/getRoomName", header);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error Fetching Room Name",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getAllRooms = async (userId, propertyId) => {
   try {
     const header = getHeaders({

@@ -177,8 +177,10 @@ export const generateLockIn = (period, date, rent) => {
     let obj = {
       type: monthName(testMonth).name + " Rent",
       rent: rent,
+      total: rent,
       due: rent,
       collection: 0,
+      discount: 0,
       description: "",
       dueDate: moment({ year: newYear, month: testMonth, day: 1 }).format(
         "YYYY-MM-DD"
