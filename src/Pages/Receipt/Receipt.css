@@ -1,0 +1,61 @@
+.receiptMain {
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f3f4;
+  position: relative;
+  padding-bottom: 100px;
+  margin-bottom: 100px;
+  position: relative;
+}
+.receiptHolder {
+  width: 100%;
+  padding: 0px 0px 100px;
+  scrollbar-width: 0px;
+  overflow-y: scroll;
+}
+.receiptTop {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  background-color: #a4161a;
+}
+.receiptTop img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.receiptPg {
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+}
+.receiptInfo {
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 2px solid #a4161a;
+}
+.receiptInfoUnit {
+  width: 50%;
+}
+.receiptInfoDiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.receiptInfoUnitTitle {
+  width: 45%;
+  font-size: 10px;
+  color: #b1a5a6;
+}
+.receiptInfoUnitAns {
+  width: 55%;
+  text-align: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #161a1d;
+}

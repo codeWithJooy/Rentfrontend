@@ -112,3 +112,30 @@ export const getTenantDiscount = async (userId, propertyId, tenantId) => {
     console.log(error);
   }
 };
+
+export const getReceiptId = async (
+  userId,
+  propertyId,
+  propertyName,
+  type,
+  date
+) => {
+  try {
+    const data = { userId, propertyId, propertyName, type, date };
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      propertyName,
+      type,
+      date,
+    });
+    const res = await collectionApi.get("/getReceiptId", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      return 0;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
