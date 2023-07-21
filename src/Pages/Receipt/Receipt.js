@@ -56,12 +56,64 @@ const Receipt = () => {
             <ReceiptInfoDiv title={"Receipt No"} ans={"A/SD/July/2023/2"} />
           </div>
           <div className="receiptInfoUnit">
-            <ReceiptInfoDiv title={"Date"} ans={"21st July 2023"} />
+            <ReceiptInfoDiv title={"Date"} ans={"21 July 2023"} />
           </div>
+        </div>
+
+        <div className="receiptDetails">
+          <div className="receiptDetailsHeader">
+            <div className="paymentName paymentHeaderColor">
+              <p>Payment Details</p>
+            </div>
+            <div className="paymentOther paymentHeaderColor  ">
+              <p>Mode</p>
+            </div>
+            <div className="paymentOther paymentHeaderColor">
+              <p>Due</p>
+            </div>
+            <div className="paymentOther paymentHeaderColor">
+              <p>Paid </p>
+            </div>
+            <div className="paymentOther paymentHeaderColor ">
+              <p>Balance</p>
+            </div>
+          </div>
+          <div className="receiptDetailsContent">
+            <div className="paymentName ">
+              <p>Security Deposit</p>
+            </div>
+            <div className="paymentOther  ">
+              <p>Cash</p>
+            </div>
+            <div className="paymentOther ">
+              <p>Rs 10000</p>
+            </div>
+            <div className="paymentOther ">
+              <p>Rs 5000 </p>
+            </div>
+            <div className="paymentOther ">
+              <p>Rs 5000</p>
+            </div>
+          </div>
+          <div className="receiptDescription">
+            <div className="receiptGrand">
+              <p style={{ fontWeight: "bold" }}>Grand Total</p>
+            </div>
+            <div className="receiptTotal">Rs 5000</div>
+            <div className="receiptGrand">
+              <p style={{ fontSize: 9, marginTop: 10 }}>Recorded By (Admin)</p>
+            </div>
+          </div>
+          <div className="disclaimer">
+            <p>
+              This is a computer generated invoice issued by Abhi Pg through
+              RentPg App.It does not require any signatures.
+            </p>
+          </div>
+          <Terms />
         </div>
       </div>
       <button onClick={handlePrint}>Print</button>
-      <Footer />
     </div>
   );
 };
@@ -75,6 +127,49 @@ const ReceiptInfoDiv = ({ title, ans }) => {
       </div>
       <div className="receiptInfoUnitAns">
         <p>{ans}</p>
+      </div>
+    </div>
+  );
+};
+
+const Terms = () => {
+  return (
+    <div className="terms">
+      <div className="termsHeader">
+        <p>Terms and Conditions</p>
+      </div>
+      <div className="termsUnit">
+        <div className="termsUnitImg">
+          <img src="Assets/Property/done.png" />
+        </div>
+        <div className="termsUnitText">
+          <p>
+            Property Management provides accomodation as pimary service which
+            exempted from GST under section 11 of CGST act.
+          </p>
+        </div>
+      </div>
+      <div className="termsUnit">
+        <div className="termsUnitImg">
+          <img src="Assets/Property/done.png" />
+        </div>
+        <div className="termsUnitText">
+          <p>
+            This is an ackowledge receipt of the payment made by the tenant
+            through whatsover mode of payment for the corresponding services.
+          </p>
+        </div>
+      </div>
+      <div className="termsUnit">
+        <div className="termsUnitImg">
+          <img src="Assets/Property/done.png" />
+        </div>
+        <div className="termsUnitText">
+          <p>
+            No refund and/or discounts will ever be entertained against this
+            receipt.
+          </p>
+        </div>
       </div>
     </div>
   );
