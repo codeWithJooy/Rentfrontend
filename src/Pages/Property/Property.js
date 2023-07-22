@@ -24,7 +24,7 @@ const Property = () => {
     return (
       <div className="propertyHome">
         <Header />
-        <PropertyInit />
+        <PropertyInit setForceUpdate={setForceUpdate} />
         <Footer page={"Property"} />
       </div>
     );
