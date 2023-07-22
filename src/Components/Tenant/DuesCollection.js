@@ -36,7 +36,8 @@ const DuesCollection = ({ setOpenCategory, data, setForceUpdate }) => {
       collection.date,
       collection.mode,
       collection.discount,
-      collection.receiptId
+      collection.receiptId,
+      dummyData
     );
     setForceUpdate(true);
     setOpenCategory(false);

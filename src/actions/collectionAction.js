@@ -18,7 +18,8 @@ export const addCollection = async (
   date,
   mode,
   discount,
-  receiptId
+  receiptId,
+  openingDue
 ) => {
   try {
     console.log("Type is ", type);
@@ -34,6 +35,7 @@ export const addCollection = async (
       mode,
       discount,
       receiptId,
+      openingDue,
     };
     const res = await collectionApi.post("/addCollection", data, headers);
     if (res.data.code == 200) {
