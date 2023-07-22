@@ -25,7 +25,7 @@ export const setTotalFloors = async (userId, propertyId, floor) => {
         message: "Floors Added Succesfully ",
       });
       dispatchAction(TOTAL_FLOORS_ADDED, { totalFloors: floor });
-      return;
+      return true;
     } else if (response.data.code == 500) {
       updateToast({
         code: CodeAnalogy.ERROR,

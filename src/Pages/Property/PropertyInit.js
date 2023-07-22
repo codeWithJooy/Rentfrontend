@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTotalFloors, setTotalFloors } from "../../actions/floorActions";
 
-const PropertyInit = ({ setToast }) => {
+const PropertyInit = () => {
   const [floors, setFloors] = useState(0);
   const [forceUpdate, setForceUpdate] = useState(true);
   const floorPresent = useSelector((state) => state.floor.floorPresent);
@@ -23,8 +23,11 @@ const PropertyInit = ({ setToast }) => {
     setForceUpdate(false);
   }, [forceUpdate]);
   const handleFloors = () => {
-    setForceUpdate(true);
-    setTotalFloors(userId, propertyId, floors);
+    if (setTotalFloors(userId, propertyId, floors)) {
+      setTimeout(() => {
+        history.push("/floor");
+      }, 2000);
+    }
   };
   return (
     <div className="propertyContainer">

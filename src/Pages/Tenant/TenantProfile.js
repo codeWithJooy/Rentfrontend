@@ -15,7 +15,7 @@ import {
 
 const TenantProfile = () => {
   const history = useHistory();
-  const [navActive, setNavActive] = useState("profile");
+  const [navActive, setNavActive] = useState("passbook");
   const { userId, propertyId } = useSelector((state) => state.user);
   const tenantId = useSelector((state) => state.tenant.selectedTenant);
   const [forceUpdate, setForceUpdate] = useState(true);
