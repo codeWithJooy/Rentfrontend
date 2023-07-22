@@ -50,6 +50,25 @@ export const getActivated = async (userId, propertyId) => {
     console.log(error.message);
   }
 };
+export const updateFood = async (userId, propertyId, data) => {
+  const headers = getHeaders({
+    userId,
+    propertyId,
+  });
+
+  const res = await foodApi.put("/updateFood", data, headers);
+  if (res.data.code == 200) {
+    updateToast({
+      code: CodeAnalogy.SUCCESS,
+      title: "Food Updated",
+    });
+  } else {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Something Went Wrong",
+    });
+  }
+};
 export const timeActivated = (data) => {
   return {
     type: SET_FOOD_TIME,
