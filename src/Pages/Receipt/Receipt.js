@@ -88,13 +88,13 @@ const Receipt = () => {
               <p>{data.mode}</p>
             </div>
             <div className="paymentOther ">
-              <p>Rs {data.amount + data.balance}</p>
+              <p>Rs {data.due}</p>
             </div>
             <div className="paymentOther ">
               <p>Rs {data.amount}</p>
             </div>
             <div className="paymentOther ">
-              <p>Rs {data.balance}</p>
+              <p>Rs {parseInt(data.due) - parseInt(data.amount)}</p>
             </div>
           </div>
           <div className="receiptDescription">

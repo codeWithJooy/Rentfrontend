@@ -355,6 +355,7 @@ const TenantPayment = ({
     date: moment(new Date(dueDate)).format("YYYY-MM-DD"),
     mode: "Cash",
     receiptId: "0",
+    openingDue: due,
   });
   const [newDis, setNewDis] = useState({
     type: type,
@@ -416,6 +417,7 @@ const TenantPayment = ({
     setPayment({
       ...pay,
       amount: due - value,
+      openingDue: due - value,
     });
   };
   const { userId, propertyId, propertyName } = useSelector(
