@@ -1,9 +1,13 @@
+import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import {
   SET_DUES_TYPE,
   SET_DUES_PAGE,
   SET_DUE_ROOM,
   SET_DUE_TENANT,
 } from "../actionTypes/duesAction";
+import { duesApi } from "../apis/apis";
+import { getHeaders } from "./actionHelper";
+import { updateToast } from "./toastActions";
 
 export const setDuesType = (data) => {
   return {
@@ -30,4 +34,58 @@ export const setDueTenant = (data) => {
     type: SET_DUE_TENANT,
     payload: data,
   };
+};
+export const addDuesRoom = async (userId, propertyId, roomId, data) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+      roomId,
+    });
+    const res = await duesApi.post("/addDuesRoom", data, header);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: "Dues Added",
+        message: "Successfully Added Dues",
+      });
+      return true;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error While Adding Dues",
+      });
+      return true;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const addDuesTenant = async (userId, propertyId, tenantId, data) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await duesApi.post("/addDuesTenant", data, header);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: "Dues Added",
+        message: "Successfully Added Dues",
+      });
+      return true;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error While Adding Dues",
+      });
+      return true;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
 };

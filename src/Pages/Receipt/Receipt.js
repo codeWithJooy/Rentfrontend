@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 import html2canvas from "html2canvas";
+import { useSelector } from "react-redux";
 import jspdf from "jspdf";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import "./Receipt.css";
 const Receipt = () => {
+  const data = useSelector((state) => state.collection.receipt);
   const pdfRef = useRef();
   const handlePrint = () => {
     const input = pdfRef.current;
@@ -31,32 +33,32 @@ const Receipt = () => {
   };
   return (
     <div className="receiptMain">
-      <Header />
+      <Header name={"Tenant Receipt"} link={"/tenantProfile"} type="back" />
       <div className="receiptHolder" ref={pdfRef}>
         <div className="receiptTop">
           <img src="Assets/Header/RentPG.jpg" />
           <div className="receiptPg">
-            <p>Abhi Pg</p>
+            <p>{data.propertyName}</p>
           </div>
         </div>
         <div className="receiptInfo">
           <div className="receiptInfoUnit">
-            <ReceiptInfoDiv title={"Name"} ans={"Abhi Singh"} />
-            <ReceiptInfoDiv title={"Room"} ans={"Base-102"} />
-            <ReceiptInfoDiv title={"Phone"} ans={"9007453398"} />
+            <ReceiptInfoDiv title={"Name"} ans={data.tenantName} />
+            <ReceiptInfoDiv title={"Room"} ans={data.room} />
+            <ReceiptInfoDiv title={"Phone"} ans={data.phone} />
           </div>
           <div className="receiptInfoUnit">
             <ReceiptInfoDiv title={"GST"} ans={""} />
-            <ReceiptInfoDiv title={"Admin Name"} ans={"Abhi PG"} />
-            <ReceiptInfoDiv title={"Admin No"} ans={"9007453398"} />
+            <ReceiptInfoDiv title={"Admin Name"} ans={data.propertyName} />
+            <ReceiptInfoDiv title={"Admin No"} ans={data.propertyNumber} />
           </div>
         </div>
         <div className="receiptInfo">
           <div className="receiptInfoUnit">
-            <ReceiptInfoDiv title={"Receipt No"} ans={"A/SD/July/2023/2"} />
+            <ReceiptInfoDiv title={"Receipt No"} ans={data.receiptId} />
           </div>
           <div className="receiptInfoUnit">
-            <ReceiptInfoDiv title={"Date"} ans={"21 July 2023"} />
+            <ReceiptInfoDiv title={"Date"} ans={data.date} />
           </div>
         </div>
 
@@ -80,26 +82,26 @@ const Receipt = () => {
           </div>
           <div className="receiptDetailsContent">
             <div className="paymentName ">
-              <p>Security Deposit</p>
+              <p>{data.type}</p>
             </div>
             <div className="paymentOther  ">
-              <p>Cash</p>
+              <p>{data.mode}</p>
             </div>
             <div className="paymentOther ">
-              <p>Rs 10000</p>
+              <p>Rs {data.amount + data.balance}</p>
             </div>
             <div className="paymentOther ">
-              <p>Rs 5000 </p>
+              <p>Rs {data.amount}</p>
             </div>
             <div className="paymentOther ">
-              <p>Rs 5000</p>
+              <p>Rs {data.balance}</p>
             </div>
           </div>
           <div className="receiptDescription">
             <div className="receiptGrand">
               <p style={{ fontWeight: "bold" }}>Grand Total</p>
             </div>
-            <div className="receiptTotal">Rs 5000</div>
+            <div className="receiptTotal">Rs {data.amount}</div>
             <div className="receiptGrand">
               <p style={{ fontSize: 9, marginTop: 10 }}>Recorded By (Admin)</p>
             </div>

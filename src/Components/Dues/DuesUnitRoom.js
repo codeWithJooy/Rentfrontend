@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "./DuesRoom.css";
 import { getAllRooms } from "../../actions/roomActions";
 import { getRoomTenants } from "../../actions/tenantAction";
+import { setDueRoom } from "../../actions/duesAction";
 
-const DuesUnitRoom = ({ setOpen }) => {
+const DuesUnitRoom = ({ setOpen, setDueSetData }) => {
   const user = useSelector((state) => state.user);
   const [rooms, setRooms] = useState([]);
   useEffect(() => {
@@ -19,7 +20,12 @@ const DuesUnitRoom = ({ setOpen }) => {
     <div className="duesRoom">
       {rooms &&
         rooms.map((unit, key) => (
-          <RoomDuesCard key={key} data={unit} setOpen={setOpen} />
+          <RoomDuesCard
+            key={key}
+            data={unit}
+            setOpen={setOpen}
+            setDueSetData={setDueSetData}
+          />
         ))}
     </div>
   );
@@ -27,9 +33,19 @@ const DuesUnitRoom = ({ setOpen }) => {
 
 export default DuesUnitRoom;
 
-const RoomDuesCard = ({ data, setOpen }) => {
+const RoomDuesCard = ({ data, setOpen, setDueSetData }) => {
   const [count, setCount] = useState(0);
+  const obj = {
+    title: `Room : ${data.name}`,
+    dueType: useSelector((state) => state.due.dueType),
+    id: data.id,
+    useFor: "room",
+  };
   const { userId, propertyId } = useSelector((state) => state.user);
+  const handleDueRoom = () => {
+    setDueSetData(obj);
+    setOpen(true);
+  };
   useEffect(() => {
     (async () => {
       let countData = await getRoomTenants(userId, propertyId, data.id);
@@ -44,7 +60,7 @@ const RoomDuesCard = ({ data, setOpen }) => {
         </div>
         <div className="roomDuesButton">
           {count > 0 && (
-            <button className="buttonPresent" onClick={() => setOpen(true)}>
+            <button className="buttonPresent" onClick={handleDueRoom}>
               Add Dues
             </button>
           )}
