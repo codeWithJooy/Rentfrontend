@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dues.css";
 import { useSelector } from "react-redux";
 import Header from "../../Components/Header/Header";
 import DuesUnitRoom from "../../Components/Dues/DuesUnitRoom";
 import DuesUnitTenant from "../../Components/Dues/DuesUnitTenanat";
+import moment from "moment";
+import { addDuesRoom } from "../../actions/duesAction";
 const DueAdd = () => {
   const [nav, setNav] = useState("room");
   const [open, setOpen] = useState(false);
   const dueType = useSelector((state) => state.due.dueType);
+  const [dueSetData, setDueSetData] = useState({});
   console.log(dueType);
   return (
     <div className="duesMain">
@@ -47,9 +50,11 @@ const DueAdd = () => {
         </div>
       </div>
       {/* <DuesUnit setOpen={setOpen} /> */}
-      {nav == "room" && <DuesUnitRoom setOpen={setOpen} />}
+      {nav == "room" && (
+        <DuesUnitRoom setOpen={setOpen} setDueSetData={setDueSetData} />
+      )}
       {nav == "tenant" && <DuesUnitTenant />}
-      {open && <DueCategory setOpen={setOpen} />}
+      {open && <DueCategory setOpen={setOpen} dueSetData={dueSetData} />}
     </div>
   );
 };
@@ -77,9 +82,37 @@ const DuesUnit = ({ setOpen }) => {
   );
 };
 
-const DueCategory = ({ setOpen }) => {
+const DueCategory = ({ setOpen, dueSetData }) => {
+  const { userId, propertyId } = useSelector((state) => state.user);
+  const { title, dueType, id, useFor } = dueSetData;
+  const [due, setDue] = useState({
+    type: dueType,
+    total: 0,
+    due: 0,
+    collection: 0,
+    discount: 0,
+    description: "",
+    dueDate: moment(new Date()).format("YYYY-MM-DD"),
+  });
+  const amountChange = (e) => {
+    setDue({ ...due, total: e.target.value, due: e.target.value });
+  };
+  const timeChange = (e) => {
+    const newTime = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    setDue({ ...due, dueDate: newTime });
+  };
+  const descriptionChange = (e) => {
+    setDue({ ...due, description: e.target.value });
+  };
   const handleCross = () => {
     setOpen(false);
+  };
+  const addDue = () => {
+    if (dueSetData.useFor == "room") {
+      addDuesRoom(userId, propertyId, id, due);
+      setOpen(false);
+    } else {
+    }
   };
   return (
     <div className="categoryMain">
@@ -87,20 +120,26 @@ const DueCategory = ({ setOpen }) => {
         <img src="Assets/components/cross.png" onClick={handleCross} />
       </div>
       <div className="categoryContainer">
-        <div className="categoryTitle">Select Expense Category </div>
+        <div className="categoryTitle">{`Add ${dueType} for ${title}`}</div>
         <div className="tenantAddSection">
           <p>Amount</p>
-          <input type="text" />
+          <input type="text" value={due.total} onChange={amountChange} />
         </div>
         <div className="tenantAddSection">
           <p>Due Date</p>
-          <input type="text" />
+          <input type="date" value={due.dueDate} onChange={timeChange} />
         </div>
         <div className="tenantAddSection">
           <p>Description</p>
-          <input type="text" />
+          <input
+            type="text"
+            value={due.description}
+            onChange={descriptionChange}
+          />
         </div>
-        <button className="dueButton">Add Due</button>
+        <button className="dueButton" onClick={addDue}>
+          Add Due
+        </button>
       </div>
     </div>
   );

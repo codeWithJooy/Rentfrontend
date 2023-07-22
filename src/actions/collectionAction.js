@@ -2,6 +2,7 @@ import {
   SET_TENANT_COLLECTION,
   SET_ALL_COLLECTION,
   SET_TENANT_DISCOUNT,
+  SET_RECEIPT_DATA,
 } from "../actionTypes/collectionType";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
@@ -15,7 +16,10 @@ export const addCollection = async (
   type,
   amount,
   date,
-  mode
+  mode,
+  discount,
+  receiptId,
+  openingDue
 ) => {
   try {
     console.log("Type is ", type);
@@ -29,6 +33,9 @@ export const addCollection = async (
       amount,
       date,
       mode,
+      discount,
+      receiptId,
+      openingDue,
     };
     const res = await collectionApi.post("/addCollection", data, headers);
     if (res.data.code == 200) {
@@ -134,6 +141,35 @@ export const getReceiptId = async (
       return res.data.model;
     } else {
       return 0;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getReceiptData = async (
+  userId,
+  propertyId,
+  propertyName,
+  tenantId,
+  receiptId
+) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      propertyName,
+      tenantId,
+      receiptId,
+    });
+    const res = await collectionApi.get("/getReceiptData", headers);
+    if (res.data.code == 200) {
+      dispatchAction(SET_RECEIPT_DATA, res.data.model);
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+      });
     }
   } catch (error) {
     console.log(error);
