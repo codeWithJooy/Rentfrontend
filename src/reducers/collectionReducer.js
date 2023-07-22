@@ -3,6 +3,7 @@ import {
   SET_TENANT_COLLECTION,
   SET_ALL_DISCOUNT,
   SET_TENANT_DISCOUNT,
+  SET_RECEIPT_DATA,
 } from "../actionTypes/collectionType";
 
 const initial = {
@@ -10,6 +11,7 @@ const initial = {
   collections: [],
   tenantDiscount: {},
   discounts: [],
+  receipt: {},
 };
 
 const collectionReducer = (state = initial, action) => {
@@ -33,6 +35,11 @@ const collectionReducer = (state = initial, action) => {
       return {
         ...state,
         discounts: action.payload,
+      };
+    case SET_RECEIPT_DATA:
+      return {
+        ...state,
+        receipt: action.payload,
       };
     default:
       return state;

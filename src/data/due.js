@@ -12,15 +12,15 @@ export const dueData = [
     img: "Assets/Dues/electricity.png",
   },
   {
-    title: "Wifi",
+    title: "Wifi Due",
     img: "Assets/Dues/wifi.png",
   },
   {
-    title: "Mess",
+    title: "Mess Due",
     img: "Assets/Dues/mess.png",
   },
   {
-    title: "Maintenance",
+    title: "Maintenance Due",
     img: "Assets/Dues/maintenance.png",
   },
   {
