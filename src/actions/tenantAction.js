@@ -8,8 +8,11 @@ import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { tenantApi, collectionApi } from "../apis/apis";
 import { getHeaders, dispatchAction } from "./actionHelper";
+import { addTenantValidation } from "../validations/tenantValidation";
 export const addTenant = async (data) => {
   try {
+    if (!addTenantValidation(data)) return false;
+
     const res = await tenantApi.post("/addTenant", data);
     if (res.data.code == 200) {
       updateToast({
@@ -17,14 +20,14 @@ export const addTenant = async (data) => {
         title: "Tenant Added",
         message: "Tenant added Successfully",
       });
-      return;
+      return true;
     } else if (res.data.code == 403) {
       updateToast({
         code: CodeAnalogy.ERROR,
         title: "Tenant Present",
         message: "Tenant Present Already",
       });
-      return;
+      return false;
     } else {
       updateToast({
         code: CodeAnalogy.ERROR,

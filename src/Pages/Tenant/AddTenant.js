@@ -16,6 +16,7 @@ import Toast from "../../Components/Toast/Toast";
 import { getAllRooms } from "../../actions/roomActions";
 import { getReceiptId } from "../../actions/collectionAction";
 const AddTenant = () => {
+  const history = useHistory();
   const [rooms, setRooms] = useState([]);
   const [collection, setCollections] = useState([]);
   const [discount, setDiscount] = useState([]);
@@ -240,11 +241,14 @@ const AddTenant = () => {
     obj.dues.push(tenantSecurityDue);
     obj.collections = collection;
     obj.discounts = discount;
-    console.log(obj);
-    // addTenant(obj);
-    // setTimeout(() => {
-    //   history.push("/tenant");
-    // }, 2000);
+
+    (async () => {
+      if (await addTenant(obj)) {
+        setTimeout(() => {
+          history.push("/tenant");
+        }, 2000);
+      }
+    })();
   };
   useEffect(() => {
     if (forceUpdate) {
