@@ -86,20 +86,44 @@ export const getATenant = async (userId, propertyId, tenantId) => {
   }
 };
 export const getRoomTenants = async (userId, propertyId, roomId) => {
-  const headers = getHeaders({
-    userId,
-    propertyId,
-    roomId,
-  });
-  const res = await tenantApi.get("/getTenantCount", headers);
-  if (res.data.code == 200) {
-    return res.data.model;
-  } else {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Error Fetching Tenants",
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      roomId,
     });
-    return 0;
+    const res = await tenantApi.get("/getTenantCount", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Fetching Tenants",
+      });
+      return 0;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getAllTenantsCount = async (userId, propertyId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    });
+    const res = await tenantApi.get("/getAllTenantsCount", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Fetching Tenants Count",
+      });
+      return 0;
+    }
+  } catch (error) {
+    console.log(error.message);
   }
 };
 export const setTenant = (data) => {

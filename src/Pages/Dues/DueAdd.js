@@ -5,13 +5,26 @@ import Header from "../../Components/Header/Header";
 import DuesUnitRoom from "../../Components/Dues/DuesUnitRoom";
 import DuesUnitTenant from "../../Components/Dues/DuesUnitTenanat";
 import moment from "moment";
-import { addDuesRoom } from "../../actions/duesAction";
+import { addDuesRoom, addDuesTenant } from "../../actions/duesAction";
+import { getAllTenantsCount } from "../../actions/tenantAction";
+import { getTotalRoomCounts } from "../../actions/roomActions";
 const DueAdd = () => {
   const [nav, setNav] = useState("room");
   const [open, setOpen] = useState(false);
+  const [roomCount, setRoomCount] = useState(0);
+  const [tenantCount, setTenantCount] = useState(0);
+  const { userId, propertyId } = useSelector((state) => state.user);
   const dueType = useSelector((state) => state.due.dueType);
   const [dueSetData, setDueSetData] = useState({});
   console.log(dueType);
+  useEffect(() => {
+    (async () => {
+      let tenantData = await getAllTenantsCount(userId, propertyId);
+      let roomData = await getTotalRoomCounts(userId, propertyId);
+      setTenantCount(tenantData);
+      setRoomCount(roomData);
+    })();
+  }, []);
   return (
     <div className="duesMain">
       <Header type="back" name={dueType} link="/dues" />
@@ -29,7 +42,7 @@ const DueAdd = () => {
           />
           <div className="navTitle">
             <p>Rooms</p>
-            <p style={{ fontSize: 12 }}>8 Rooms</p>
+            <p style={{ fontSize: 12 }}>{roomCount} Rooms</p>
           </div>
         </div>
         <div
@@ -45,7 +58,7 @@ const DueAdd = () => {
           />
           <div className="navTitle">
             <p>Tenants</p>
-            <p style={{ fontSize: 12 }}>1 Tenant</p>
+            <p style={{ fontSize: 12 }}>{tenantCount} Tenant</p>
           </div>
         </div>
       </div>
@@ -53,7 +66,9 @@ const DueAdd = () => {
       {nav == "room" && (
         <DuesUnitRoom setOpen={setOpen} setDueSetData={setDueSetData} />
       )}
-      {nav == "tenant" && <DuesUnitTenant />}
+      {nav == "tenant" && (
+        <DuesUnitTenant setOpen={setOpen} setDueSetData={setDueSetData} />
+      )}
       {open && <DueCategory setOpen={setOpen} dueSetData={dueSetData} />}
     </div>
   );
@@ -61,30 +76,11 @@ const DueAdd = () => {
 
 export default DueAdd;
 
-const DuesUnit = ({ setOpen }) => {
-  const handleOpen = () => {
-    setOpen(true);
-  };
-  return (
-    <div className="duesCard">
-      <div className="duesTop">
-        <div className="duesTopTitle">
-          <p>Abhi Hazra</p>
-        </div>
-        <div className="duesTopButton">
-          <button onClick={handleOpen}>Add Dues</button>
-        </div>
-      </div>
-      <div className="duesRoom">
-        <p>Room:Ground1</p>
-      </div>
-    </div>
-  );
-};
-
 const DueCategory = ({ setOpen, dueSetData }) => {
   const { userId, propertyId } = useSelector((state) => state.user);
-  const { title, dueType, id, useFor } = dueSetData;
+  const { title, dueType, id, useFor, sharing, split } = dueSetData;
+  const [dummyAmt, setDummyAmt] = useState(0);
+  const [splitType, setSplitType] = useState("split");
   const [due, setDue] = useState({
     type: dueType,
     total: 0,
@@ -95,7 +91,19 @@ const DueCategory = ({ setOpen, dueSetData }) => {
     dueDate: moment(new Date()).format("YYYY-MM-DD"),
   });
   const amountChange = (e) => {
-    setDue({ ...due, total: e.target.value, due: e.target.value });
+    let val = e.target.value;
+    setDummyAmt(val);
+    if (splitType == "split") {
+      if (sharing == "Double") {
+        setDue({ ...due, total: Math.ceil(val / 2), due: Math.ceil(val / 2) });
+      } else if (sharing == "Triple") {
+        setDue({ ...due, total: Math.ceil(val / 3), due: Math.ceil(val / 3) });
+      } else {
+        setDue({ ...due, total: e.target.value, due: e.target.value });
+      }
+    } else {
+      setDue({ ...due, total: e.target.value, due: e.target.value });
+    }
   };
   const timeChange = (e) => {
     const newTime = moment(new Date(e.target.value)).format("YYYY-MM-DD");
@@ -107,11 +115,51 @@ const DueCategory = ({ setOpen, dueSetData }) => {
   const handleCross = () => {
     setOpen(false);
   };
+  const handleChange = (e) => {
+    let amount = parseInt(dummyAmt);
+    console.log(amount);
+    if (e.target.value == "split") {
+      if (sharing == "Double") {
+        let newAmt = Math.ceil(amount / 2);
+
+        setDue({
+          ...due,
+          total: newAmt,
+          due: newAmt,
+        });
+        setSplitType("split");
+      } else if (sharing == "Triple") {
+        setDue({
+          ...due,
+          total: Math.ceil(amount / 3),
+          due: Math.ceil(amount / 3),
+        });
+        setSplitType("split");
+      } else {
+        setDue({
+          ...due,
+          total: Math.ceil(amount),
+          due: Math.ceil(amount),
+        });
+        setSplitType("split");
+      }
+    } else {
+      setDue({
+        ...due,
+        total: Math.ceil(amount),
+        due: Math.ceil(amount),
+        splitType: e.target.value,
+      });
+      setSplitType("whole");
+    }
+  };
   const addDue = () => {
     if (dueSetData.useFor == "room") {
       addDuesRoom(userId, propertyId, id, due);
       setOpen(false);
     } else {
+      addDuesTenant(userId, propertyId, id, due);
+      setOpen(false);
     }
   };
   return (
@@ -123,8 +171,20 @@ const DueCategory = ({ setOpen, dueSetData }) => {
         <div className="categoryTitle">{`Add ${dueType} for ${title}`}</div>
         <div className="tenantAddSection">
           <p>Amount</p>
-          <input type="text" value={due.total} onChange={amountChange} />
+          <input type="text" value={dummyAmt} onChange={amountChange} />
         </div>
+        {useFor == "room" && (
+          <div className="tenantAddSection">
+            <p>Split Amount</p>
+            <select
+              style={{ width: "100%", background: "transparent" }}
+              onChange={handleChange}
+            >
+              <option value="split">Split Amount among Tenants</option>
+              <option value="whole">Add Same Amount among Tenants</option>
+            </select>
+          </div>
+        )}
         <div className="tenantAddSection">
           <p>Due Date</p>
           <input type="date" value={due.dueDate} onChange={timeChange} />
