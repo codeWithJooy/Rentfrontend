@@ -23,7 +23,7 @@ const prodApis = {
   MEMBER_API: "https://rentpg.onrender.com/api/member",
   COLLECTION_API: "https://rentpg.onrender.com/api/collection",
   DUE_API: "https://rentpg.onrender.com/api/dues",
-  SUMMARY_API: "http://rentpg.onrender.com/api/summary",
+  SUMMARY_API: "https://rentpg.onrender.com/api/summary",
 };
 
 const getApiUrls = () => {
