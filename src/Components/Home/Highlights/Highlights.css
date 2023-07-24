@@ -15,5 +15,33 @@
   width: 100px;
   height: 70px;
   border-radius: 5px;
+  padding: 5px;
   border: 1px solid #b1a7a6;
+}
+.highlightAmount {
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+}
+.highlightBottom {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.highlightType {
+  width: 50%;
+  font-size: 10px;
+}
+.highlightIcon {
+  width: 50%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.highlightIcon img {
+  width: 20px;
+  height: 20px;
 }

@@ -70,6 +70,26 @@ export const getAllRooms = async (userId, propertyId) => {
     console.log(error);
   }
 };
+export const getTotalRoomCounts = async (userId, propertyId) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+    });
+    const res = await roomApi.get("/getTotalRoomCounts", header);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error Fetching Room Data",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getSingleRoom = async (
   userId,
   propertyId,
