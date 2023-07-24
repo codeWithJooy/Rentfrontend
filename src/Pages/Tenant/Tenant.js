@@ -14,6 +14,7 @@ import TenantSkeleton from "../../Components/Skeletons/TenantSkeleton";
 const Tenant = () => {
   const user = useSelector((state) => state.user);
   const [tenants, setTenants] = useState(null);
+  const [search, setSearch] = useState("");
   const [forceUpdate, setForceUpdate] = useState(true);
   const history = useHistory();
   const handleClick = () => {
@@ -45,6 +46,16 @@ const Tenant = () => {
     }
     setForceUpdate(false);
   }, [forceUpdate]);
+  let filteredTenants = tenants;
+  if (search) {
+    filteredTenants = tenants.filter((tenant) => {
+      return (
+        tenant.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        tenant.number.includes(search) ||
+        tenant.roomName.includes(search)
+      );
+    });
+  }
   if (tenants) {
     return (
       <div className="tenant">
@@ -60,21 +71,30 @@ const Tenant = () => {
         )}
         {tenants.length > 0 && (
           <div className="tenantHolder">
-            {tenants.map((data, index) => (
+            <div className="tenantSearch">
+              <div className="tenantSearchBox">
+                <input
+                  placeholder="Search Tenant By Name,Number,Room"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+              <button className="tenantAddBox" onClick={handleClick}>
+                Add Tenant
+              </button>
+            </div>
+            {filteredTenants.map((data, index) => (
               <TenantCard
+                key={index}
                 tenantId={data._id}
                 name={data.name}
+                roomName={data.roomName}
                 roomId={data.roomId}
                 number={data.number}
                 doj={data.doj}
                 due={data.dues}
               />
             ))}
-            <img
-              src="Assets/Tenant/plus.png"
-              className="fab"
-              onClick={handleClick}
-            />
           </div>
         )}
 
@@ -86,7 +106,7 @@ const Tenant = () => {
 
 export default Tenant;
 
-const TenantCard = ({ tenantId, name, roomId, number, doj, due }) => {
+const TenantCard = ({ tenantId, name, roomId, number, doj, due, roomName }) => {
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -109,7 +129,7 @@ const TenantCard = ({ tenantId, name, roomId, number, doj, due }) => {
     <div className="tenantCard">
       <div className="cardTop" onClick={handleCardClick}>
         <div className="cardName">{name}</div>
-        <div className="cardRoom">{room}</div>
+        <div className="cardRoom">{roomName}</div>
       </div>
       <div className="cardMiddle">
         <div className="cardPhone">{number}</div>

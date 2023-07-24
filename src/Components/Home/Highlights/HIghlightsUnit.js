@@ -1,7 +1,6 @@
 import React from "react";
 
 const HighlightsUnit = ({ val }) => {
-  console.log(val.title);
   return (
     <div className="highlightUnit">
       <div className="highlightAmount">

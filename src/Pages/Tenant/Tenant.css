@@ -339,3 +339,38 @@ input {
 
   top: 110px;
 }
+.tenantSearch {
+  width: 90%;
+  margin-left: 5%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.tenantSearchBox {
+  width: 65%;
+  height: 40px;
+  padding: 5px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+.tenantSearchBox input {
+  border: none;
+  outline: none;
+}
+.tenantSearchBox input::placeholder {
+  font-size: 11px;
+  color: #d3d3d3;
+}
+.tenantAddBox {
+  width: 30%;
+  height: 40px;
+  background-color: #a4161a;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+}
