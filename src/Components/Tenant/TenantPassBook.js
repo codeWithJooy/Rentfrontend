@@ -40,40 +40,48 @@ const TenantPassBook = ({ setForceUpdate }) => {
             title={"Total Dues"}
             topActive={topActive}
             setTopActive={setTopActive}
+            icon={"Assets/Home/Highlights/due.png"}
           />
           <PassbookTopUnit
             amount={collection}
             title={"Total Collection"}
             topActive={topActive}
             setTopActive={setTopActive}
+            icon={"Assets/Home/Highlights/collection.png"}
           />
           <PassbookTopUnit
             amount={sd}
             title={"Current Deposit"}
             topActive={topActive}
             setTopActive={setTopActive}
+            icon={"Assets/Home/Highlights/deposit.png"}
           />
           <PassbookTopUnit
             amount={discount}
             title={"Total Discounts"}
             topActive={topActive}
             setTopActive={setTopActive}
+            icon={"Assets/Home/Highlights/collection.png"}
           />
         </Slider>
       </div>
       <div className="passbookBody">
         {topActive == "Total Dues" &&
-          dues.map((dueData, val) => (
-            <DuesDataCard
-              key={val}
-              type={dueData.type}
-              due={dueData.due}
-              dueDate={dueData.dueDate}
-              collection={dueData.collection}
-              setOpenCategory={setOpenCategory}
-              setDueDetail={setDueDetail}
-            />
-          ))}
+          dues
+            .filter(
+              (unit) => parseInt(unit.due) - parseInt(unit.collection) > 0
+            )
+            .map((dueData, val) => (
+              <DuesDataCard
+                key={val}
+                type={dueData.type}
+                due={dueData.due}
+                dueDate={dueData.dueDate}
+                collection={dueData.collection}
+                setOpenCategory={setOpenCategory}
+                setDueDetail={setDueDetail}
+              />
+            ))}
         {topActive == "Total Collection" &&
           collections.map((col, val) => (
             <DuesCollectionCard
@@ -83,6 +91,15 @@ const TenantPassBook = ({ setForceUpdate }) => {
               date={col.date}
               mode={col.mode}
               receiptId={col.receiptId}
+            />
+          ))}
+        {topActive == "Total Discounts" &&
+          discounts.map((col, val) => (
+            <DuesDiscountCard
+              key={val}
+              type={col.type}
+              amount={col.amount}
+              date={col.date}
             />
           ))}
       </div>
@@ -99,7 +116,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
 
 export default TenantPassBook;
 
-const PassbookTopUnit = ({ amount, title, topActive, setTopActive }) => {
+const PassbookTopUnit = ({ amount, title, topActive, setTopActive, icon }) => {
   let color = "#660708";
   if (topActive == "Total Collection") {
     color = "green";
@@ -122,7 +139,7 @@ const PassbookTopUnit = ({ amount, title, topActive, setTopActive }) => {
           <p>{title}</p>
         </div>
         <div className="passBottomImg">
-          <img src="Assets/Announcement/write.png" />
+          <img src={icon} />
         </div>
       </div>
     </div>
@@ -219,6 +236,32 @@ const DuesCollectionCard = ({ type, amount, date, mode, receiptId }) => {
 
           <div className="ddcDueDate">
             <p style={{ color: "lightgreen" }}>Paid Using {mode}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+const DuesDiscountCard = ({ type, amount, date }) => {
+  const history = useHistory();
+  const { userId, propertyId, propertyName } = useSelector(
+    (state) => state.user
+  );
+  const tenantId = useSelector((state) => state.tenant.selectedTenant);
+  return (
+    <div className="duesDataCard">
+      <div className="ddcTop">
+        <div className="ddcHead">
+          <div className="ddcTitle">
+            <p>{type}</p>
+          </div>
+          <div className="ddcDue">
+            <p>Rs {amount}</p>
+          </div>
+        </div>
+        <div className="ddcHead">
+          <div className="ddcRoom">
+            <p>Discount On {date}</p>
           </div>
         </div>
       </div>
