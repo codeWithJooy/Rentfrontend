@@ -210,3 +210,62 @@
   font-size: 14px;
   color: #fff;
 }
+
+/*=========================================================*/
+.duesDashCard {
+  width: 90%;
+  margin-left: 5%;
+  height: 50vh;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 4px #b1a7a6;
+}
+.duesDashTop {
+  width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #b1a7a6;
+}
+.duesDashTop img {
+  width: 20px;
+  height: 20px;
+}
+.duesDashTopName {
+  width: calc(100% - 30px);
+  padding: 2px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #a4161a;
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+}
+.duesDashData {
+  width: 100%;
+  padding: 10px 10px;
+}
+.dashDataUnit {
+  width: 100%;
+  padding: 4px 20px 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dashDataTitle {
+  width: 60%;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+}
+.dashDataValue {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-family: 15px;
+  font-weight: bold;
+}
+/*========================================================*/

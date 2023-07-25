@@ -11,6 +11,8 @@ import {
 } from "../../duesHelper";
 import DuesCollection from "./DuesCollection";
 import { getReceiptData } from "../../actions/collectionAction";
+import { updateToast } from "../../actions/toastActions";
+import { CodeAnalogy } from "../Toasty/Toasty";
 const TenantPassBook = ({ setForceUpdate }) => {
   const settings = {
     dots: false,
@@ -50,18 +52,18 @@ const TenantPassBook = ({ setForceUpdate }) => {
             icon={"Assets/Home/Highlights/collection.png"}
           />
           <PassbookTopUnit
-            amount={sd}
-            title={"Current Deposit"}
-            topActive={topActive}
-            setTopActive={setTopActive}
-            icon={"Assets/Home/Highlights/deposit.png"}
-          />
-          <PassbookTopUnit
             amount={discount}
             title={"Total Discounts"}
             topActive={topActive}
             setTopActive={setTopActive}
             icon={"Assets/Home/Highlights/collection.png"}
+          />
+          <PassbookTopUnit
+            amount={sd}
+            title={"Current Deposit"}
+            topActive={topActive}
+            setTopActive={setTopActive}
+            icon={"Assets/Home/Highlights/deposit.png"}
           />
         </Slider>
       </div>
@@ -163,6 +165,13 @@ const DuesDataCard = ({
     setDueDetail(obj);
     setOpenCategory(true);
   };
+  const handleRemind = () => {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Will be available Soon",
+      message: "This Feature will be available Soon.",
+    });
+  };
   return (
     <div className="duesDataCard">
       <div className="ddcTop">
@@ -203,7 +212,9 @@ const DuesDataCard = ({
         <button className="ddcRecord" onClick={handleRecord}>
           Record Payment
         </button>
-        <button className="ddcRemind">Remind To Pay</button>
+        <button className="ddcRemind" onClick={handleRemind}>
+          Remind To Pay
+        </button>
       </div>
     </div>
   );

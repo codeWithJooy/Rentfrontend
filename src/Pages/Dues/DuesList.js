@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./DuesIndex.css";
+import "./DuesList.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getTenants,
@@ -8,7 +8,7 @@ import {
 } from "../../actions/tenantAction";
 import { allDues, calculateTotalDues, generateIndiDues } from "../../helper";
 import { getAllCollections } from "../../actions/collectionAction";
-const DuesIndex = () => {
+const DuesList = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.user);
   const [dues, setDues] = useState([]);
@@ -47,7 +47,7 @@ const DuesIndex = () => {
     </div>
   );
 };
-export default DuesIndex;
+export default DuesList;
 
 //Due Card For Each Tenant
 const DuesDataCard = ({ data, collection, setOpen }) => {
@@ -70,7 +70,7 @@ const DuesDataCard = ({ data, collection, setOpen }) => {
         </div>
         <div className="ddcHead">
           <div className="ddcRoom">
-            <p>Ground 1</p>
+            <p>{data.roomName}</p>
           </div>
           <div className="ddcDueDate">
             <p>{data.doj}</p>
