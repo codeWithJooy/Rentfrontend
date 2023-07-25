@@ -57,6 +57,28 @@ export const getTenants = async (userId, propertyId) => {
     return;
   }
 };
+export const getTenantName = async (userId, propertyId, tenantId) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await tenantApi.get("/getTenantName", header);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error While Fetching Tenant Name",
+      });
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 export const getTenantsCount = async (userId, propertyId) => {
   const header = getHeaders({
     userId,

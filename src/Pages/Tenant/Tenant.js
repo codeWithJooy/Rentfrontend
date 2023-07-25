@@ -145,12 +145,18 @@ const TenantCard = ({ tenantId, name, roomId, number, doj, due, roomName }) => {
         </div>
         {open && (
           <div className="duesHolder">
-            {due.map((data, index) => (
-              <div className="duesSection">
-                <div className="duesName">{data.type}</div>
-                <div className="duesValue">Rs {data.due}</div>
-              </div>
-            ))}
+            {due
+              .filter(
+                (unit) => parseInt(unit.due) - parseInt(unit.collection) > 0
+              )
+              .map((data, index) => (
+                <div className="duesSection" key={index}>
+                  <div className="duesName">{data.type}</div>
+                  <div className="duesValue">
+                    Rs {parseInt(data.due) - parseInt(data.collection)}
+                  </div>
+                </div>
+              ))}
           </div>
         )}
       </div>

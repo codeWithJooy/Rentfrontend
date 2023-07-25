@@ -27,6 +27,9 @@
 }
 .ddcRoom {
   width: 60%;
+  font-size: 15px;
+  font-weight: bold;
+  color: #b1a7a6;
 }
 .ddcDueDate {
   width: 40%;
@@ -46,6 +49,14 @@
   background-color: #a4161a;
   color: #fff;
   border: 1px solid #a4161a;
+  margin-right: 40px;
+}
+.ddcDate {
+  padding: 7px 10px;
+  border-radius: 2px;
+  background-color: transparent;
+  color: #a4161a;
+  border: none;
   margin-right: 40px;
 }
 .ddcRemind {
