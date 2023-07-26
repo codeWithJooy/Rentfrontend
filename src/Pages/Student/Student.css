@@ -249,3 +249,34 @@
   height: 70px;
 }
 /*======================================*/
+/*=======================================*/
+.stuComplaint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
+.complaintImg {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.complaintUnitCard {
+  width: 44%;
+  padding: 40px 10px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px #b1a7a6;
+  background-color: #fff;
+}
+.complaintUnitCard img {
+  width: 120px;
+  height: 70px;
+}
+
+/*=======================================*/

@@ -36,7 +36,7 @@ import MemberProfile from "./Pages/Member/MemberProfile";
 import Receipt from "./Pages/Receipt/Receipt";
 
 import Student from "./Pages/Student/Student";
-
+import Complaint from "./Pages/Student/Complaint";
 const App = () => {
   return (
     <BrowserRouter>
@@ -73,6 +73,7 @@ const App = () => {
         <Route path="/receipt" component={Receipt} />
 
         <Route path="/student" component={Student} />
+        <Route path="/complaint" component={Complaint} />
       </Switch>
       <Toasty />
     </BrowserRouter>
