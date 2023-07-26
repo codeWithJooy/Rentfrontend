@@ -83,6 +83,7 @@
   height: 80vh;
   margin-top: 10vh;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 15px 0px;
 }
 /*=======================================*/
@@ -90,6 +91,7 @@
   width: 100%;
   background-color: #fff;
   padding: 10px 15px;
+  margin-bottom: 25px;
 }
 .stuMainHeader {
   width: 100%;
@@ -97,6 +99,7 @@
   font-size: 15px;
   font-weight: bold;
 }
+.stuMainSection
 /*=======================================*/
 /*========================================*/
 .stuAmountCard {
@@ -148,5 +151,101 @@
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   background-color: #3b385a;
+}
+/*======================================*/
+.hostelCard {
+  width: 95%;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+.hostelCardHeader {
+  width: 100%;
+  font-weight: bold;
+  font-size: 15px;
+}
+.hostelCardSubHeader {
+  width: 80%;
+  font-weight: bold;
+  font-size: 10px;
+}
+.hostelCardBottom {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.hostelCardNext {
+  width: 20%;
+  font-size: 12px;
+}
+.hostelCardNext img {
+  height: 20px;
+  width: 20px;
+}
+.hostelCardImage {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.hostelCardImage img {
+  width: 120px;
+  height: 100px;
+}
+
+/*======================================*/
+.stuMenuSection {
+  width: 100%;
+  padding: 10px 5px;
+}
+.stuMenuCard {
+  width: 94%;
+  margin-left: 3%;
+  min-height: 60px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 1px #b1a7a6;
+}
+.stuMenuType {
+  width: 100%;
+  padding: 5px 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stuMenuTypeName {
+  width: 60%;
+  font-size: 16px;
+  font-weight: bold;
+}
+.stuMenuTypeName {
+  width: 60%;
+  font-size: 16px;
+  font-weight: bold;
+}
+.stuMenuDetails {
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.stuMenuText {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 16px;
+}
+.stuMenuImage {
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stuMenuImage img {
+  width: 70px;
+  height: 70px;
 }
 /*======================================*/
