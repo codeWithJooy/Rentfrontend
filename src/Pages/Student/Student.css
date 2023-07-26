@@ -1,0 +1,152 @@
+.studentMain {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-color: #f5f3f4;
+}
+
+.stuHeader {
+  width: 100%;
+  height: 10vh;
+  background: #fff;
+  box-shadow: 0 0 3px #b1a7a6;
+  padding: 5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+.stuHeaderIcon {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stuHeaderIcon img {
+  width: 40px;
+  height: 40px;
+}
+.stuHeaderName {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0px 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.stuHeaderNotification {
+  width: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stuHeaderNotification img {
+  width: 30px;
+  height: 30px;
+}
+
+.stuFooter {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 10vh;
+  background-color: #fff;
+  box-shadow: 0 0 3px #b1a7a6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.stuFooterUnit {
+  width: 22%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.stuFooterUnit img {
+  height: 23px;
+  width: 23px;
+}
+.stuFooterUnitText {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.stuContainer {
+  width: 100%;
+  height: 80vh;
+  margin-top: 10vh;
+  overflow-y: auto;
+  padding: 15px 0px;
+}
+/*=======================================*/
+.stuMainUnit {
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 15px;
+}
+.stuMainHeader {
+  width: 100%;
+  padding: 5px 10px 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+/*=======================================*/
+/*========================================*/
+.stuAmountCard {
+  width: 45%;
+  min-height: 70px;
+  border-radius: 15px;
+  border: 1px solid #b1a7a6;
+}
+.stuAmountTitle {
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 10px 5px;
+}
+.stuAmountDetails {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1px 10px;
+}
+.stuAmountType {
+  width: 50%;
+  font-size: 13px;
+  font-weight: bold;
+}
+.stuAmountImg {
+  width: 50%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stuAmountImg img {
+  width: 20px;
+  height: 20px;
+}
+.stuAmountPay {
+  bottom: 0px;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: #3b385a;
+}
+/*======================================*/
