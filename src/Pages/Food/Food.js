@@ -5,7 +5,7 @@ import "./Food.css";
 import FoodInit from "./FoodInit";
 import FoodAdd from "./FoodAdd";
 import FoodList from "./FoodList";
-import FoodListTest from "./FoodListTest";
+
 import { useSelector } from "react-redux";
 import { getActivated } from "../../actions/foodAction";
 const Food = () => {
@@ -20,7 +20,7 @@ const Food = () => {
       <Header />
       {!activated && <FoodInit />}
       {activated && !timeActivated && <FoodAdd />}
-      {activated && timeActivated && <FoodListTest />}
+      {activated && timeActivated && <FoodList />}
       <Footer />
     </div>
   );

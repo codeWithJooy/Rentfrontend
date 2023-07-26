@@ -245,6 +245,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .listDetailsBottom input {
   width: 100%;
 }
+.listDetailsBottom textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+}
 .foodEdit {
   position: relative;
   display: flex;

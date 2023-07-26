@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getReceiptId } from "../../actions/collectionAction";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import { addCollection } from "../../actions/collectionAction";
 //Pop Up To Add Collection
@@ -9,7 +10,7 @@ const DuesCollection = ({ setOpenCategory, data, setForceUpdate }) => {
   const { userId, propertyId, propertyName } = useSelector(
     (state) => state.user
   );
-
+  const history = useHistory();
   const handleCross = () => {
     setOpenCategory(false);
   };
@@ -27,23 +28,34 @@ const DuesCollection = ({ setOpenCategory, data, setForceUpdate }) => {
   const [dummyData, setDummyData] = useState(data.finalDue);
 
   const handlePayment = () => {
-    addCollection(
-      collection.userId,
-      collection.propertyId,
-      collection.tenantId,
-      collection.type,
-      collection.amount,
-      collection.date,
-      collection.mode,
-      collection.discount,
-      collection.receiptId,
-      dummyData
-    );
-    setForceUpdate(true);
-    setOpenCategory(false);
+    (async () => {
+      if (
+        await addCollection(
+          collection.userId,
+          collection.propertyId,
+          collection.tenantId,
+          collection.type,
+          collection.amount,
+          collection.date,
+          collection.mode,
+          collection.discount,
+          collection.receiptId,
+          dummyData
+        )
+      ) {
+        setForceUpdate(true);
+        setTimeout(() => {
+          setOpenCategory(false);
+          history.push("/tenantProfile");
+        }, 2000);
+      }
+    })();
   };
   const handleAmount = (e) => {
-    let amt = e.target.value;
+    let amt = e.target.value.replace(/[^a-zA-Z0-9 ]/g, "");
+    if (amt < 0) {
+      amt = 0;
+    }
     if (amt > data.finalDue) {
       amt = data.finalDue;
     }
@@ -53,7 +65,10 @@ const DuesCollection = ({ setOpenCategory, data, setForceUpdate }) => {
     });
   };
   const handleDiscount = (e) => {
-    let val = e.target.value;
+    let val = e.target.value.replace(/[^a-zA-Z0-9 ]/g, "");
+    if (val < 0) {
+      val = 0;
+    }
     if (val > data.finalDue) {
       val = data.finalDue;
     }
@@ -121,7 +136,7 @@ const DuesCollection = ({ setOpenCategory, data, setForceUpdate }) => {
         <div className="tenantAddSection">
           <p>Discount</p>
           <input
-            type="text"
+            type="number"
             value={collection.discount}
             onChange={handleDiscount}
           />
@@ -129,7 +144,7 @@ const DuesCollection = ({ setOpenCategory, data, setForceUpdate }) => {
         <div className="tenantAddSection">
           <p>Amount</p>
           <input
-            type="text"
+            type="number"
             value={collection.amount}
             onChange={handleAmount}
           />

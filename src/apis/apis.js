@@ -11,6 +11,7 @@ const devApis = {
   MEMBER_API: "http://localhost:5000/api/member",
   COLLECTION_API: "http://localhost:5000/api/collection",
   DUE_API: "http://localhost:5000/api/dues",
+  SUMMARY_API: "http://localhost:5000/api/summary",
 };
 const prodApis = {
   USER_API: "https://rentpg.onrender.com/api/auth",
@@ -22,6 +23,7 @@ const prodApis = {
   MEMBER_API: "https://rentpg.onrender.com/api/member",
   COLLECTION_API: "https://rentpg.onrender.com/api/collection",
   DUE_API: "https://rentpg.onrender.com/api/dues",
+  SUMMARY_API: "https://rentpg.onrender.com/api/summary",
 };
 
 const getApiUrls = () => {
@@ -68,4 +70,7 @@ export const collectionApi = axios.create({
 });
 export const duesApi = axios.create({
   baseURL: APIS.DUE_API,
+});
+export const summaryApi = axios.create({
+  baseURL: APIS.SUMMARY_API,
 });

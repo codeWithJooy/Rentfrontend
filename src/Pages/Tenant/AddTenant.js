@@ -16,14 +16,13 @@ import Toast from "../../Components/Toast/Toast";
 import { getAllRooms } from "../../actions/roomActions";
 import { getReceiptId } from "../../actions/collectionAction";
 const AddTenant = () => {
+  const history = useHistory();
   const [rooms, setRooms] = useState([]);
   const [collection, setCollections] = useState([]);
   const [discount, setDiscount] = useState([]);
   const user = useSelector((state) => state.user);
   const [forceUpdate, setForceUpdate] = useState(true);
   const [toast, setToast] = useState(false);
-  const history = useHistory();
-  const dispatch = useDispatch();
   const [rent, setRent] = useState(rooms.length > 0 ? rooms[0].rate : 0);
   const [day, setDay] = useState({
     date: new Date().getDate(),
@@ -65,29 +64,70 @@ const AddTenant = () => {
   const [lockinRents, setLockingRents] = useState([]);
 
   const handleLockin = (e) => {
-    setLocking(e.target.value);
-    setLockingRents(
-      generateLockIn(e.target.value, currentDate, tenantRentDue.rent)
-    );
+    let val = e.target.value <= 12 ? e.target.value : 12;
+    //val = val > 0 ? val : 0;
+    setLocking(val);
+    setLockingRents(generateLockIn(val, currentDate, tenantRentDue.rent));
   };
   const handleRentDueEdit = (e) => {
+    let val = e.target.value >= 0 ? e.target.value : 0;
+    let type = tenantRentDue.type;
+    let due = tenantRentDue.due;
+    let updatedCollection = collection.filter((unit) => unit.type != type);
+    setCollections(updatedCollection);
+    let updatedDis = discount.filter((unit) => unit.type != type);
+    setDiscount(updatedDis);
     setTenantRentDue({
       ...tenantRentDue,
-      rent: e.target.value,
-      total: calculateDue(e.target.value, day.date, day.maxDays),
-      due: calculateDue(e.target.value, day.date, day.maxDays),
+      rent: val,
+      total: calculateDue(val, day.date, day.maxDays),
+      due: calculateDue(val, day.date, day.maxDays),
+      collection: 0,
+      discount: 0,
     });
-    setRent(e.target.value);
-    setLockingRents(generateLockIn(lockin, currentDate, e.target.value));
+    setRent(val);
+    setLockingRents(generateLockIn(lockin, currentDate, val));
   };
 
   //Handle To Open Rent Edit Page
   const handleRentEdit = () => {
+    let type = tenantRentDue.type;
+    let due = tenantRentDue.due;
+    let updatedCollection = collection.filter((unit) => unit.type != type);
+    setCollections(updatedCollection);
+    let oldDisIndex = discount.findIndex((unit) => unit.type == type);
+    if (oldDisIndex != -1) {
+      setTenantRentDue({
+        ...tenantRentDue,
+        due: parseInt(due) + parseInt(discount[oldDisIndex].amount),
+        collection: parseInt(due) + parseInt(discount[oldDisIndex].amount),
+        discount: 0,
+      });
+    }
+    let updatedDis = discount.filter((unit) => unit.type != type);
+    setDiscount(updatedDis);
+    setSecurityEdit(true);
+    setRentEdit(false);
     setRentEdit(true);
     setSecurityEdit(false);
   };
   //Handle To Open Rent Edit Page
   const handleSecurityEdit = () => {
+    let type = "Security Deposit";
+    let due = tenantSecurityDue.due;
+    let updatedCollection = collection.filter((unit) => unit.type != type);
+    setCollections(updatedCollection);
+    let oldDisIndex = discount.findIndex((unit) => unit.type == type);
+    if (oldDisIndex != -1) {
+      setTenantSecurityDue({
+        ...tenantSecurityDue,
+        due: parseInt(due) + parseInt(discount[oldDisIndex].amount),
+        collection: parseInt(due) + parseInt(discount[oldDisIndex].amount),
+        discount: 0,
+      });
+    }
+    let updatedDis = discount.filter((unit) => unit.type != type);
+    setDiscount(updatedDis);
     setSecurityEdit(true);
     setRentEdit(false);
   };
@@ -108,11 +148,18 @@ const AddTenant = () => {
     });
 
     setRent(newRoom.rate);
+    let type = tenantRentDue.type;
+    let updatedCollection = collection.filter((unit) => unit.type != type);
+    setCollections(updatedCollection);
+    let updatedDis = discount.filter((unit) => unit.type != type);
+    setDiscount(updatedDis);
     setTenantRentDue({
       ...tenantRentDue,
       rent: newRoom.rate,
       total: calculateDue(newRoom.rate, day.date, day.maxDays),
       due: calculateDue(newRoom.rate, day.date, day.maxDays),
+      collection: 0,
+      discount: 0,
     });
     setLockingRents(generateLockIn(lockin, currentDate, newRoom.rate));
   };
@@ -127,6 +174,11 @@ const AddTenant = () => {
       month: monthName(new Date(e.target.value).getMonth()).name,
       maxDays: monthName(new Date(e.target.value).getMonth()).days,
     });
+    let type = tenantRentDue.type;
+    let updatedCollection = collection.filter((unit) => unit.type != type);
+    setCollections(updatedCollection);
+    let updatedDis = discount.filter((unit) => unit.type != type);
+    setDiscount(updatedDis);
     setTenantRentDue({
       ...tenantRentDue,
       total: calculateDue(
@@ -140,6 +192,9 @@ const AddTenant = () => {
         monthName(new Date(e.target.value).getMonth()).days
       ),
       dueDate: newDate,
+      type: monthNameByDate(new Date(e.target.value)).name + " Rent",
+      collection: 0,
+      discount: 0,
     });
     setTenantSecurityDue({
       ...tenantSecurityDue,
@@ -151,14 +206,27 @@ const AddTenant = () => {
       ...tenant,
       dob: newDate,
     });
+
+    setLockingRents(
+      generateLockIn(lockin, new Date(e.target.value), tenantRentDue.rent)
+    );
   };
 
   //handler to run security due change
   const handleSecurityDueEdit = (e) => {
+    let val = e.target.value >= 0 ? e.target.value : 0;
+    let type = "Security Deposit";
+    let due = tenantSecurityDue.due;
+    let updatedCollection = collection.filter((unit) => unit.type != type);
+    setCollections(updatedCollection);
+    let updatedDis = discount.filter((unit) => unit.type != type);
+    setDiscount(updatedDis);
     setTenantSecurityDue({
       ...tenantSecurityDue,
-      total: e.target.value,
-      due: e.target.value,
+      total: val,
+      due: val,
+      collection: 0,
+      discount: 0,
     });
   };
 
@@ -174,10 +242,13 @@ const AddTenant = () => {
     obj.collections = collection;
     obj.discounts = discount;
 
-    addTenant(obj);
-    setTimeout(() => {
-      history.push("/tenant");
-    }, 2000);
+    (async () => {
+      if (await addTenant(obj)) {
+        setTimeout(() => {
+          history.push("/tenant");
+        }, 2000);
+      }
+    })();
   };
   useEffect(() => {
     if (forceUpdate) {
@@ -313,7 +384,9 @@ const AddTenant = () => {
             setEdit={setRentEdit}
             data={tenantRentDue}
             setData={setTenantRentDue}
+            collection={collection}
             setCollections={setCollections}
+            discount={discount}
             setDiscount={setDiscount}
           />
         )}
@@ -321,6 +394,8 @@ const AddTenant = () => {
           <TenantPayment
             setEdit={setSecurityEdit}
             data={tenantSecurityDue}
+            collection={collection}
+            discount={discount}
             setData={setTenantSecurityDue}
             setCollections={setCollections}
             setDiscount={setDiscount}
@@ -346,8 +421,11 @@ const TenantPayment = ({
   setData,
   setCollections,
   setDiscount,
+  collection,
+  discount,
 }) => {
   const { type, due, dueDate } = data;
+
   const [dummyDue, setDummyDue] = useState(due);
   const [pay, setPayment] = useState({
     type: type,
@@ -369,7 +447,12 @@ const TenantPayment = ({
     if (newDis.amount > 0) {
       setDiscount((discount) => [...discount, newDis]);
     }
-    setData({ ...data, due: dummyDue });
+    setData({
+      ...data,
+      due: dummyDue,
+      collection: pay.amount,
+      discount: newDis.amount,
+    });
     setEdit(false);
   };
   const handleDateChange = (e) => {
@@ -385,6 +468,9 @@ const TenantPayment = ({
   };
   const handlePaymentChange = (e) => {
     let value = e.target.value;
+    if (parseInt(value) < 0) {
+      value = 0;
+    }
     if (value > due - newDis.amount) {
       value = due - newDis.amount;
     }
@@ -397,7 +483,9 @@ const TenantPayment = ({
 
   const handleDiscountChange = (e) => {
     let value = e.target.value;
-
+    if (parseInt(value) < 0) {
+      value = 0;
+    }
     if (parseInt(value) > parseInt(due)) {
       value = due;
     }
@@ -408,7 +496,7 @@ const TenantPayment = ({
       });
     }
     setDummyDue(due - value);
-    setData({ ...data, discount: value, collection: due - value });
+    //setData({ ...data, discount: value, collection: due - value });
 
     setNewDis({
       ...newDis,
@@ -426,14 +514,14 @@ const TenantPayment = ({
 
   useEffect(() => {
     (async () => {
-      let data = await getReceiptId(
+      let receiptIdData = await getReceiptId(
         userId,
         propertyId,
         propertyName,
         type,
         pay.date
       );
-      setPayment({ ...pay, receiptId: data });
+      setPayment({ ...pay, receiptId: receiptIdData });
     })();
   }, [pay.date]);
   return (

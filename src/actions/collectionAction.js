@@ -98,6 +98,26 @@ export const getAllCollections = async (userId, propertyId) => {
     console.log(error);
   }
 };
+export const getAllCollectionByUser = async (userId, propertyId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    });
+    const res = await collectionApi.get("/getAllCollectionByUser", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Well Wrong",
+        messgae: "Unable To Fetch collections",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const getTenantDiscount = async (userId, propertyId, tenantId) => {
   try {
     const headers = getHeaders({

@@ -34,6 +34,9 @@ import Toasty from "./Components/Toasty/Toasty";
 import MemberProfile from "./Pages/Member/MemberProfile";
 
 import Receipt from "./Pages/Receipt/Receipt";
+
+import Student from "./Pages/Student/Student";
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -68,6 +71,8 @@ const App = () => {
         <Route path="/addann" component={AddAnnouncement} />
 
         <Route path="/receipt" component={Receipt} />
+
+        <Route path="/student" component={Student} />
       </Switch>
       <Toasty />
     </BrowserRouter>

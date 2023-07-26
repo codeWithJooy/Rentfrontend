@@ -36,7 +36,7 @@ const FoodTime = ({ type, start, end }) => {
     <div className="addContainerHeader">
       <div className="addMeal">
         <div className="addMealImg">
-          <img src="Assets/Food/food.png" />
+          <img src={`Assets/Food/${type.toLowerCase()}.png`} />
         </div>
         <div className="addMealTitle">
           <p>{type}</p>

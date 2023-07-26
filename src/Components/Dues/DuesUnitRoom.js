@@ -39,7 +39,9 @@ const RoomDuesCard = ({ data, setOpen, setDueSetData }) => {
     title: `Room : ${data.name}`,
     dueType: useSelector((state) => state.due.dueType),
     id: data.id,
+    sharing: data.type,
     useFor: "room",
+    split: "split",
   };
   const { userId, propertyId } = useSelector((state) => state.user);
   const handleDueRoom = () => {

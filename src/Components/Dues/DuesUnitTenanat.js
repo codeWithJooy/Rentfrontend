@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./DuesRoom.css";
-import { getAllRooms } from "../../actions/roomActions";
+import { getAllRooms, getRoomName } from "../../actions/roomActions";
 import { getTenants } from "../../actions/tenantAction";
-const DuesUnitTenant = () => {
+import { calculateTotalDues } from "../../helper";
+const DuesUnitTenant = ({ setOpen, setDueSetData }) => {
   const user = useSelector((state) => state.user);
   const [tenants, setTenants] = useState([]);
   useEffect(() => {
@@ -18,7 +19,12 @@ const DuesUnitTenant = () => {
     <div className="duesRoom">
       {tenants &&
         tenants.map((unit, key) => (
-          <TenantDuesCard key={key} name={unit.name} />
+          <TenantDuesCard
+            key={key}
+            data={unit}
+            setOpen={setOpen}
+            setDueSetData={setDueSetData}
+          />
         ))}
     </div>
   );
@@ -26,20 +32,44 @@ const DuesUnitTenant = () => {
 
 export default DuesUnitTenant;
 
-const TenantDuesCard = ({ name }) => {
+const TenantDuesCard = ({ data, setOpen, setDueSetData }) => {
+  const [roomName, setRoomName] = useState("");
+  const { userId, propertyId } = useSelector((state) => state.user);
+  const obj = {
+    title: `Tenant : ${data.name}`,
+    dueType: useSelector((state) => state.due.dueType),
+    id: data._id,
+    sharing: "Single",
+    useFor: "tenant",
+    split: "whole",
+  };
+  const handleDueTenant = () => {
+    setDueSetData(obj);
+    setOpen(true);
+  };
+  useEffect(() => {
+    (async () => {
+      setRoomName(await getRoomName(userId, propertyId, data.roomId));
+    })();
+  }, []);
   return (
     <div className="roomDuesCard">
       <div className="roomDuesTop">
         <div className="roomDuesroom">
-          <p>{name}</p>
+          <p>{data.name}</p>
         </div>
         <div className="roomDuesButton">
-          <button>Add Dues</button>
+          <button className="buttonPresent" onClick={handleDueTenant}>
+            Add Dues
+          </button>
         </div>
       </div>
       <div className="roomDuesBottom">
         <div className="roomDuesExtra">
-          <p>Dues : Rs 1000</p>
+          <p>Dues : Rs {calculateTotalDues(data.dues)}</p>
+        </div>
+        <div className="roomDuesRoom">
+          <p>Room: {roomName}</p>
         </div>
       </div>
     </div>

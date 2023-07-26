@@ -10,13 +10,13 @@ import { useHistory } from "react-router-dom";
 const ExpenseDetails = () => {
   const category = useSelector((state) => state.expense.category);
   const user = useSelector((state) => state.user);
-  const [currentDate, setCurrentDate] = useState(moment().format("YYYY-MM-DD"));
+
   const [expense, setExpense] = useState({
     userId: user.userId,
     propertyId: user.propertyId,
     expenseName: category.title,
     amount: 0,
-    date: currentDate,
+    date: moment().format("YYYY-MM-DD"),
     paidBy: "",
     paidTo: "",
     description: "",
@@ -28,7 +28,6 @@ const ExpenseDetails = () => {
   };
   const handleDate = (e) => {
     const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
-    setCurrentDate(newDate);
     setExpense({
       ...expense,
       date: newDate,
@@ -74,7 +73,7 @@ const ExpenseDetails = () => {
       <div className="expenseHolder">
         <div className="expenseAddSection">
           <p>Date</p>
-          <input type="date" value={expense.date} onchange={handleDate} />
+          <input type="date" value={expense.date} onChange={handleDate} />
         </div>
       </div>
       <div className="expenseHolder">
