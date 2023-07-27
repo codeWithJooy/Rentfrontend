@@ -11,6 +11,7 @@ import foodReducer from "./foodReducer";
 import memberReducer from "./memberReducer";
 import annReducer from "./annReducer";
 import collectionReducer from "./collectionReducer";
+import studentReducer from "./studentReducer";
 
 const rootReducer = combineReducers({
   floor: floorReducer,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   member: memberReducer,
   ann: annReducer,
   collection: collectionReducer,
+  student: studentReducer,
 });
 
 export default rootReducer;

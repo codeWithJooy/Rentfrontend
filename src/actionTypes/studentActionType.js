@@ -1,0 +1,1 @@
+export const COMPLAINT_TYPE = "COMPLAINT_TYPE";
