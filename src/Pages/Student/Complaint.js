@@ -1,16 +1,19 @@
 import React from "react";
 import ComplaintHeader from "../../Components/Header/StudentHeader/ComplaintHeader";
 import StudentFooter from "../../Components/Footer/StudentFooter/StudentFooter";
+import { useDispatch } from "react-redux";
+import { complaints } from "../../data/complaintData";
+import { useHistory } from "react-router-dom";
+import { setComplaintType } from "../../actions/studentAction";
 
 const Complaint = () => {
   return (
     <div className="studentMain">
       <ComplaintHeader />
       <div className="stuContainer stuComplaint">
-        <ComplaintUnit />
-        <ComplaintUnit />
-        <ComplaintUnit />
-        <ComplaintUnit />
+        {complaints.map((data, index) => (
+          <ComplaintUnit data={data} key={index} />
+        ))}
       </div>
       <StudentFooter />
     </div>
@@ -19,17 +22,24 @@ const Complaint = () => {
 
 export default Complaint;
 
-const ComplaintUnit = () => {
+const ComplaintUnit = ({ data }) => {
+  let history = useHistory();
+  let dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setComplaintType(data.main));
+    history.push("/complaintHolder");
+  };
   return (
-    <div className="complaintUnitCard">
+    <div className="complaintUnitCard" onClick={handleClick}>
       <div className="complaintImg">
-        <img src="Assets/Students/complaint.png" />
+        <img src={data.img} />
       </div>
       <div className="complaintCardTitle">
-        <p>Bedroom</p>
+        <p>{data.main}</p>
       </div>
       <div className="complaintCardDetails">
-        <p>Raise Complainrs</p>
+        <p>{data.main} Complaints</p>
       </div>
     </div>
   );

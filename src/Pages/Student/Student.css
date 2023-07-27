@@ -275,8 +275,102 @@
   background-color: #fff;
 }
 .complaintUnitCard img {
-  width: 120px;
+  width: 100px;
   height: 70px;
 }
-
+.complaintCardTitle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+.complaintCardDetails {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #b1a7a6;
+}
+.complaintHolderCard {
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px #b1a7a6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+.complaintHolderIcon {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.complaintHolderIcon img {
+  width: 30px;
+  height: 30px;
+}
+.complaintHolderText {
+  width: 90%;
+  padding: 2px 10px 2px 20px;
+}
+.complaintHolderTextHeader {
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  color: #3b385a;
+}
+.complaintHolderTextSub {
+  width: 100%;
+  font-size: 12px;
+  font-weight: bold;
+  color: #b1a7a6;
+}
+.complaintFinalCard {
+  width: 90%;
+  margin-top: 50px;
+  margin-left: 5%;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+}
+.complaintFinalHeader {
+  width: 100%;
+  padding: 10px 5px;
+}
+.complaintFinalHeader label {
+  font-size: 15px;
+  font-weight: bold;
+  width: 100%;
+  margin-bottom: 3px;
+}
+.complaintFinalHeader input {
+  width: 100%;
+  border: 1px solid #b1a7a6;
+  background-color: transparent;
+  padding: 5px 10px;
+  outline: none;
+}
+.complaintFinalHeader textarea {
+  width: 100%;
+  height: 100px;
+  padding: 5px 10px;
+  outline: none;
+  border: 1px solid #b1a7a6;
+}
+.complaintFinalHeader button {
+  width: 100%;
+  padding: 10px 10px;
+  background-color: #3b385a;
+  color: #fff;
+  border-radius: 10px;
+}
 /*=======================================*/
