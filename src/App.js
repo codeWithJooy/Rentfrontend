@@ -39,6 +39,7 @@ import Student from "./Pages/Student/Student";
 import Complaint from "./Pages/Student/Complaint";
 import ComplaintHeader from "./Components/Header/StudentHeader/ComplaintHeader";
 import ComplaintHolder from "./Pages/Student/ComplaintHolder";
+import StudentSignUp from "./Pages/Student/Signup/StudentSignUp";
 const App = () => {
   return (
     <BrowserRouter>
@@ -74,6 +75,7 @@ const App = () => {
 
         <Route path="/receipt" component={Receipt} />
 
+        <Route path="/studentSignUp" component={StudentSignUp} />
         <Route path="/student" component={Student} />
         <Route path="/complaint" component={Complaint} />
         <Route path="/complaintHolder" component={ComplaintHolder} />
