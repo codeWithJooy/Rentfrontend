@@ -20,14 +20,14 @@ const HostelLife = () => {
         <Slider {...settings}>
           <HostelCard
             title={"Facing Issues ?"}
-            fg={"#ffa839"}
-            bg={"#fff4ee"}
+            fg={"#33B8C8"}
+            bg={"#EEFDFF"}
             icon={"Assets/Students/complaint.png"}
           />
           <HostelCard
             title={"Facing Issues ?"}
-            fg={"#ffa839"}
-            bg={"#fff4ee"}
+            fg={"#803EAA"}
+            bg={"#F2EEFF"}
             icon={"Assets/Students/nightout.png"}
           />
           <HostelCard

@@ -1,0 +1,81 @@
+.extraUnitBg {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.extraUnitMainSection {
+  width: 100%;
+  min-height: 10vh;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  background-color: #fff;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+.extraUnitTop {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+}
+.extraUnitTop img {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+.extraUnitHeader {
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+}
+.extraUnitSub {
+  width: 100%;
+  font-size: 12px;
+  color: #b1a7a6;
+}
+
+.extraUnitData {
+  width: 100%;
+  padding: 10px 0px;
+}
+.extraUnitInput {
+  width: 100%;
+  padding: 5px 10px;
+  border: 1px solid #161a1d;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.extraUnitInput label {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.extraUnitInput input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 2px;
+}
+.extraUnitInput textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 2px;
+  height: 80px;
+}
+.extraUnitData button {
+  width: 100%;
+  background-color: #161a1d;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+}
