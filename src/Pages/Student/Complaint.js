@@ -4,7 +4,7 @@ import StudentFooter from "../../Components/Footer/StudentFooter/StudentFooter";
 import { useDispatch } from "react-redux";
 import { complaints } from "../../data/complaintData";
 import { useHistory } from "react-router-dom";
-import { setComplaintType } from "../../actions/studentAction";
+import { setComplaintType } from "../../actions/Student/studentAction";
 
 const Complaint = () => {
   return (

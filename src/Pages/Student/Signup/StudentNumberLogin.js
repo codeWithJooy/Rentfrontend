@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import "./StudentSignup.css";
+import { checkCodeNumber } from "../../../actions/Student/studentAction";
 
 const StudentNumberLogin = () => {
   const [cred, setCred] = useState({
     number: "",
     code: "",
   });
+  const history = useHistory();
   const handleChange = (e) => {
     setCred({ ...cred, [e.target.name]: e.target.value });
   };
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    (async () => {
+      if (await checkCodeNumber(cred.number, cred.code)) {
+        history.push("/studentSignup");
+      }
+    })();
+  };
   return (
     <div className="stuSignMain">
       <div className="stuSignContainer">
@@ -48,7 +57,7 @@ const StudentNumberLogin = () => {
             </div>
           </div>
           <div className="stuSignDataUnit">
-            <button>Log In</button>
+            <button onClick={handleLogin}>Log In</button>
           </div>
         </div>
       </div>
