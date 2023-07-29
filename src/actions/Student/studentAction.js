@@ -40,6 +40,33 @@ export const checkCodeNumber = async (number, code) => {
     console.log(error.message);
   }
 };
+
+export const studentLogin = async (email, password) => {
+  try {
+    const headers = getHeaders({
+      email,
+      password,
+    });
+    const res = await studentApi.get("/studentLogin", headers);
+    if (res.data.code == 200) {
+      dispatchAction(CODE_NUMBER_CHECK, res.data.model);
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: `Welcome to ${res.data.model.propertyName}`,
+      });
+      return true;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.model,
+      });
+      return false;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const addStudent = async (data) => {
   try {
     const res = await studentApi.post("/addStudent", data);
