@@ -40,6 +40,8 @@ import Complaint from "./Pages/Student/Complaint";
 import ComplaintHeader from "./Components/Header/StudentHeader/ComplaintHeader";
 import ComplaintHolder from "./Pages/Student/ComplaintHolder";
 import StudentSignUp from "./Pages/Student/Signup/StudentSignUp";
+import StudentLogin from "./Pages/Student/Signup/StudentLogin";
+import StudentNumberLogin from "./Pages/Student/Signup/StudentNumberLogin";
 const App = () => {
   return (
     <BrowserRouter>
@@ -76,6 +78,8 @@ const App = () => {
         <Route path="/receipt" component={Receipt} />
 
         <Route path="/studentSignUp" component={StudentSignUp} />
+        <Route path="/studentLogin" component={StudentLogin} />
+        <Route path="/studentNumberLogin" component={StudentNumberLogin} />
         <Route path="/student" component={Student} />
         <Route path="/complaint" component={Complaint} />
         <Route path="/complaintHolder" component={ComplaintHolder} />
