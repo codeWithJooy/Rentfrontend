@@ -1,1 +1,2 @@
 export const COMPLAINT_TYPE = "COMPLAINT_TYPE";
+export const CODE_NUMBER_CHECK = "CODE_NUMBER_CHECK";
