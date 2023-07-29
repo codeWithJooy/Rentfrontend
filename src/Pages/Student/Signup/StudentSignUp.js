@@ -41,7 +41,9 @@ const StudentSignUp = () => {
       }
     })();
   };
-
+  const handleAlready = () => {
+    history.push("/studentLogin");
+  };
   return (
     <div className="stuSignMain">
       <div className="stuSignContainer">
@@ -91,8 +93,14 @@ const StudentSignUp = () => {
               <input type="password" value={confirm} onChange={handleConfirm} />
             </div>
           </div>
-          <div className="stuSignDataUnit">
+          <div className="stuSignButtonUnit">
             <button onClick={handleSignUp}>Sign In</button>
+            <p className="notSection">
+              Already A Member ?{" "}
+              <span className="notSectionSpan" onClick={handleAlready}>
+                Log In
+              </span>
+            </p>
           </div>
         </div>
       </div>

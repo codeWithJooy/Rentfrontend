@@ -19,6 +19,9 @@ const StudentNumberLogin = () => {
       }
     })();
   };
+  const handleAlready = () => {
+    history.push("/studentLogin");
+  };
   return (
     <div className="stuSignMain">
       <div className="stuSignContainer">
@@ -56,8 +59,14 @@ const StudentNumberLogin = () => {
               />
             </div>
           </div>
-          <div className="stuSignDataUnit">
-            <button onClick={handleLogin}>Log In</button>
+          <div className="stuSignButtonUnit">
+            <button onClick={handleLogin}>Add</button>
+            <p className="notSection">
+              Already A Member ?{" "}
+              <span className="notSectionSpan" onClick={handleAlready}>
+                Log In
+              </span>
+            </p>
           </div>
         </div>
       </div>
