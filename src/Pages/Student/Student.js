@@ -7,19 +7,23 @@ import StudentMenu from "../../Components/Student/StudentMenu/StudentMenu";
 import HostelLife from "../../Components/Student/HostelLife/HostelLife";
 import HostFriend from "../../Components/Student/StudentExtra/HostFriend";
 import Eviction from "../../Components/Student/StudentExtra/Eviction";
+import Payment from "../../Components/Student/StudentExtra/Payment";
 const Student = () => {
   const [host, setHost] = useState(false);
-  const [eviction, setEviction] = useState(true);
+  const [eviction, setEviction] = useState(false);
+  const [paymentModel, setPaymentModel] = useState(false);
+
   return (
     <div className="studentMain">
       <StudentHeader />
       <div className="stuContainer">
-        <MyAccount />
+        <MyAccount setPaymentModel={setPaymentModel} />
         <HostelLife />
         <StudentMenu />
       </div>
       {host && <HostFriend setHost={setHost} />}
       {eviction && <Eviction setEviction={setEviction} />}
+      {paymentModel && <Payment setPaymentModel={setPaymentModel} />}
       <StudentFooter />
     </div>
   );
