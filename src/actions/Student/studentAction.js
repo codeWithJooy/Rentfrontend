@@ -1,9 +1,10 @@
 import {
   COMPLAINT_TYPE,
   CODE_NUMBER_CHECK,
+  SET_STUDENT_PAYMENT_DETAILS,
 } from "../../actionTypes/studentActionType";
 import { dispatchAction, getHeaders } from "../actionHelper";
-import { studentApi } from "../../apis/apis";
+import { studentApi, tenantApi } from "../../apis/apis";
 import { updateToast } from "../toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 export const setComplaintType = (data) => {
@@ -12,7 +13,13 @@ export const setComplaintType = (data) => {
     payload: data,
   };
 };
-
+export const setStudentPaymentDetails = (data) => {
+  return {
+    type: SET_STUDENT_PAYMENT_DETAILS,
+    payload: data,
+  };
+  //dispatchAction(SET_STUDENT_PAYMENT_DETAILS, data);
+};
 export const checkCodeNumber = async (number, code) => {
   try {
     const headers = getHeaders({
@@ -84,6 +91,26 @@ export const addStudent = async (data) => {
         message: "Please try again later",
       });
       return false;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getStudentDues = async (userId, propertyId, tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await tenantApi.get("/getATenant", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Retrieving Dues",
+      });
     }
   } catch (error) {
     console.log(error.message);

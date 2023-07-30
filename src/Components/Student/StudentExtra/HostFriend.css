@@ -79,3 +79,40 @@
   border: none;
   padding: 10px;
 }
+.extraPaymentMode {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.paymentModeUnit {
+  width: 25%;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.paymentModeUnit img {
+  width: 35px;
+  height: 35px;
+}
+.paymentModeName {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.activeMode {
+  border: 1px solid #161a1d;
+  border-radius: 10px;
+}
+.paymentModeTitle {
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
