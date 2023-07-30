@@ -116,3 +116,24 @@ export const getStudentDues = async (userId, propertyId, tenantId) => {
     console.log(error.message);
   }
 };
+export const addPendingCollection = async (data) => {
+  try {
+    const res = await studentApi.post("/addPendingCollection", data);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: `Payment Waiting For Approval`,
+      });
+      return true;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Please try again later",
+      });
+      return false;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

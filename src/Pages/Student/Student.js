@@ -12,18 +12,27 @@ const Student = () => {
   const [host, setHost] = useState(false);
   const [eviction, setEviction] = useState(false);
   const [paymentModel, setPaymentModel] = useState(false);
-
+  const [paymentPageUpdate, setPaymentPageUpdate] = useState(true);
   return (
     <div className="studentMain">
       <StudentHeader />
       <div className="stuContainer">
-        <MyAccount setPaymentModel={setPaymentModel} />
+        <MyAccount
+          setPaymentModel={setPaymentModel}
+          forceUpdate={paymentPageUpdate}
+          setForceUpdate={setPaymentPageUpdate}
+        />
         <HostelLife />
         <StudentMenu />
       </div>
       {host && <HostFriend setHost={setHost} />}
       {eviction && <Eviction setEviction={setEviction} />}
-      {paymentModel && <Payment setPaymentModel={setPaymentModel} />}
+      {paymentModel && (
+        <Payment
+          setPaymentModel={setPaymentModel}
+          setPaymentPageUpdate={setPaymentPageUpdate}
+        />
+      )}
       <StudentFooter />
     </div>
   );
