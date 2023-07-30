@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import moment from "moment";
 import "./HostFriend.css";
+import { addPendingCollection } from "../../../actions/Student/studentAction";
 
-const Payment = ({ setPaymentModel }) => {
-  const [active, setActive] = useState("cash");
+const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
+  const history = useHistory();
   const { userId, propertyId, tenantId, type, due, collection } = useSelector(
     (state) => state.student.studentPayment
   );
@@ -14,7 +16,7 @@ const Payment = ({ setPaymentModel }) => {
     tenantId,
     type,
     due,
-    collection,
+    amount: collection,
     date: moment(new Date()).format("YYYY-MM-DD"),
     mode: "cash",
   });
@@ -26,11 +28,16 @@ const Payment = ({ setPaymentModel }) => {
     } else if (value > payment.due) {
       value = payment.due;
     }
-    setPayment({ ...payment, collection: value });
+    setPayment({ ...payment, amount: value });
   };
 
   const handlePayment = () => {
-    console.log(payment);
+    (async () => {
+      if (addPendingCollection(payment)) {
+        setPaymentModel(false);
+        setPaymentPageUpdate(true);
+      }
+    })();
   };
   return (
     <div className="extraUnitBg">
@@ -59,8 +66,8 @@ const Payment = ({ setPaymentModel }) => {
             <label>I am Payig</label>
             <input
               type="number"
-              name="collection"
-              value={payment.collection}
+              name="amount"
+              value={payment.amount}
               onChange={handleCollection}
             />
           </div>
