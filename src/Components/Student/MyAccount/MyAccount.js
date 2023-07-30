@@ -9,21 +9,20 @@ import {
   setStudentPaymentDetails,
 } from "../../../actions/Student/studentAction";
 import { SET_STUDENT_PAYMENT_DETAILS } from "../../../actionTypes/studentActionType";
-const MyAccount = ({ setPaymentModel }) => {
+const MyAccount = ({ setPaymentModel, forceUpdate, setForceUpdate }) => {
   const { userId, propertyId, tenantId } = useSelector(
     (state) => state.student.studentData
   );
-  const [forceUpdate, setForceUpdate] = useState(true);
+
   const [duesData, setDuesData] = useState(null);
   useEffect(() => {
     (async () => {
-      setForceUpdate(true);
       let data = await getStudentDues(userId, propertyId, tenantId);
       console.log("data is", data);
       setDuesData(data);
       setForceUpdate(false);
     })();
-  }, []);
+  }, [forceUpdate]);
 
   const settings = {
     dots: false,
@@ -95,9 +94,16 @@ const AccountCard = ({ data, setPaymentModel }) => {
           <img src={"Assets/Students/userHeader.png"} />
         </div>
       </div>
-      <div className="stuAmountPay" onClick={handlePaymentNow}>
-        <p>Pay Now</p>
-      </div>
+      {data.status == "pending" && (
+        <div className="stuAmountPay">
+          <p>Pending</p>
+        </div>
+      )}
+      {data.status != "pending" && (
+        <div className="stuAmountPay" onClick={handlePaymentNow}>
+          <p>Pay Now</p>
+        </div>
+      )}
     </div>
   );
 };
