@@ -1,11 +1,13 @@
 import {
   COMPLAINT_TYPE,
   CODE_NUMBER_CHECK,
+  SET_STUDENT_PAYMENT_DETAILS,
 } from "../actionTypes/studentActionType";
 
 const initial = {
   complaintType: "",
   studentData: {},
+  studentPayment: {},
 };
 
 const studentReducer = (state = initial, action) => {
@@ -19,6 +21,11 @@ const studentReducer = (state = initial, action) => {
       return {
         ...state,
         studentData: action.payload,
+      };
+    case SET_STUDENT_PAYMENT_DETAILS:
+      return {
+        ...state,
+        studentPayment: action.payload,
       };
     default:
       return state;
