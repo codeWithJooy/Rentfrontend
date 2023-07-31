@@ -42,6 +42,7 @@ import ComplaintHolder from "./Pages/Student/ComplaintHolder";
 import StudentSignUp from "./Pages/Student/Signup/StudentSignUp";
 import StudentLogin from "./Pages/Student/Signup/StudentLogin";
 import StudentNumberLogin from "./Pages/Student/Signup/StudentNumberLogin";
+import StudentAccount from "./Pages/Student/Account/StudentAccount";
 const App = () => {
   return (
     <BrowserRouter>
@@ -83,6 +84,7 @@ const App = () => {
         <Route path="/student" component={Student} />
         <Route path="/complaint" component={Complaint} />
         <Route path="/complaintHolder" component={ComplaintHolder} />
+        <Route path="/studentAccount" component={StudentAccount} />
       </Switch>
       <Toasty />
     </BrowserRouter>
