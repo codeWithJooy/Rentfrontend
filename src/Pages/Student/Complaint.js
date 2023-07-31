@@ -15,7 +15,7 @@ const Complaint = () => {
           <ComplaintUnit data={data} key={index} />
         ))}
       </div>
-      <StudentFooter />
+      <StudentFooter page={"Complaints"} />
     </div>
   );
 };
