@@ -35,8 +35,8 @@ export const homeData = [
     link: "/food",
   },
   {
-    title: "Add UPI",
-    img: "Assets/Home/upi.png",
-    link: "/home",
+    title: "Solve Complaints",
+    img: "Assets/Home/complaints.png",
+    link: "/complaintSection",
   },
 ];
