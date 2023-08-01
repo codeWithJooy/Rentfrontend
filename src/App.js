@@ -30,6 +30,7 @@ import MemberAdd from "./Pages/Member/MemberAdd";
 
 import Announcement from "./Pages/Announcement/Announcement";
 import AddAnnouncement from "./Pages/Announcement/AddAnnouncement";
+import Complaints from "./Pages/Complaints/Complaints";
 import Toasty from "./Components/Toasty/Toasty";
 import MemberProfile from "./Pages/Member/MemberProfile";
 
@@ -75,7 +76,9 @@ const App = () => {
 
         <Route path="/announcement" component={Announcement} />
         <Route path="/addann" component={AddAnnouncement} />
-
+        
+        <Route path="/complaintSection" component={Complaints} />
+        
         <Route path="/receipt" component={Receipt} />
 
         <Route path="/studentSignUp" component={StudentSignUp} />
