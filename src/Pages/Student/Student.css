@@ -192,8 +192,8 @@
   justify-content: flex-end;
 }
 .hostelCardImage img {
-  width: 120px;
-  height: 100px;
+  width: 120px !important;
+  height: 120px !important;
 }
 
 /*======================================*/
