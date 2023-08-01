@@ -22,7 +22,7 @@ const Student = () => {
           forceUpdate={paymentPageUpdate}
           setForceUpdate={setPaymentPageUpdate}
         />
-        <HostelLife />
+        <HostelLife setEviction={setEviction} setHost={setHost} />
         <StudentMenu />
       </div>
       {host && <HostFriend setHost={setHost} />}
