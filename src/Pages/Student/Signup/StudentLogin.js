@@ -53,7 +53,7 @@ const StudentLogin = () => {
             <div className="stuSignDataUnitInput">
               <label>Password</label>
               <input
-                type="pasword"
+                type="password"
                 name="password"
                 value={cred.password}
                 onChange={handleChange}

@@ -13,6 +13,7 @@ const devApis = {
   DUE_API: "http://localhost:5000/api/dues",
   SUMMARY_API: "http://localhost:5000/api/summary",
   STUDENT_API: "http://localhost:5000/api/student",
+  COMPLAINT_API:"http://localhost:5000/api/complaint",
 };
 const prodApis = {
   USER_API: "https://rentpg.onrender.com/api/auth",
@@ -26,6 +27,7 @@ const prodApis = {
   DUE_API: "https://rentpg.onrender.com/api/dues",
   SUMMARY_API: "https://rentpg.onrender.com/api/summary",
   STUDENT_API: "https://rentpg.onrender.com/api/student",
+  COMPLAINT_API:"https://rentpg.onrender.com/api/complaint",
 };
 
 const getApiUrls = () => {
@@ -79,3 +81,6 @@ export const summaryApi = axios.create({
 export const studentApi = axios.create({
   baseURL: APIS.STUDENT_API,
 });
+export const complaintApi = axios.create({
+  baseURL:APIS.COMPLAINT_API,
+})

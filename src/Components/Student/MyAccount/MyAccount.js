@@ -95,7 +95,7 @@ const AccountCard = ({ data, setPaymentModel }) => {
         </div>
       </div>
       {data.status == "pending" && (
-        <div className="stuAmountPay">
+        <div className="stuAmountPending">
           <p>Pending</p>
         </div>
       )}

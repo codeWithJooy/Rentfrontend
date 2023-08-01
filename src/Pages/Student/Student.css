@@ -10,7 +10,7 @@
   height: 10vh;
   background: #fff;
   box-shadow: 0 0 3px #b1a7a6;
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,11 +22,11 @@
   width: 10%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 }
 .stuHeaderIcon img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
 }
 .stuHeaderName {
   width: 70%;
@@ -154,6 +154,20 @@
   border-bottom-right-radius: 15px;
   background-color: #3b385a;
 }
+.stuAmountPending {
+  bottom: 0px;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: bold;
+  background-color: #33B8C8;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  color: #E2EDFC;
+}
 /*======================================*/
 .hostelCard {
   width: 95%;
@@ -192,8 +206,8 @@
   justify-content: flex-end;
 }
 .hostelCardImage img {
-  width: 120px;
-  height: 100px;
+  width: 120px !important;
+  height: 120px !important;
 }
 
 /*======================================*/

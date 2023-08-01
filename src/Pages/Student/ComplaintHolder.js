@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import StudentFooter from "../../Components/Footer/StudentFooter/StudentFooter";
 import ComplaintHolderHeader from "../../Components/Header/StudentHeader/ComplaintHolderHeader";
 import { complaints } from "../../data/complaintData";
+import { raiseComplaint } from "../../actions/Student/studentAction";
+import moment from "moment"
+
 const ComplaintHolder = () => {
   const title = useSelector((state) => state.student.complaintType);
   const [subComplaint, setSubComplaint] = useState("");
@@ -54,6 +58,29 @@ const ComplaintUnits = ({ val, setSubComplaint, setIsSet }) => {
   );
 };
 const ComplaintFinal = ({ cat, subComplaint }) => {
+  const{userId,propertyId,tenantId}=useSelector(state=>state.student.studentData)
+  const history=useHistory()
+  const [complaintData, setComplaintData] = useState({
+    userId,
+    propertyId,
+    tenantId,
+    type: cat,
+    subType: subComplaint,
+    description: "",
+    raisedOn: moment(new Date()).format("YYYY-MM-DD")
+  })
+
+  const handleDescription = (e) => {
+    setComplaintData({...complaintData,description:e.target.value})
+  }
+
+  const handleComplaint= () => {
+    (async () => {
+      if (await raiseComplaint(complaintData)) {
+        history.push("/student")
+      }
+    })()
+  }
   return (
     <div className="complaintFinalCard">
       <div className="complaintFinalHeader">
@@ -66,10 +93,10 @@ const ComplaintFinal = ({ cat, subComplaint }) => {
       </div>
       <div className="complaintFinalHeader">
         <label>Add Description</label>
-        <textarea></textarea>
+        <textarea value={complaintData.description} onChange={handleDescription}></textarea>
       </div>
       <div className="complaintFinalHeader">
-        <button>Add Complaint</button>
+        <button onClick={handleComplaint}>Add Complaint</button>
       </div>
     </div>
   );
