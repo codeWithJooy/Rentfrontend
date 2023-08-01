@@ -1,9 +1,14 @@
-import React from "react";
+import React,{useState} from "react";
+import { useHistory } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const HostelLife = () => {
+const HostelLife = ({ setEviction, setHost }) => {
+  let history=useHistory()
+  const handleIssue = () => {
+    history.push("/complaint")
+  }
   const settings = {
     dots: false,
     infinite: true,
@@ -20,21 +25,30 @@ const HostelLife = () => {
         <Slider {...settings}>
           <HostelCard
             title={"Facing Issues ?"}
+            description={"Register complaints in one click"}
             fg={"#33B8C8"}
             bg={"#EEFDFF"}
             icon={"Assets/Students/complaint.png"}
+            nextIcon={"Assets/Students/nextIssue.png"}
+            onClick={handleIssue}
           />
           <HostelCard
-            title={"Facing Issues ?"}
-            fg={"#803EAA"}
-            bg={"#F2EEFF"}
-            icon={"Assets/Students/nightout.png"}
-          />
-          <HostelCard
-            title={"Facing Issues ?"}
+            title={"Hosting Friends ?"}
+            description={"Inform Your Owner and invite friends"}
             fg={"#ffa839"}
             bg={"#fff4ee"}
             icon={"Assets/Students/hosting.png"}
+            nextIcon={"Assets/Students/nextFriends.png"}
+            onClick={setHost}
+          />
+          <HostelCard
+            title={"Leaving Property?"}
+            description={"Inform Your Owner to give 30 days Notice."}
+            fg={"#803EAA"}
+            bg={"#F2EEFF"}
+            icon={"Assets/Students/nightout.png"}
+            nextIcon={"Assets/Students/nextEviction.png"}
+            onClick={setEviction}
           />
         </Slider>
       </div>
@@ -44,18 +58,18 @@ const HostelLife = () => {
 
 export default HostelLife;
 
-const HostelCard = ({ title, fg, bg, icon }) => {
+const HostelCard = ({ title,description,fg, bg, icon,nextIcon ,onClick}) => {
   return (
     <div className="hostelCard" style={{ background: bg }}>
       <div className="hostelCardHeader">
         <p style={{ color: fg }}>{title}</p>
       </div>
       <div className="hostelCardSubHeader">
-        <p style={{ color: fg }}>Register your complaints in one click </p>
+        <p style={{ color: fg }}>{description} </p>
       </div>
       <div className="hostelCardBottom">
         <div className="hostelCardNext">
-          <img src="Assets/Students/next.png" />
+          <img src={nextIcon} onClick={onClick}/>
         </div>
         <div className="hostelCardImage">
           <img src={icon} />
