@@ -4,7 +4,7 @@ import {
   SET_STUDENT_PAYMENT_DETAILS,
 } from "../../actionTypes/studentActionType";
 import { dispatchAction, getHeaders } from "../actionHelper";
-import { studentApi, tenantApi } from "../../apis/apis";
+import { studentApi, tenantApi ,complaintApi} from "../../apis/apis";
 import { updateToast } from "../toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 export const setComplaintType = (data) => {
@@ -137,3 +137,25 @@ export const addPendingCollection = async (data) => {
     console.log(error.message);
   }
 };
+
+export const raiseComplaint = async(data) => {
+  try {
+    const res = await complaintApi.post("/raiseComplaint", data);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: `Complaint Raised Successfully`,
+      });
+      return true;
+    }else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Please try again later",
+      });
+      return false;
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
