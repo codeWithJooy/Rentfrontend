@@ -20,7 +20,7 @@ const student = [
     link: "/student",
   },
   {
-    title: "Complaints",
+    title: "Issues",
     icon: "Assets/Students/Footer/complaint.png",
     iconSelected: "Assets/Students/Footer/complaint_selected.png",
     link: "/complaint",
