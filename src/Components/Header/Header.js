@@ -32,7 +32,7 @@ const Header = ({ name, link = "/home", type = "header" }) => {
           <p>{name}</p>
         </div>
         <div className="headerNotifications">
-          <img src="Assets/Header/notification.png" />
+          <img src="Assets/Header/notification.png" onClick={()=>{history.push("/notifications")}}/>
         </div>
       </div>
     </div>
