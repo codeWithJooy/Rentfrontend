@@ -44,6 +44,7 @@ import StudentSignUp from "./Pages/Student/Signup/StudentSignUp";
 import StudentLogin from "./Pages/Student/Signup/StudentLogin";
 import StudentNumberLogin from "./Pages/Student/Signup/StudentNumberLogin";
 import StudentAccount from "./Pages/Student/Account/StudentAccount";
+import Profile from "./Pages/Profile/Profile";
 const App = () => {
   return (
     <BrowserRouter>
@@ -78,7 +79,7 @@ const App = () => {
         <Route path="/addann" component={AddAnnouncement} />
         
         <Route path="/complaintSection" component={Complaints} />
-        
+        <Route path="/profile" component={Profile} />
         <Route path="/receipt" component={Receipt} />
 
         <Route path="/studentSignUp" component={StudentSignUp} />
