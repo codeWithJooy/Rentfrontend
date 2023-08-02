@@ -45,6 +45,7 @@ import StudentLogin from "./Pages/Student/Signup/StudentLogin";
 import StudentNumberLogin from "./Pages/Student/Signup/StudentNumberLogin";
 import StudentAccount from "./Pages/Student/Account/StudentAccount";
 import Profile from "./Pages/Profile/Profile";
+import Notifications from "./Pages/Notifications/Notifications"
 const App = () => {
   return (
     <BrowserRouter>
@@ -80,6 +81,7 @@ const App = () => {
         
         <Route path="/complaintSection" component={Complaints} />
         <Route path="/profile" component={Profile} />
+        <Route path="/notifications" component={Notifications} />
         <Route path="/receipt" component={Receipt} />
 
         <Route path="/studentSignUp" component={StudentSignUp} />

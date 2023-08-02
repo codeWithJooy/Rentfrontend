@@ -1,0 +1,155 @@
+.notiMain {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    background-color: #f5f3f4;
+    z-index: 1;
+  }
+  .notiContainer {
+    width: 100%;
+    height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 12;
+  }
+  .notiNavbar{
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .notiNavUnit{
+    width:25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:50px;
+    cursor: pointer;
+    color:#b1a7a6;
+    border-bottom: 2px solid #f5f3f4;
+  }
+  .notiNavActive{
+    border-bottom: 2px solid #a4161a;
+  }
+  .notiNavActiveText{
+    font-weight: bold;
+    color: #a4161a;
+  }
+/*============================================
+             Payment Section Starts
+=============================================*/
+  .paymentNotiSection{
+    width:100%;
+    padding:20px 15px;
+  }
+  .paymentNotiCard{
+    width:90%;
+    padding:10px;
+    margin-left: 5%;
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #b1a7a6;
+  }
+  .paymentDetails{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .payType{
+    width:50%;
+    display: flex;
+    justify-content: left;
+    font-size: 15px;
+    font-weight: bold;
+    color: #a4161a;
+  }
+  .payAmount{
+    width:50%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+    font-weight: bold;
+    color: #a4161a
+  }
+  .payeeDetails{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .payeeName{
+    width:50%;
+    display: flex;
+    justify-content: left;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .payeeRoom{
+    width:50%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .paymentMeta{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .paymentMetaDate{
+    width:50%;
+    display: flex;
+    justify-content: left;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .paymentMetaMode{
+    width:50%;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .paymentButtons{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .paymentButtonHolder{
+    width:50%;
+    display: flex;
+    justify-content: centre;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .accept{
+    padding:5px 20px;
+    border-radius: 10px;
+    background-color: #a4161a;
+    color:#fff;
+    cursor: pointer;
+  }
+  .decline{
+    padding:5px 20px;
+    border-radius: 10px;
+    background-color: #b1a7a6;
+    color:#a4161a;
+    border:1px solid #b1a7a6;
+    cursor: pointer;
+  }
+  /*============================================
+             Payment Section Ends
+=============================================*/

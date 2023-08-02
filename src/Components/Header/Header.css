@@ -39,8 +39,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 .headerNotifications img {
   height: 24px;
   width: 24px;
+}
+.headerNotiCount{
+  font-size: 10px;
+  border-radius: 50%;
+  width:15px;
+  height:15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color:#e5383b;
+  position: absolute;
+  top:5px;
+  left:30px;
 }
