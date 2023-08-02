@@ -17,10 +17,10 @@ const property = [
     link: "/dues",
   },
   {
-    title: "Add",
+    title: "My Profile",
     icon: "Assets/Footer/plus.png",
     iconSelected: "Assets/Footer/plus_selected.png",
-    link: "/home",
+    link: "/profile",
   },
   {
     title: "Tenants",

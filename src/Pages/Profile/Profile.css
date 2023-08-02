@@ -1,0 +1,92 @@
+.profMain {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    background-color: #f5f3f4;
+    z-index: 1;
+  }
+  .profContainer {
+    width: 100%;
+    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    z-index: 12;
+  }
+  .proFirst{
+    width:80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+    padding:15px 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px #b1a7a6;
+  }
+  .proImage{
+    width:100%;
+    padding:10px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    color:#161a1d;
+  }
+  .proImage img{
+    width:45px;
+    height:45px;
+  }
+  .proImage button{
+    padding:7px 60px;
+    border-radius: 10px;
+    background-color: #161a1d;
+    color:#fff;
+  }
+  .profilePGCard{
+    width:80%;
+    margin-left: 10%;
+    padding:15px 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px #b1a7a6;
+  }
+  .pgName{
+    width:100%;
+    font-size: 16px;
+    font-family: bold;
+    margin-bottom: 10px;
+  }
+  .pgDetails{
+    width:100%;
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .pgNumber{
+    width:50%;
+    display: flex;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .pgPin{
+    width:50%;
+    text-align: center;
+    font-size:14px;
+    font-weight: bold;
+  }
+  .pgCode{
+    width:100%;
+    font-size: 13px;
+    color:#b1a7a6;
+  }
+  .pgCodeValue{
+    font-size: 15px;
+    font-weight: bold;
+    color:#a4161a;
+    margin-left: 20px;
+  }
