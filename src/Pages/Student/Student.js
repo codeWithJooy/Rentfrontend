@@ -4,6 +4,7 @@ import StudentFooter from "../../Components/Footer/StudentFooter/StudentFooter";
 import MyAccount from "../../Components/Student/MyAccount/MyAccount";
 import "./Student.css";
 import StudentMenu from "../../Components/Student/StudentMenu/StudentMenu";
+import StudentComplaint from "../../Components/Student/StudentComplaint/StudentComplaint";
 import HostelLife from "../../Components/Student/HostelLife/HostelLife";
 import HostFriend from "../../Components/Student/StudentExtra/HostFriend";
 import Eviction from "../../Components/Student/StudentExtra/Eviction";
@@ -24,6 +25,7 @@ const Student = () => {
         />
         <HostelLife setEviction={setEviction} setHost={setHost} />
         <StudentMenu />
+        <StudentComplaint />
       </div>
       {host && <HostFriend setHost={setHost} />}
       {eviction && <Eviction setEviction={setEviction} />}
