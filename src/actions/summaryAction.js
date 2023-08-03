@@ -193,3 +193,22 @@ export const getTotalTenants = async (userId, propertyId) => {
     console.log(error);
   }
 };
+export const getNotificationCount = async (userId, propertyId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    });
+    const res = await summaryApi.get("/getNotificationCount", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
