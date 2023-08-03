@@ -159,3 +159,74 @@ export const raiseComplaint = async(data) => {
     console.log(error.message)
   }
 }
+export const getComplaints = async(userId,propertyId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    })
+    const res = await complaintApi.get("/getComplaints", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    }else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Please try again later",
+      });
+      return false;
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const getStudentComplaints = async(userId,propertyId,tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId
+    })
+    const res = await complaintApi.get("/getStudentComplaints", headers);
+    if (res.data.code == 200) {
+      return res.data.model;
+    }else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Please try again later",
+      });
+      return false;
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const updateStatus = async (id, status) => {
+  try {
+    const data = {
+      id,
+      status
+    }
+    const res = await complaintApi.put("/updateStatus", data);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: `Complaint Status Updated`,
+      });
+      return true;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Please try again later",
+      });
+      return false;
+    }
+  }
+  catch (err) {
+    console.log(err.message)
+  }
+}
