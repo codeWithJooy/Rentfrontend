@@ -48,6 +48,9 @@ const ComplaintCard = ({ type, subType, name, room, date, status,description,ten
         setCompStatus(e.target.value)
         updateStatus(id,e.target.value)
     }
+    const handeCall = () => {
+        window.open('tel:+919007453398')
+    }
     return (
         <div className='comCard'>
             <div className='comCardTop'>
@@ -67,7 +70,7 @@ const ComplaintCard = ({ type, subType, name, room, date, status,description,ten
                 <div className='comCardName'>
                     <p>{name}</p>
                 </div>
-                <div className='comCardRoom'>
+                <div className='comCardRoom' onClick={handeCall}>
                     <p>{room}</p>
                 </div>
             </div>
