@@ -71,6 +71,7 @@ export const addRooms = async (
   userId,
   propertyId,
   floorName,
+  floorId,
   single,
   double,
   triple
@@ -80,6 +81,7 @@ export const addRooms = async (
       userId,
       propertyId,
       floorName,
+      floorId,
       single,
       double,
       triple,
