@@ -78,8 +78,8 @@ const RoomSection = () => {
   );
 };
 const RoomDetails = () => {
-  const roomName = useSelector((state) => state.room.selectedRoom);
-  const floorName = useSelector((state) => state.floor.selectedFloor);
+  const roomId = useSelector((state) => state.room.selectedRoom);
+  const floorName = useSelector((state) => state.floor.selectedFloor.name);
   const user = useSelector((state) => state.user);
 
   const [edit, setEdit] = useState(false);
@@ -110,8 +110,7 @@ const RoomDetails = () => {
         let roomData = await getSingleRoom(
           user.userId,
           user.propertyId,
-          floorName,
-          roomName
+          roomId
         );
         setData(roomData);
       })();
@@ -192,9 +191,8 @@ const RoomDetails = () => {
         </div>
       </div>
       <img
-        src={`${
-          edit ? "Assets/Property/done.png" : "Assets/Property/edit.png"
-        }`}
+        src={`${edit ? "Assets/Property/done.png" : "Assets/Property/edit.png"
+          }`}
         className="editButton"
         onClick={edit ? handleUpdate : handleEdit}
       />

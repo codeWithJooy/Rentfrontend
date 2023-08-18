@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectedRoom } from "../../../actions/roomActions";
 import "./Rooms.css";
 
-const RoomsCard = ({ name, type, status, rate }) => {
+const RoomsCard = ({ roomId, name, type, status, rate }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const rooms = useSelector((state) => state.room.rooms);
   const handleCardClick = () => {
-    dispatch(selectedRoom(name));
+    dispatch(selectedRoom(roomId));
     history.push("/room");
   };
   return (
