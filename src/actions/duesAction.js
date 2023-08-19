@@ -6,7 +6,7 @@ import {
   SET_DUE_TENANT,
 } from "../actionTypes/duesAction";
 import { duesApi } from "../apis/apis";
-import { getHeaders } from "./actionHelper";
+import { dispatchAction, getHeaders } from "./actionHelper";
 import { updateToast } from "./toastActions";
 
 export const setDuesType = (data) => {
@@ -89,3 +89,25 @@ export const addDuesTenant = async (userId, propertyId, tenantId, data) => {
     console.log(error.message);
   }
 };
+export const getDuesTenant = async (userId, propertyId, tenantId) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    })
+    const res = await duesApi.get("/getDuesTenant", header)
+    if (res.data.code == 200) {
+      dispatchAction(SET_DUE_TENANT, res.data.model)
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error Fetching Tenant Dues",
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
