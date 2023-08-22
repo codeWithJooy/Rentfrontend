@@ -125,7 +125,7 @@ export const calculateTotalDues = (arr) => {
   let val = 0;
 
   let data = arr.map((data) => {
-    val = val + parseInt(data.due) - parseInt(data.collection);
+    val = val + parseInt(data.due) - parseInt(data.collections);
   });
   return val;
 };
