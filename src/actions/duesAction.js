@@ -111,3 +111,25 @@ export const getDuesTenant = async (userId, propertyId, tenantId) => {
     console.log(error)
   }
 }
+export const getDues = async (userId, propertyId) => {
+  try {
+    const header = getHeaders({
+      userId,
+      propertyId,
+    })
+    const res = await duesApi.get("/getDues", header)
+    if (res.data.code == 200) {
+      //dispatchAction(SET_DUE_TENANT, res.data.model)
+      return res.data.model
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Error Fetching Tenant Dues",
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

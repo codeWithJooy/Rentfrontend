@@ -8,21 +8,25 @@ import {
 } from "../../actions/tenantAction";
 import { allDues, calculateTotalDues, generateIndiDues } from "../../helper";
 import { getAllCollections } from "../../actions/collectionAction";
+import { getDues } from "../../actions/duesAction";
 const DuesList = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.user);
+  const [tenant, setTenant] = useState([])
   const [dues, setDues] = useState([]);
   const [tenantCount, setTenantCount] = useState(0);
   const [collection, setCollection] = useState([]);
   useEffect(() => {
     (async () => {
-      let data = await getTenants(user.userId, user.propertyId);
+      let data = await getTenants(user.userId, user.propertyId)
+      let duesData = await getDues(user.userId, user.propertyId);
       let count = await getTenantsCount(user.userId, user.propertyId);
       let collectionData = await getAllCollections(
         user.userId,
         user.propertyId
       );
-      setDues(data);
+      setTenant(data)
+      setDues(duesData);
       setTenantCount(count);
       setCollection(collectionData);
     })();
@@ -34,10 +38,11 @@ const DuesList = () => {
         dues={dues}
         collection={collection}
       />
-      {dues &&
-        dues.map((data, index) => (
+      {tenant &&
+        tenant.map((data, index) => (
           <DuesDataCard
-            data={data}
+            tenant={data}
+            dues={dues}
             setOpen={setOpen}
             collection={collection}
             key={index}
@@ -50,10 +55,10 @@ const DuesList = () => {
 export default DuesList;
 
 //Due Card For Each Tenant
-const DuesDataCard = ({ data, collection, setOpen }) => {
+const DuesDataCard = ({ tenant, dues, collection, setOpen }) => {
   const dispatch = useDispatch();
   const handleRecord = () => {
-    dispatch(setTenant(data));
+    dispatch(setTenant(tenant));
     setOpen(true);
   };
 
@@ -62,18 +67,18 @@ const DuesDataCard = ({ data, collection, setOpen }) => {
       <div className="ddcTop">
         <div className="ddcHead">
           <div className="ddcTitle">
-            <p>{data.name}</p>
+            <p>{tenant.name}</p>
           </div>
           <div className="ddcDue">
-            <p>Rs {generateIndiDues(data.dues, collection, data._id)}</p>
+            <p>Rs {generateIndiDues(dues, collection, tenant._id)}</p>
           </div>
         </div>
         <div className="ddcHead">
           <div className="ddcRoom">
-            <p>{data.roomName}</p>
+            <p>{tenant.roomName}</p>
           </div>
           <div className="ddcDueDate">
-            <p>{data.doj}</p>
+            <p>{tenant.doj}</p>
           </div>
         </div>
       </div>
