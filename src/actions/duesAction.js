@@ -80,7 +80,7 @@ export const addDuesTenant = async (userId, propertyId, tenantId, data) => {
     } else {
       updateToast({
         code: CodeAnalogy.ERROR,
-        title: "Something Went Wrong",
+        title: res.data.msg,
         message: "Error While Adding Dues",
       });
       return true;
@@ -99,6 +99,7 @@ export const getDuesTenant = async (userId, propertyId, tenantId) => {
     const res = await duesApi.get("/getDuesTenant", header)
     if (res.data.code == 200) {
       dispatchAction(SET_DUE_TENANT, res.data.model)
+      return res.data.model
     }
     else {
       updateToast({
