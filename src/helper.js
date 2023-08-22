@@ -133,30 +133,27 @@ export const allDues = (dues, collection) => {
   let val = 0;
   let col = 0;
   for (let i = 0; i < dues.length; i++) {
-    for (let j = 0; j < dues[i].dues.length; j++) {
-      val = val + parseInt(dues[i].dues[j].due);
-    }
+    val = val + parseInt(dues[i].due);
   }
   for (let i = 0; i < collection.length; i++) {
-    for (let j = 0; j < collection[i].collections.length; j++) {
-      col = col + parseInt(collection[i].collections[j].amount);
-    }
+
+    col = col + parseInt(collection[i].amount);
   }
   return val - col;
 };
 export const generateIndiDues = (dues, collection, tenantId) => {
   const collections = collection.filter((unit) => unit.tenantId == tenantId);
-
+  const due = dues.filter((unit) => unit.tenantId == tenantId)
   let val = 0;
   let col = 0;
-  for (let i = 0; i < dues.length; i++) {
-    val = val + parseInt(dues[i].due);
+  for (let i = 0; i < due.length; i++) {
+    val = val + parseInt(due[i].due);
   }
 
   for (let i = 0; i < collections.length; i++) {
-    for (let j = 0; j < collections[i].collections.length; j++) {
-      col = col + parseInt(collection[i].collections[j].amount);
-    }
+
+    col = col + parseInt(collection[i].amount);
+
   }
 
   return val - col;
