@@ -41,10 +41,10 @@ const MyAccount = ({ setPaymentModel, forceUpdate, setForceUpdate }) => {
         <div className="stuMainSection">
           <Slider {...settings}>
             {duesData &&
-              duesData.dues
+              duesData
                 .filter(
                   (duesUnit) =>
-                    parseInt(duesUnit.due) - parseInt(duesUnit.collection) > 0
+                    parseInt(duesUnit.due) - parseInt(duesUnit.collections) > 0
                 )
                 .map((unit, index) => (
                   <AccountCard data={unit} setPaymentModel={setPaymentModel} />
@@ -64,14 +64,14 @@ const AccountCard = ({ data, setPaymentModel }) => {
   const { userId, propertyId, tenantId } = useSelector(
     (state) => state.student.studentData
   );
-  const { type, due, collection } = data;
+  const { dueType, due, collections } = data;
   let obj = {
     userId,
     propertyId,
     tenantId,
-    type,
-    due: parseInt(due) - parseInt(collection),
-    collection: parseInt(due) - parseInt(collection),
+    dueType,
+    due: parseInt(due) - parseInt(collections),
+    collection: parseInt(due) - parseInt(collections),
   };
   const dispatchUnit = useDispatch();
 
@@ -84,11 +84,11 @@ const AccountCard = ({ data, setPaymentModel }) => {
   return (
     <div className="stuAmountCard">
       <div className="stuAmountTitle">
-        <p>{type}</p>
+        <p>{dueType}</p>
       </div>
       <div className="stuAmountDetails">
         <div className="stuAmountType">
-          <p>&#8377; {parseInt(due) - parseInt(collection)}</p>
+          <p>&#8377; {parseInt(due) - parseInt(collections)}</p>
         </div>
         <div className="stuAmountImg">
           <img src={"Assets/Students/userHeader.png"} />
