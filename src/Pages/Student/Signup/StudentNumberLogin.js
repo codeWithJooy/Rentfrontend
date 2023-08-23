@@ -18,6 +18,7 @@ const StudentNumberLogin = () => {
         history.push("/studentSignup");
       }
     })();
+
   };
   const handleAlready = () => {
     history.push("/studentLogin");
@@ -52,7 +53,7 @@ const StudentNumberLogin = () => {
             <div className="stuSignDataUnitInput">
               <label>Add 6-digit PG code</label>
               <input
-                type="Number"
+                type="text"
                 name="code"
                 value={cred.code}
                 onChange={handleChange}
