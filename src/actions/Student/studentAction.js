@@ -4,7 +4,7 @@ import {
   SET_STUDENT_PAYMENT_DETAILS,
 } from "../../actionTypes/studentActionType";
 import { dispatchAction, getHeaders } from "../actionHelper";
-import { studentApi, tenantApi ,complaintApi} from "../../apis/apis";
+import { studentApi, tenantApi, complaintApi, duesApi } from "../../apis/apis";
 import { updateToast } from "../toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 export const setComplaintType = (data) => {
@@ -103,7 +103,7 @@ export const getStudentDues = async (userId, propertyId, tenantId) => {
       propertyId,
       tenantId,
     });
-    const res = await tenantApi.get("/getATenant", headers);
+    const res = await duesApi.get("/getDuesTenant", headers)
     if (res.data.code == 200) {
       return res.data.model;
     } else {
@@ -138,7 +138,7 @@ export const addPendingCollection = async (data) => {
   }
 };
 
-export const raiseComplaint = async(data) => {
+export const raiseComplaint = async (data) => {
   try {
     const res = await complaintApi.post("/raiseComplaint", data);
     if (res.data.code == 200) {
@@ -147,7 +147,7 @@ export const raiseComplaint = async(data) => {
         title: `Complaint Raised Successfully`,
       });
       return true;
-    }else {
+    } else {
       updateToast({
         code: CodeAnalogy.ERROR,
         title: "Something Went Wrong",
@@ -159,7 +159,7 @@ export const raiseComplaint = async(data) => {
     console.log(error.message)
   }
 }
-export const getComplaints = async(userId,propertyId) => {
+export const getComplaints = async (userId, propertyId) => {
   try {
     const headers = getHeaders({
       userId,
@@ -168,7 +168,7 @@ export const getComplaints = async(userId,propertyId) => {
     const res = await complaintApi.get("/getComplaints", headers);
     if (res.data.code == 200) {
       return res.data.model;
-    }else {
+    } else {
       updateToast({
         code: CodeAnalogy.ERROR,
         title: "Something Went Wrong",
@@ -181,7 +181,7 @@ export const getComplaints = async(userId,propertyId) => {
   }
 }
 
-export const getStudentComplaints = async(userId,propertyId,tenantId) => {
+export const getStudentComplaints = async (userId, propertyId, tenantId) => {
   try {
     const headers = getHeaders({
       userId,
@@ -191,7 +191,7 @@ export const getStudentComplaints = async(userId,propertyId,tenantId) => {
     const res = await complaintApi.get("/getStudentComplaints", headers);
     if (res.data.code == 200) {
       return res.data.model;
-    }else {
+    } else {
       updateToast({
         code: CodeAnalogy.ERROR,
         title: "Something Went Wrong",
