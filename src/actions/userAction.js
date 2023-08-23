@@ -50,6 +50,7 @@ export const userProperty = async (data, userId) => {
       name: data.name,
       contact: data.contact,
       pincode: data.pincode,
+      code: data.code,
       userId: userId,
     };
     if (!propertyValidation(property)) return;
