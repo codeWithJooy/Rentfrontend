@@ -103,7 +103,7 @@ export const getStudentDues = async (userId, propertyId, tenantId) => {
       propertyId,
       tenantId,
     });
-    const res = await duesApi.get("/getDuesTenant", headers)
+    const res = await studentApi.get("/getStudentDues", headers)
     if (res.data.code == 200) {
       return res.data.model;
     } else {
@@ -192,11 +192,11 @@ export const getStudentComplaints = async (userId, propertyId, tenantId) => {
     if (res.data.code == 200) {
       return res.data.model;
     } else {
-      updateToast({
-        code: CodeAnalogy.ERROR,
-        title: "Something Went Wrong",
-        message: "Please try again later",
-      });
+      // updateToast({
+      //   code: CodeAnalogy.ERROR,
+      //   title: "Something Went Wrong",
+      //   message: "Please try again later",
+      // });
       return false;
     }
   } catch (error) {
