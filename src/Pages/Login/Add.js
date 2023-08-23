@@ -12,6 +12,7 @@ const Add = () => {
     name: "",
     contact: "",
     pincode: "",
+    code: ""
   });
   const history = useHistory();
   const handleChange = (e) => {
@@ -60,6 +61,15 @@ const Add = () => {
               placeholder="Pincode"
               name="pincode"
               value={property.pincode}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="entryDataUnit">
+            <input
+              type="text"
+              placeholder="Property Code(6-digits)"
+              name="code"
+              value={property.code}
               onChange={handleChange}
             />
           </div>
