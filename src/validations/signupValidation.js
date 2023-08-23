@@ -43,7 +43,7 @@ export const signupValidation = (user) => {
 };
 
 export const propertyValidation = (property) => {
-  const { name, contact, pincode } = property;
+  const { name, contact, pincode, code } = property;
   if (name == "") {
     updateToast({
       code: CodeAnalogy.ERROR,
@@ -65,6 +65,28 @@ export const propertyValidation = (property) => {
       code: CodeAnalogy.ERROR,
       title: "Add Property Pincode",
       message: "Property Pincode Cannot be Empty",
+    });
+    return false;
+  }
+  if (code == "") {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Add Property Code",
+      message: "Property Code Cannot be Empty",
+    });
+    return false;
+  }
+  if (! /^[A-Za-z0-9]*$/.test(code)) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Only Letters and Numbers Required",
+    });
+    return false;
+  }
+  if (code.length > 6 || code.length < 6) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Code Should be of 6 digits.",
     });
     return false;
   }
