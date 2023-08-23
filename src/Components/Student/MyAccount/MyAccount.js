@@ -71,7 +71,7 @@ const AccountCard = ({ data, setPaymentModel }) => {
     tenantId,
     dueType,
     due: parseInt(due) - parseInt(collections),
-    collection: parseInt(due) - parseInt(collections),
+    collections: parseInt(due) - parseInt(collections),
   };
   const dispatchUnit = useDispatch();
 

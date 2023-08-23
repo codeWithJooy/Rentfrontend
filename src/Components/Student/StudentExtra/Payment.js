@@ -7,16 +7,16 @@ import { addPendingCollection } from "../../../actions/Student/studentAction";
 
 const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
   const history = useHistory();
-  const { userId, propertyId, tenantId, type, due, collection } = useSelector(
+  const { userId, propertyId, tenantId, dueType, due, collections } = useSelector(
     (state) => state.student.studentPayment
   );
   const [payment, setPayment] = useState({
     userId,
     propertyId,
     tenantId,
-    type,
+    dueType,
     due,
-    amount: collection,
+    amount: collections,
     date: moment(new Date()).format("YYYY-MM-DD"),
     mode: "cash",
   });
@@ -38,6 +38,7 @@ const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
         setPaymentPageUpdate(true);
       }
     })();
+
   };
   return (
     <div className="extraUnitBg">
@@ -77,9 +78,8 @@ const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
             <p>Mode Of Payment</p>
           </div>
           <div
-            className={`paymentModeUnit ${
-              payment.mode == "cash" ? "activeMode" : ""
-            }`}
+            className={`paymentModeUnit ${payment.mode == "cash" ? "activeMode" : ""
+              }`}
             onClick={() => setPayment({ ...payment, mode: "cash" })}
           >
             <img src="Assets/Payment/cash.png" />
@@ -88,9 +88,8 @@ const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
             </div>
           </div>
           <div
-            className={`paymentModeUnit ${
-              payment.mode == "gpay" ? "activeMode" : ""
-            }`}
+            className={`paymentModeUnit ${payment.mode == "gpay" ? "activeMode" : ""
+              }`}
             onClick={() => setPayment({ ...payment, mode: "gpay" })}
           >
             <img src="Assets/Payment/gpay.png" />
@@ -99,9 +98,8 @@ const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
             </div>
           </div>
           <div
-            className={`paymentModeUnit ${
-              payment.mode == "phonepe" ? "activeMode" : ""
-            }`}
+            className={`paymentModeUnit ${payment.mode == "phonepe" ? "activeMode" : ""
+              }`}
             onClick={() => setPayment({ ...payment, mode: "phonepe" })}
           >
             <img src="Assets/Payment/phonepe.png" />
@@ -110,9 +108,8 @@ const Payment = ({ setPaymentModel, setPaymentPageUpdate }) => {
             </div>
           </div>
           <div
-            className={`paymentModeUnit ${
-              payment.mode == "paytm" ? "activeMode" : ""
-            }`}
+            className={`paymentModeUnit ${payment.mode == "paytm" ? "activeMode" : ""
+              }`}
             onClick={() => setPayment({ ...payment, mode: "paytm" })}
           >
             <img src="Assets/Payment/paytm.png" />
