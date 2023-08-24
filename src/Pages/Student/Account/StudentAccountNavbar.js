@@ -26,7 +26,7 @@ const StudentAccountNavbar = ({ select, setSelect }) => {
                     <p>Rs {dues}</p>
                 </div>
             </div>
-            <div className={`${select == "expense" ? "studentAccNavUnit activeAccNavUnit" : "studentAccNavUnit"}`} onClick={() => setSelect("expense")}>
+            <div className={`${select == "expenses" ? "studentAccNavUnit activeAccNavUnit" : "studentAccNavUnit"}`} onClick={() => setSelect("expenses")}>
                 <div className="accNavHeader">
                     <p>My Expenses</p>
                 </div>

@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const HostelLife = ({ setEviction, setHost }) => {
-  let history=useHistory()
+  let history = useHistory()
   const handleIssue = () => {
     history.push("/complaint")
   }
@@ -50,6 +50,15 @@ const HostelLife = ({ setEviction, setHost }) => {
             nextIcon={"Assets/Students/nextEviction.png"}
             onClick={setEviction}
           />
+          <HostelCard
+            title={"Returning Late ?"}
+            description={"Inform Your Owner and take permission"}
+            fg={"#ffa839"}
+            bg={"#fff4ee"}
+            icon={"Assets/Students/late.png"}
+            nextIcon={"Assets/Students/nextFriends.png"}
+            onClick={setHost}
+          />
         </Slider>
       </div>
     </div>
@@ -58,7 +67,7 @@ const HostelLife = ({ setEviction, setHost }) => {
 
 export default HostelLife;
 
-const HostelCard = ({ title,description,fg, bg, icon,nextIcon ,onClick}) => {
+const HostelCard = ({ title, description, fg, bg, icon, nextIcon, onClick }) => {
   return (
     <div className="hostelCard" style={{ background: bg }}>
       <div className="hostelCardHeader">
@@ -69,7 +78,7 @@ const HostelCard = ({ title,description,fg, bg, icon,nextIcon ,onClick}) => {
       </div>
       <div className="hostelCardBottom">
         <div className="hostelCardNext">
-          <img src={nextIcon} onClick={onClick}/>
+          <img src={nextIcon} onClick={onClick} />
         </div>
         <div className="hostelCardImage">
           <img src={icon} />

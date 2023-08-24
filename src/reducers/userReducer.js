@@ -17,12 +17,17 @@ const userReducer = (state = initialize, action) => {
       return {
         ...state,
         userId: action.payload.userId,
+        email: action.pauload.email,
       };
     case USER_PROPERTY:
       return {
         ...state,
+        userId: action.payload.userId,
         propertyId: action.payload.propertyId,
         propertyName: action.payload.propertyName,
+        propertyCode: action.payload.propertyCode,
+        pincode: action.payload.pincode,
+        contact: action.payload.contact,
       };
     case USER_LOGIN:
       return {
@@ -30,6 +35,10 @@ const userReducer = (state = initialize, action) => {
         userId: action.payload.userId,
         propertyId: action.payload.propertyId,
         propertyName: action.payload.propertyName,
+        propertyCode: action.payload.propertyCode,
+        email: action.payload.email,
+        pincode: action.payload.pincode,
+        contact: action.payload.contact,
       };
     default:
       return state;

@@ -5,8 +5,9 @@ import StudentHeader from "../../../Components/Header/StudentHeader/StudentHeade
 import StudentFooter from "../../../Components/Footer/StudentFooter/StudentFooter";
 import StudentAccountNavbar from "./StudentAccountNavbar";
 import StudentAccountCard from "./StudentAccountCard";
-import { getStudentDuesStatus } from "../../../actions/Student/studentAction";
+import { getStudentDuesStatus, getStudentExpenses } from "../../../actions/Student/studentAction";
 import Payment from "../../../Components/Student/StudentExtra/Payment";
+import StudentExpenceCard from "./StudentExpenceCard";
 
 const StudentAccount = () => {
   const [select, setSelect] = useState("dues")
@@ -64,7 +65,22 @@ const StuAccDues = ({ setOpen, forceUpdate, setForceUpdate }) => {
 }
 
 const StuAccExpenses = () => {
+
+  const { userId, propertyId, tenantId } = useSelector(state => state.student.studentData)
+  const [expenseData, setExpenseData] = useState([])
+  useEffect(() => {
+    (async () => {
+      let expenses = await getStudentExpenses(userId, propertyId, tenantId)
+      setExpenseData(expenses)
+    })()
+  }, [])
   return (
-    <></>
+    <div className="studentAccSection">
+      {
+        expenseData && expenseData.map((data, key) => (
+          <StudentExpenceCard data={data} />
+        ))
+      }
+    </div>
   )
 }
