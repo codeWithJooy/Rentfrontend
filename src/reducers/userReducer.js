@@ -17,7 +17,7 @@ const userReducer = (state = initialize, action) => {
       return {
         ...state,
         userId: action.payload.userId,
-        email: action.pauload.email,
+        email: action.payload.email,
       };
     case USER_PROPERTY:
       return {
