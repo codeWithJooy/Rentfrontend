@@ -116,6 +116,86 @@ export const getStudentDues = async (userId, propertyId, tenantId) => {
     console.log(error.message);
   }
 };
+export const getStudentDuesStatus = async (userId, propertyId, tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await studentApi.get("/getStudentDuesStatus", headers)
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Retrieving Dues",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getStudentTotalDues = async (userId, propertyId, tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await studentApi.get("/getStudentTotalDues", headers)
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Retrieving Dues",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getStudentTotalExpenses = async (userId, propertyId, tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await studentApi.get("/getStudentTotalExpenses", headers)
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Retrieving Dues",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getStudentExpenses = async (userId, propertyId, tenantId) => {
+  try {
+    const headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+    });
+    const res = await studentApi.get("/getStudentExpenses", headers)
+    if (res.data.code == 200) {
+      return res.data.model;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Retrieving Dues",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const addPendingCollection = async (data) => {
   try {
     const res = await studentApi.post("/addPendingCollection", data);
