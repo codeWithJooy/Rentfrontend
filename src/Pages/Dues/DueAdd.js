@@ -34,11 +34,10 @@ const DueAdd = () => {
           onClick={() => setNav("room")}
         >
           <img
-            src={`${
-              nav
+            src={`${nav
                 ? "Assets/Footer/apartment_selected.png"
                 : "Assets/Footer/apartment.png"
-            }`}
+              }`}
           />
           <div className="navTitle">
             <p>Rooms</p>
@@ -50,11 +49,10 @@ const DueAdd = () => {
           onClick={() => setNav("tenant")}
         >
           <img
-            src={`${
-              nav
+            src={`${nav
                 ? "Assets/Footer/group.png"
                 : "Assets/Footer/group_selected.png"
-            }`}
+              }`}
           />
           <div className="navTitle">
             <p>Tenants</p>
@@ -83,6 +81,7 @@ const DueCategory = ({ setOpen, dueSetData }) => {
   const [splitType, setSplitType] = useState("split");
   const [due, setDue] = useState({
     type: dueType,
+    rent: 0,
     total: 0,
     due: 0,
     collection: 0,

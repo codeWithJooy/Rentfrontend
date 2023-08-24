@@ -22,7 +22,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
     swipeToSlide: true,
   };
   const [type, setType] = useState("dues");
-  const dues = useSelector((state) => state.tenant.singleTenant.dues);
+  const dues = useSelector((state) => state.due.dueSetData);
   const collections = useSelector((state) => state.collection.tenantCollection);
   const discounts = useSelector((state) => state.collection.tenantDiscount);
   const { due, collection, discount, sd } = calculateTotalDues(
@@ -71,15 +71,15 @@ const TenantPassBook = ({ setForceUpdate }) => {
         {topActive == "Total Dues" &&
           dues
             .filter(
-              (unit) => parseInt(unit.due) - parseInt(unit.collection) > 0
+              (unit) => parseInt(unit.due) - parseInt(unit.collections) > 0
             )
             .map((dueData, val) => (
               <DuesDataCard
                 key={val}
-                type={dueData.type}
+                type={dueData.dueType}
                 due={dueData.due}
                 dueDate={dueData.dueDate}
-                collection={dueData.collection}
+                collection={dueData.collections}
                 setOpenCategory={setOpenCategory}
                 setDueDetail={setDueDetail}
               />
@@ -88,7 +88,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
           collections.map((col, val) => (
             <DuesCollectionCard
               key={val}
-              type={col.type}
+              type={col.dueType}
               amount={col.amount}
               date={col.date}
               mode={col.mode}
@@ -99,7 +99,7 @@ const TenantPassBook = ({ setForceUpdate }) => {
           discounts.map((col, val) => (
             <DuesDiscountCard
               key={val}
-              type={col.type}
+              type={col.dueType}
               amount={col.amount}
               date={col.date}
             />

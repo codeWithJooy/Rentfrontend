@@ -8,12 +8,12 @@ import { dispatchAction, getHeaders } from "./actionHelper";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 
-export const getRooms = async (userId, propertyId, floorName) => {
+export const getRooms = async (userId, propertyId, id) => {
   try {
     const header = getHeaders({
       userId,
       propertyId,
-      floorName,
+      floorId: id,
     });
     const res = await roomApi.get("/getRooms", header);
     if (res.data.code == 200) {
@@ -93,15 +93,13 @@ export const getTotalRoomCounts = async (userId, propertyId) => {
 export const getSingleRoom = async (
   userId,
   propertyId,
-  floorName,
-  roomName
+  roomId
 ) => {
   try {
     const header = getHeaders({
       userId,
       propertyId,
-      floorName,
-      roomName,
+      roomId,
     });
     const res = await roomApi.get("/getSingleRoom", header);
     if (res.data.code == 200) {
@@ -122,8 +120,7 @@ export const updateRoom = async (userId, propertyId, data) => {
   const headers = getHeaders({
     userId,
     propertyId,
-    floorName: data.floor,
-    id: data.id,
+    roomId: data._id,
   });
   const update = {
     name: data.name,

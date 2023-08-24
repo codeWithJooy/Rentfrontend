@@ -12,6 +12,7 @@ import {
   getTenantCollection,
   getTenantDiscount,
 } from "../../actions/collectionAction";
+import { getDuesTenant } from "../../actions/duesAction";
 
 const TenantProfile = () => {
   const history = useHistory();
@@ -23,6 +24,7 @@ const TenantProfile = () => {
   useEffect(() => {
     if (forceUpdate) {
       getATenant(userId, propertyId, tenantId);
+      getDuesTenant(userId, propertyId, tenantId);
       getTenantCollection(userId, propertyId, tenantId);
       getTenantDiscount(userId, propertyId, tenantId);
       setForceUpdate(false);
@@ -33,17 +35,15 @@ const TenantProfile = () => {
       <Header name={"Tenants Profile"} link={"/tenant"} type={"back"} />
       <div className="memNav">
         <div
-          className={`memNavUnit ${
-            navActive == "profile" ? "memNavActive" : ""
-          }`}
+          className={`memNavUnit ${navActive == "profile" ? "memNavActive" : ""
+            }`}
           onClick={() => setNavActive("profile")}
         >
           <p>Profile Details</p>
         </div>
         <div
-          className={`memNavUnit ${
-            navActive == "passbook" ? "memNavActive" : ""
-          }`}
+          className={`memNavUnit ${navActive == "passbook" ? "memNavActive" : ""
+            }`}
           onClick={() => setNavActive("passbook")}
         >
           <p>Passbook</p>

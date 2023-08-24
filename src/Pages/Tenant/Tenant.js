@@ -11,6 +11,7 @@ import { getAllRooms, getRoomName } from "../../actions/roomActions";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 import TenantSkeleton from "../../Components/Skeletons/TenantSkeleton";
+import { getDuesTenant } from "../../actions/duesAction";
 const Tenant = () => {
   const user = useSelector((state) => state.user);
   const [tenants, setTenants] = useState(null);
@@ -106,9 +107,10 @@ const Tenant = () => {
 
 export default Tenant;
 
-const TenantCard = ({ tenantId, name, roomId, number, doj, due, roomName }) => {
+const TenantCard = ({ tenantId, name, roomId, number, doj, roomName }) => {
   const user = useSelector((state) => state.user);
   const [open, setOpen] = useState(false);
+  const [due, setDue] = useState([])
   const dispatch = useDispatch();
   const history = useHistory();
   const handleClick = () => {
@@ -123,6 +125,7 @@ const TenantCard = ({ tenantId, name, roomId, number, doj, due, roomName }) => {
   useEffect(() => {
     (async () => {
       setRoom(await getRoomName(user.userId, user.propertyId, roomId));
+      setDue(await getDuesTenant(user.userId, user.propertyId, tenantId))
     })();
   }, []);
   return (
@@ -147,13 +150,13 @@ const TenantCard = ({ tenantId, name, roomId, number, doj, due, roomName }) => {
           <div className="duesHolder">
             {due
               .filter(
-                (unit) => parseInt(unit.due) - parseInt(unit.collection) > 0
+                (unit) => parseInt(unit.due) - parseInt(unit.collections) > 0
               )
               .map((data, index) => (
                 <div className="duesSection" key={index}>
-                  <div className="duesName">{data.type}</div>
+                  <div className="duesName">{data.dueType}</div>
                   <div className="duesValue">
-                    Rs {parseInt(data.due) - parseInt(data.collection)}
+                    Rs {parseInt(data.due) - parseInt(data.collections)}
                   </div>
                 </div>
               ))}

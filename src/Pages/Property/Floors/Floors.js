@@ -9,7 +9,10 @@ import AddFloor from "./AddFloor";
 const Floors = () => {
   const user = useSelector((state) => state.user);
   const [floorDetails, setFloorDetails] = useState(false);
-  const [floorName, setFloorName] = useState("");
+  const [floor, setFloor] = useState({
+    name: "",
+    id: "",
+  });
   const [floorData, setFloorData] = useState(null);
   useEffect(() => {
     if (!floorDetails) {
@@ -30,12 +33,12 @@ const Floors = () => {
                 floorData={data}
                 key={key}
                 setFloorDetails={setFloorDetails}
-                setFloorName={setFloorName}
+                setFloor={setFloor}
               />
             ))}
         </div>
         {floorDetails && (
-          <AddFloor floorName={floorName} setFloorDetails={setFloorDetails} />
+          <AddFloor floor={floor} setFloorDetails={setFloorDetails} />
         )}
         <Footer page={"Property"} />
       </div>

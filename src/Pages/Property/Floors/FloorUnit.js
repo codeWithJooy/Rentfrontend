@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { setFloor } from "../../../actions/floorActions";
-const FloorUnit = ({ floorData, setFloorDetails, setFloorName }) => {
-  const { name, roomsTypes } = floorData;
+import { setFloorSelected } from "../../../actions/floorActions";
+const FloorUnit = ({ floorData, setFloorDetails, setFloor }) => {
+  const { _id, name, roomsTypes } = floorData;
   const history = useHistory();
   const dispatch = useDispatch();
   let roomsType =
@@ -15,11 +15,11 @@ const FloorUnit = ({ floorData, setFloorDetails, setFloorName }) => {
   const triple = parseInt(roomsType.triple);
 
   const handleFloorDetails = () => {
-    setFloorName(name);
+    setFloor({ name, id: _id });
     setFloorDetails(true);
   };
   const handleFloorCheckout = () => {
-    dispatch(setFloor(name));
+    dispatch(setFloorSelected({ name, id: _id }));
     history.push("/rooms");
   };
   return (

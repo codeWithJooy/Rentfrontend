@@ -71,6 +71,7 @@ export const addRooms = async (
   userId,
   propertyId,
   floorName,
+  floorId,
   single,
   double,
   triple
@@ -80,6 +81,7 @@ export const addRooms = async (
       userId,
       propertyId,
       floorName,
+      floorId,
       single,
       double,
       triple,
@@ -105,7 +107,7 @@ export const addRooms = async (
     console.log(error.message);
   }
 };
-export const setFloor = (data) => {
+export const setFloorSelected = (data) => {
   return {
     type: FLOOR_SET,
     payload: data,

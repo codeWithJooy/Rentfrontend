@@ -11,7 +11,7 @@ const DuesUnitRoom = ({ setOpen, setDueSetData }) => {
   useEffect(() => {
     (async () => {
       let data = await getAllRooms(user.userId, user.propertyId);
-      console.log(data);
+
       setRooms(data);
     })();
   }, []);
@@ -38,7 +38,7 @@ const RoomDuesCard = ({ data, setOpen, setDueSetData }) => {
   const obj = {
     title: `Room : ${data.name}`,
     dueType: useSelector((state) => state.due.dueType),
-    id: data.id,
+    id: data._id,
     sharing: data.type,
     useFor: "room",
     split: "split",
@@ -50,7 +50,7 @@ const RoomDuesCard = ({ data, setOpen, setDueSetData }) => {
   };
   useEffect(() => {
     (async () => {
-      let countData = await getRoomTenants(userId, propertyId, data.id);
+      let countData = await getRoomTenants(userId, propertyId, data._id);
       setCount(countData);
     })();
   }, []);

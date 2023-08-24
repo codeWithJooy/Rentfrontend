@@ -6,7 +6,7 @@ import "./Floors.css";
 import { roomAddHelper } from "../../../helper";
 import { setRooms } from "../../../actions/roomActions";
 
-const AddFloor = ({ setFloorDetails, floorName }) => {
+const AddFloor = ({ setFloorDetails, floor }) => {
   const [roomActive, setRoomActive] = useState(false);
   const handleRoomActive = () => {
     setRoomActive(!roomActive);
@@ -16,7 +16,7 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
     <div className="floorAdd">
       <div className="floorAddUnit">
         <div className="addUnitTop">
-          <p>Add Units to {floorName}</p>
+          <p>Add Units to {floor.name}</p>
           <img
             src="Assets/Footer/plus.png"
             onClick={() => setFloorDetails(false)}
@@ -39,7 +39,7 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
           </div>
         </div>
         {roomActive && (
-          <AddUnit floorName={floorName} setFloorDetails={setFloorDetails} />
+          <AddUnit floor={floor} setFloorDetails={setFloorDetails} />
         )}
       </div>
     </div>
@@ -48,7 +48,7 @@ const AddFloor = ({ setFloorDetails, floorName }) => {
 
 export default AddFloor;
 
-const AddUnit = ({ floorName, setFloorDetails }) => {
+const AddUnit = ({ floor, setFloorDetails }) => {
   const user = useSelector((state) => state.user);
   const [roomTypes, setRoomTypes] = useState({
     single: 0,
@@ -66,7 +66,8 @@ const AddUnit = ({ floorName, setFloorDetails }) => {
         await addRooms(
           user.userId,
           user.propertyId,
-          floorName,
+          floor.name,
+          floor.id,
           roomTypes.single,
           roomTypes.double,
           roomTypes.triple

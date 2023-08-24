@@ -8,7 +8,7 @@
   height: 80vh;
   overflow-y: auto;
   margin-bottom: 100px;
-  padding: 10px 15px 100px;
+  padding: 10px 10px 100px;
   padding-bottom: 100px;
   background: #f5f3f4;
   position: relative;
@@ -17,9 +17,10 @@
   width: 90%;
   margin: 10px 5%;
   padding: 10px 15px;
+  border:1px solid #b1a7a6;
   border-radius: 5px;
   background-color: #fff;
-  box-shadow: 0 0 5px #fff;
+  box-shadow: 0 0 5px #b1a7a6;
 }
 .fab {
   position: fixed;
@@ -100,11 +101,17 @@
   width: 50%;
   display: flex;
   justify-content: flex-start;
+  font-size: 14px;
+  font-weight: bold;
+  color:#161a1d
 }
 .duesValue {
   width: 50%;
   display: flex;
   justify-content: flex-end;
+  font-size: 14px;
+  font-weight: bold;
+  color:#a4161a;
 }
 .tenantAbsent {
   width: 100%;

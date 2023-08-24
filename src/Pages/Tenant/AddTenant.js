@@ -35,7 +35,7 @@ const AddTenant = () => {
   const [tenant, setTenant] = useState({
     userId: user.userId,
     propertyId: user.propertyId,
-    roomId: rooms.length > 0 ? rooms[0].id : 0,
+    roomId: rooms.length > 0 ? rooms[0]._id : 0,
     name: "",
     number: "",
     room: rooms.length > 0 ? rooms[0].name : "",
@@ -144,7 +144,7 @@ const AddTenant = () => {
     setTenant({
       ...tenant,
       room: e.target.value,
-      roomId: newRoom.id,
+      roomId: newRoom._id,
     });
 
     setRent(newRoom.rate);
@@ -258,7 +258,7 @@ const AddTenant = () => {
         setTenant({
           ...tenant,
           room: data ? data[0].name : "Unknown",
-          roomId: data ? data[0].id : "0",
+          roomId: data ? data[0]._id : "0",
         });
 
         setRent(data ? data[0].rate : 0);
@@ -569,36 +569,32 @@ const TenantPayment = ({
           <p>Payment Mode</p>
           <div className="paymentHolder">
             <div
-              className={`paymentUnits ${
-                pay.mode == "Cash" ? "paymentActive" : ""
-              }`}
+              className={`paymentUnits ${pay.mode == "Cash" ? "paymentActive" : ""
+                }`}
               onClick={() => setPayment({ ...pay, mode: "Cash" })}
             >
               <img src="Assets/Payment/cash.png" />
               <p>Cash</p>
             </div>
             <div
-              className={`paymentUnits ${
-                pay.mode == "Gpay" ? "paymentActive" : ""
-              }`}
+              className={`paymentUnits ${pay.mode == "Gpay" ? "paymentActive" : ""
+                }`}
               onClick={() => setPayment({ ...pay, mode: "Gpay" })}
             >
               <img src="Assets/Payment/gpay.png" />
               <p>GPay</p>
             </div>
             <div
-              className={`paymentUnits ${
-                pay.mode == "PhonePe" ? "paymentActive" : ""
-              }`}
+              className={`paymentUnits ${pay.mode == "PhonePe" ? "paymentActive" : ""
+                }`}
               onClick={() => setPayment({ ...pay, mode: "PhonePe" })}
             >
               <img src="Assets/Payment/phonepe.png" />
               <p>PhonePe</p>
             </div>
             <div
-              className={`paymentUnits ${
-                pay.mode == "Paytm" ? "paymentActive" : ""
-              }`}
+              className={`paymentUnits ${pay.mode == "Paytm" ? "paymentActive" : ""
+                }`}
               onClick={() => setPayment({ ...pay, mode: "Paytm" })}
             >
               <img src="Assets/Payment/paytm.png" />

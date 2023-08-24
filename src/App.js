@@ -35,6 +35,7 @@ import Toasty from "./Components/Toasty/Toasty";
 import MemberProfile from "./Pages/Member/MemberProfile";
 
 import Receipt from "./Pages/Receipt/Receipt";
+import ReceiptStudent from "./Pages/Receipt/ReceiptStudent"
 
 import Student from "./Pages/Student/Student";
 import Complaint from "./Pages/Student/Complaint";
@@ -78,11 +79,12 @@ const App = () => {
 
         <Route path="/announcement" component={Announcement} />
         <Route path="/addann" component={AddAnnouncement} />
-        
+
         <Route path="/complaintSection" component={Complaints} />
         <Route path="/profile" component={Profile} />
         <Route path="/notifications" component={Notifications} />
         <Route path="/receipt" component={Receipt} />
+        <Route path="/receiptStudent" component={ReceiptStudent} />
 
         <Route path="/studentSignUp" component={StudentSignUp} />
         <Route path="/studentLogin" component={StudentLogin} />

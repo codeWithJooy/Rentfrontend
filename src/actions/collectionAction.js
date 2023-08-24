@@ -208,10 +208,10 @@ export const getTempCollection = async (
     if (res.data.code == 200) {
       return res.data.model
     } else {
-      updateToast({
-        code: CodeAnalogy.ERROR,
-        title: "Something Went Wrong",
-      });
+      // updateToast({
+      //   code: CodeAnalogy.ERROR,
+      //   title: "Something Went Wrong",
+      // });
     }
   } catch (error) {
     console.log(error);
