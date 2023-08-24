@@ -13,7 +13,7 @@ const StudentExpenceCard = ({ data }) => {
 
     const handleClick = () => {
         getReceiptData(userId, propertyId, propertyName, tenantId, receiptId)
-        history.push("/receipt")
+        history.push("/receiptStudent")
     }
     return (
         <div className="studentAccCard">
