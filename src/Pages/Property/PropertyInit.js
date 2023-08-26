@@ -9,7 +9,7 @@ const PropertyInit = () => {
   const [forceUpdate, setForceUpdate] = useState(true);
   const floorPresent = useSelector((state) => state.floor.floorPresent);
   const user = useSelector((state) => state.user);
-  const { userId, propertyId } = user;
+  const { userId, propertyId, propertyName } = user;
   const history = useHistory();
 
   useEffect(() => {
@@ -23,11 +23,13 @@ const PropertyInit = () => {
     setForceUpdate(false);
   }, [forceUpdate]);
   const handleFloors = () => {
-    if (setTotalFloors(userId, propertyId, floors)) {
-      setTimeout(() => {
-        history.push("/floor");
-      }, 2000);
-    }
+    (async () => {
+      if (await setTotalFloors(userId, propertyId, floors)) {
+        setTimeout(() => {
+          history.push("/floor");
+        }, 2000);
+      }
+    })()
   };
   return (
     <div className="propertyContainer">
@@ -37,7 +39,7 @@ const PropertyInit = () => {
       <div className="propertyNumber">
         <div className="propertyDetails">
           <div className="detailsTitle">
-            <p>How Many floors do you have in AbhiPg ?</p>
+            <p>How Many floors do you have in {propertyName} ?</p>
           </div>
           <div className="propertyDetailsInput">
             <input

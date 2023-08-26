@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTotalFloors } from "../../actions/floorActions";
 import "./Tenant.css";
-import { setTenant } from "../../actions/tenantAction";
+import { getTenantDetails, setTenant } from "../../actions/tenantAction";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { getTenants } from "../../actions/tenantAction";
@@ -117,6 +117,7 @@ const TenantCard = ({ tenantId, name, roomId, number, doj, roomName }) => {
     setOpen(!open);
   };
   const handleCardClick = () => {
+    getTenantDetails(user.userId, user.propertyId, tenantId)
     dispatch(setTenant(tenantId));
     history.push("/tenantProfile");
   };
@@ -126,6 +127,7 @@ const TenantCard = ({ tenantId, name, roomId, number, doj, roomName }) => {
     (async () => {
       setRoom(await getRoomName(user.userId, user.propertyId, roomId));
       setDue(await getDuesTenant(user.userId, user.propertyId, tenantId))
+
     })();
   }, []);
   return (
