@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-
+import { useSelector } from "react-redux";
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
+  let data = useSelector(state => state.tenant.tenantDetails)
+  const [details, setDetails] = useState(data)
+
   return (
     <div className="tenantHolder">
-      <Personal edit={edit} />
+      <Personal edit={edit} details={details} setDetails={setDetails} />
       <Kyc />
-      <Parent edit={edit} />
-      <Guardian edit={edit} />
+      <Parent edit={edit} details={details} setDetails={setDetails} />
+      <Guardian edit={edit} details={details} setDetails={setDetails} />
       <ParentID />
       <div className="memEdit" onClick={() => setEdit(!edit)}>
         {edit ? "Edit" : "Save"}
@@ -17,7 +20,7 @@ const TenantPersonal = () => {
 };
 export default TenantPersonal;
 
-const Personal = ({ edit }) => {
+const Personal = ({ edit, details, setDetails }) => {
   const [toggle, setToggle] = useState(true);
   const handleToggle = () => {
     setToggle(!toggle);
@@ -30,11 +33,10 @@ const Personal = ({ edit }) => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${
-              toggle
-                ? "Assets/components/down.png"
-                : "Assets/components/right.png"
-            }`}
+            src={`${toggle
+              ? "Assets/components/down.png"
+              : "Assets/components/right.png"
+              }`}
           />
         </div>
       </div>
@@ -45,7 +47,7 @@ const Personal = ({ edit }) => {
               <p>Name</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly value={details.name} />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -53,7 +55,7 @@ const Personal = ({ edit }) => {
               <p>Phone Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly value={details.number} />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -61,7 +63,7 @@ const Personal = ({ edit }) => {
               <p>Alternate Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} value={details.alternate} />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -69,7 +71,7 @@ const Personal = ({ edit }) => {
               <p>Email</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} value={details.email} />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -85,15 +87,15 @@ const Personal = ({ edit }) => {
               <p>Blood Group</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} value={details.bloodGroup} />
             </div>
           </div>
           <div className="sectionIpFull">
             <div className="sectionIpHeader">
-              <p>Date Of Joining</p>
+              <p>Date Of Booking</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" />
+              <input type="text" readOnly value={details.dob} />
             </div>
           </div>
         </div>
@@ -115,11 +117,10 @@ const Kyc = () => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${
-              toggle
-                ? "Assets/components/down.png"
-                : "Assets/components/right.png"
-            }`}
+            src={`${toggle
+              ? "Assets/components/down.png"
+              : "Assets/components/right.png"
+              }`}
           />
         </div>
       </div>
@@ -140,11 +141,10 @@ const Parent = ({ edit }) => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${
-              toggle
-                ? "Assets/components/down.png"
-                : "Assets/components/right.png"
-            }`}
+            src={`${toggle
+              ? "Assets/components/down.png"
+              : "Assets/components/right.png"
+              }`}
           />
         </div>
       </div>
@@ -208,11 +208,10 @@ const Guardian = ({ edit }) => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${
-              toggle
-                ? "Assets/components/down.png"
-                : "Assets/components/right.png"
-            }`}
+            src={`${toggle
+              ? "Assets/components/down.png"
+              : "Assets/components/right.png"
+              }`}
           />
         </div>
       </div>
@@ -261,11 +260,10 @@ const ParentID = () => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${
-              toggle
-                ? "Assets/components/down.png"
-                : "Assets/components/right.png"
-            }`}
+            src={`${toggle
+              ? "Assets/components/down.png"
+              : "Assets/components/right.png"
+              }`}
           />
         </div>
       </div>

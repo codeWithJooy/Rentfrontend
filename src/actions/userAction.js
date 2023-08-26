@@ -66,8 +66,14 @@ export const userProperty = async (data, userId) => {
       dispatchAction(USER_PROPERTY, response.data);
       return true;
     }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+    }
   } catch (error) {
-    return error;
+    console.log(error.message);
   }
 };
 export const userLogin = async (data) => {

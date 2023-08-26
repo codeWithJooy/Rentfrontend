@@ -3,6 +3,7 @@ import {
   TENANT_ADDED,
   SET_TENANT_DATA,
   SET_SINGLE_TENANT,
+  SET_TENANT_DETAILS,
 } from "../actionTypes/tenantActionsType";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
@@ -154,3 +155,26 @@ export const setTenant = (data) => {
     payload: data,
   };
 };
+
+export const getTenantDetails = async (userId, propertyId, tenantId) => {
+  try {
+    let headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId
+    })
+
+    const res = await tenantApi.get("/getTenantDetails", headers)
+    if (res.data.code == 200) {
+      dispatchAction(SET_TENANT_DETAILS, res.data.model)
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Error Retrieving Tenant Details"
+      })
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}

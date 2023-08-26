@@ -2,12 +2,14 @@ import {
   TENANT_ADDED,
   SET_TENANT,
   SET_SINGLE_TENANT,
+  SET_TENANT_DETAILS,
 } from "../actionTypes/tenantActionsType";
 
 const initial = {
   tenants: [],
   singleTenant: {},
   selectedTenant: {},
+  tenantDetails: {},
 };
 
 const tenantReducer = (state = initial, action) => {
@@ -27,6 +29,11 @@ const tenantReducer = (state = initial, action) => {
         ...state,
         singleTenant: action.payload,
       };
+    case SET_TENANT_DETAILS:
+      return {
+        ...state,
+        tenantDetails: action.payload,
+      }
     default:
       return state;
   }
