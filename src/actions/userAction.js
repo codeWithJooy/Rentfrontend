@@ -69,7 +69,8 @@ export const userProperty = async (data, userId) => {
     else {
       updateToast({
         code: CodeAnalogy.ERROR,
-        title: res.data.msg
+        title: response.data.msg,
+        message: "Add a different code"
       })
     }
   } catch (error) {
