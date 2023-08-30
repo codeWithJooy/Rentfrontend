@@ -8,69 +8,67 @@ import { updateFood } from "../../actions/foodAction";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 const FoodList = () => {
-  const daysArray = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-  const [days, setDays] = useState(0);
+  const daysArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  let today = new Date()
+  const [days, setDays] = useState(today.getDay());
+  console.log()
   return (
     <div className="foodListContainer">
       <div className="listDays">
+
         <div
-          className={`listUnits ${
-            daysArray[days] == "Mon" ? "listUnitActive" : ""
-          }`}
+          className={`listUnits ${daysArray[days] == "Sun" ? "listUnitActive" : ""
+            }`}
+        >
+          {"Sun"}
+        </div>
+        <div
+          className={`listUnits ${daysArray[days] == "Mon" ? "listUnitActive" : ""
+            }`}
         >
           {"Mon"}
         </div>
         <div
-          className={`listUnits ${
-            daysArray[days] == "Tue" ? "listUnitActive" : ""
-          }`}
+          className={`listUnits ${daysArray[days] == "Tue" ? "listUnitActive" : ""
+            }`}
         >
           {"Tue"}
         </div>
         <div
-          className={`listUnits ${
-            daysArray[days] == "Wed" ? "listUnitActive" : ""
-          }`}
+          className={`listUnits ${daysArray[days] == "Wed" ? "listUnitActive" : ""
+            }`}
         >
           {"Wed"}
         </div>
         <div
-          className={`listUnits ${
-            daysArray[days] == "Thu" ? "listUnitActive" : ""
-          }`}
+          className={`listUnits ${daysArray[days] == "Thu" ? "listUnitActive" : ""
+            }`}
         >
           {"Thu"}
         </div>
         <div
-          className={`listUnits ${
-            daysArray[days] == "Fri" ? "listUnitActive" : ""
-          }`}
+          className={`listUnits ${daysArray[days] == "Fri" ? "listUnitActive" : ""
+            }`}
         >
           {"Fri"}
         </div>
         <div
-          className={`listUnits ${
-            daysArray[days] == "Sat" ? "listUnitActive" : ""
-          }`}
+          className={`listUnits ${daysArray[days] == "Sat" ? "listUnitActive" : ""
+            }`}
         >
           {"Sat"}
         </div>
-        <div
-          className={`listUnits ${
-            daysArray[days] == "Sun" ? "listUnitActive" : ""
-          }`}
-        >
-          {"Sun"}
-        </div>
+
       </div>
       <Carousel setData={setDays}>
+        <FoodListPage day={"Sunday"} />
         <FoodListPage day={"Monday"} />
         <FoodListPage day={"Tuesday"} />
         <FoodListPage day={"Wednesday"} />
         <FoodListPage day={"Thursday"} />
         <FoodListPage day={"Friday"} />
         <FoodListPage day={"Saturday"} />
-        <FoodListPage day={"Sunday"} />
+
       </Carousel>
     </div>
   );

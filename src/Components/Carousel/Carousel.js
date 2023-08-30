@@ -3,7 +3,7 @@ import "./Carousel.css";
 
 const Carousel = (props) => {
   const { children } = props;
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(3);
   const [length, setLength] = useState(children.length);
 
   const [touchPosition, setTouchPosition] = useState(null);

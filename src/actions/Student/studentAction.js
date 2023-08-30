@@ -4,7 +4,7 @@ import {
   SET_STUDENT_PAYMENT_DETAILS,
 } from "../../actionTypes/studentActionType";
 import { dispatchAction, getHeaders } from "../actionHelper";
-import { studentApi, tenantApi, complaintApi, duesApi } from "../../apis/apis";
+import { studentApi, tenantApi, complaintApi, duesApi, foodApi } from "../../apis/apis";
 import { updateToast } from "../toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 export const setComplaintType = (data) => {
@@ -308,5 +308,28 @@ export const updateStatus = async (id, status) => {
   }
   catch (err) {
     console.log(err.message)
+  }
+}
+
+export const getStudentFood = async (userId, propertyId, today) => {
+  try {
+    let headers = getHeaders({
+      userId,
+      propertyId,
+      today,
+    })
+    let res = await foodApi.get("/getFood", headers)
+    if (res.data.code == 200)
+      return res.data.model
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+    }
+  }
+
+  catch (error) {
+    console.log(error.message)
   }
 }
