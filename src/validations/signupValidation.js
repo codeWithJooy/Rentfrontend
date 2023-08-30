@@ -10,14 +10,32 @@ export const signupValidation = (user) => {
       message: "First Name Cannot Be Empty",
     });
     return false;
-  } else if (last == "") {
+  }
+  if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]/.test(first)) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Add a Valid First Name",
+      message: "No Numbers or Special Characters please.",
+    });
+    return false;
+  }
+  else if (last == "") {
     updateToast({
       code: CodeAnalogy.ERROR,
       title: "Add Last Name",
       message: "Last Name Cannot Be Empty",
     });
     return false;
-  } else if (email == "") {
+  }
+  else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]/.test(last)) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Add a Valid Last Name",
+      message: "No Numbers or Special Characters please.",
+    });
+    return false;
+  }
+  else if (email == "") {
     updateToast({
       code: CodeAnalogy.ERROR,
       title: "Add Email",
@@ -38,6 +56,14 @@ export const signupValidation = (user) => {
       message: "Password Cannot Be Empty",
     });
     return false;
+  }
+  else if (password.length < 6 || password.length > 10) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Password Not exceptable",
+      message: "Should be of min 6 to 10 characters"
+    })
+    return false
   }
   return true;
 };
@@ -60,12 +86,28 @@ export const propertyValidation = (property) => {
     });
     return false;
   }
+  if (contact.length > 10 || contact.length < 10) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Please Add 10-digit Number",
+      message: "Add 10-digit Pg Contact",
+    })
+    return false;
+  }
   if (pincode == "") {
     updateToast({
       code: CodeAnalogy.ERROR,
       title: "Add Property Pincode",
       message: "Property Pincode Cannot be Empty",
     });
+    return false;
+  }
+  if (pincode.length > 6 || pincode.length < 6) {
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Please Add 6-digit Pincode",
+      message: "Add 6-digit Pg Pincode",
+    })
     return false;
   }
   if (code == "") {

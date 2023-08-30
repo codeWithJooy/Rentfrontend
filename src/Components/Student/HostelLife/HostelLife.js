@@ -69,7 +69,7 @@ export default HostelLife;
 
 const HostelCard = ({ title, description, fg, bg, icon, nextIcon, onClick }) => {
   return (
-    <div className="hostelCard" style={{ background: bg }}>
+    <div className="hostelCard" style={{ background: bg }} onClick={onClick} >
       <div className="hostelCardHeader">
         <p style={{ color: fg }}>{title}</p>
       </div>
@@ -78,7 +78,7 @@ const HostelCard = ({ title, description, fg, bg, icon, nextIcon, onClick }) => 
       </div>
       <div className="hostelCardBottom">
         <div className="hostelCardNext">
-          <img src={nextIcon} onClick={onClick} />
+          <img src={nextIcon} />
         </div>
         <div className="hostelCardImage">
           <img src={icon} />
