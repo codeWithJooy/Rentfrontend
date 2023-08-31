@@ -178,3 +178,52 @@ export const getTenantDetails = async (userId, propertyId, tenantId) => {
     console.log(error.message)
   }
 }
+export const getTenantsCredentials = async (userId, propertyId) => {
+  try {
+    let headers = getHeaders({
+      userId,
+      propertyId,
+    })
+
+    const res = await tenantApi.get("/getTenantsCredential", headers)
+    if (res.data.code == 200) {
+      return res.data.model
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+export const resetTenantPassword = async (userId, propertyId, tenantId, password) => {
+  try {
+    let headers = getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+      password
+    })
+
+    const res = await tenantApi.get("/resetTenantPassword", headers)
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: res.data.msg
+      })
+      return true;
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+      return false;
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}

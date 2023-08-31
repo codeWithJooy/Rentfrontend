@@ -47,6 +47,8 @@ import StudentNumberLogin from "./Pages/Student/Signup/StudentNumberLogin";
 import StudentAccount from "./Pages/Student/Account/StudentAccount";
 import Profile from "./Pages/Profile/Profile";
 import Notifications from "./Pages/Notifications/Notifications"
+import Settings from "./Pages/Profile/Settings";
+import TenantCredentials from "./Pages/Profile/TenantCredentials";
 const App = () => {
   return (
     <BrowserRouter>
@@ -82,6 +84,8 @@ const App = () => {
 
         <Route path="/complaintSection" component={Complaints} />
         <Route path="/profile" component={Profile} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/tenantCredentials" component={TenantCredentials} />
         <Route path="/notifications" component={Notifications} />
         <Route path="/receipt" component={Receipt} />
         <Route path="/receiptStudent" component={ReceiptStudent} />

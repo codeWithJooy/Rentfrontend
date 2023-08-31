@@ -24,7 +24,7 @@
   border-radius: 50%;
 }
 .headerTitle {
-  width: 65%;
+  width: 55%;
   height: 100%;
   font-size: 18px;
   font-weight: bold;
@@ -45,6 +45,7 @@
   height: 24px;
   width: 24px;
 }
+
 .headerNotiCount{
   font-size: 10px;
   border-radius: 50%;
@@ -58,4 +59,16 @@
   position: absolute;
   top:5px;
   left:30px;
+}
+.headerSettings {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.headerSettings img {
+  height: 24px;
+  width: 24px;
 }

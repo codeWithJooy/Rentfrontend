@@ -60,7 +60,7 @@ const FoodList = () => {
         </div>
 
       </div>
-      <Carousel setData={setDays}>
+      <Carousel day={days} setData={setDays}>
         <FoodListPage day={"Sunday"} />
         <FoodListPage day={"Monday"} />
         <FoodListPage day={"Tuesday"} />
