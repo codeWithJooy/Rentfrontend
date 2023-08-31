@@ -43,12 +43,16 @@ const Header = ({ name, link = "/home", type = "header" }) => {
         <div className="headerTitle">
           <p>{name}</p>
         </div>
+        <div className="headerSettings" onClick={() => history.push("/settings")}>
+          <img src="Assets/Settings/settings.png" />
+        </div>
         <div className="headerNotifications">
           <img src="Assets/Header/notification.png" onClick={() => { history.push("/notifications") }} />
           {
             notiCount > 0 && <div className="headerNotiCount"><p>{notiCount}</p></div>
           }
         </div>
+
       </div>
     </div>
   );

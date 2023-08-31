@@ -90,3 +90,136 @@
     color:#a4161a;
     margin-left: 20px;
   }
+
+
+  .settings {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background-color: #f5f3f4;
+    z-index: 1;
+  } 
+.settingsMain{
+  width:90%;
+  height:70vh;
+  margin-top: 20px;
+  margin-left: 5%;
+  background-color: #fff;
+  overflow-y: auto;
+  padding:10px 20px;
+}
+.settingsUnit{
+  width:100%;
+  padding: 10px 0px;
+  margin-bottom: 10px;;
+  border-bottom: 1px solid #b1a7a6;
+  display:flex;
+  flex-wrap: wrap;
+  align-items: left;
+  justify-content: left;
+}
+.settingsIcon{
+  width:15%;
+}
+.settingsIcon img{
+  height:20px;
+  width:20px;
+}
+.settingsTitle{
+  width:75%;
+}
+.settingsClick{
+  width:10%;
+}
+.settingsClick img{
+  width:15px;
+  height:15px;
+}
+.tenantCredHolders{
+  width:100%;
+  height:80vh;
+  overflow-y: auto;
+  margin-top: 10px;
+  margin-bottom: 150px;
+}
+.credCard{
+  width:90%;
+  margin-left: 5%;
+  margin-bottom: 10px;
+  border:1px solid #161a1d;
+  box-shadow: 0 0 5px #161a1d;
+  border-radius: 5px;
+}
+.credNameRoom{
+  width:100%;
+  display: flex;
+  padding:10px 15px;
+  background-color: #a4161a;
+}
+.credName{
+  width:50%;
+  color:#f5f3f4;
+  font-size: 15px;
+  font-weight: bold;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.credRoom{
+  width:50%;
+  color:#fff;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-end;
+}
+.credEmailNum{
+  width:100%;
+  padding:5px 15px;
+  display: flex;
+  align-items: center;
+}
+.credEmail{
+  width:50%;
+  font-size: 13px;
+  font-weight: bold;
+}
+.credNum{
+  width:50%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 13px;
+  font-weight: bold;
+}
+.credPass{
+  width:100%;
+  padding:5px 15px;
+}
+.credPass input{
+  border:none;
+  outline:none;
+  font-size: 13px;
+  font-weight: bold;
+}
+.credButtons{
+  width:100%;
+  padding:10px 15px;
+  display: flex;
+  justify-content: flex-end;
+
+}
+.credButtons button{
+  padding:8px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  margin:2px 5px;
+}
+.credEdit{
+  background-color: #a4161a;
+  border: #a4161a;
+  color:#fff
+}
+.credReset{
+  background-color: #fff;
+  border:#fff;
+  color:#a4161a;
+}
