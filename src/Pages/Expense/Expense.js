@@ -1,31 +1,55 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "./Expense.css";
-import { setExpenseCategory } from "../../actions/expenseActions";
+import { getExpense, setExpenseCategory } from "../../actions/expenseActions";
 import { expenseData } from "../../data/expenseData";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
 const Expense = () => {
+  const { userId, propertyId } = useSelector(state => state.user)
   const [cat, setCat] = useState(false);
+  const [expenseData, setExpenseData] = useState([])
+  const [forceUpdate, setForceUpdate] = useState(true)
   const handleCat = () => {
     setCat(true);
   };
-  return (
-    <div className="expenseMain">
-      <Header />
-      <div className="expenseSection">
-        <ExpenseMainCard />
-        <button onClick={handleCat} className="expenseButton">
-          Add Expense
-        </button>
-        <ExpenseUnitCard />
-        {cat && <ExpenseCategory setCat={setCat} />}
+  useEffect(() => {
+    if (!forceUpdate) return
+    (async () => {
+      let data = await getExpense(userId, propertyId)
+      if (data) {
+        setExpenseData(data)
+        setForceUpdate(false)
+      }
+
+    })()
+  }, [forceUpdate])
+  if (!forceUpdate) {
+    return (
+      <div className="expenseMain">
+        <Header />
+        <div className="expenseSection">
+          <ExpenseMainCard />
+          <button onClick={handleCat} className="expenseButton">
+            Add Expense
+          </button>
+          {
+            expenseData &&
+            expenseData.map((unit, key) => (
+              <ExpenseUnitCard />
+            ))
+          }
+
+          {cat && <ExpenseCategory setCat={setCat} />}
+        </div>
+        <Footer page={"Money"} />
       </div>
-      <Footer page={"Money"} />
-    </div>
-  );
+    );
+  }
+  else return <></>
 };
 
 export default Expense;
@@ -102,7 +126,11 @@ const ExpenseMainCard = () => {
       <div className="expenseMainTop">
         <div className="expenseDuration">Duration :</div>
         <div className="expenseMonth">
-          <p>June</p>
+          <select>
+            <option>All Expenses</option>
+            <option>Yesterday</option>
+            <option>Last Month</option>
+          </select>
         </div>
       </div>
       <div className="expenseTracker">

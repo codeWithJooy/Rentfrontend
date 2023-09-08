@@ -19,6 +19,12 @@
   padding: 10px;
   box-shadow: 3px 3px #d3d3d3;
 }
+.expenseMainTop{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 .expenseTop {
   width: 100%;
   padding: 10px 10px;
@@ -83,6 +89,12 @@
   width: 50%;
   display: flex;
   justify-content: center;
+}
+.expenseMonth select{
+  width:100%;
+  outline: none;
+  background: transparent;
+  text-align: center;
 }
 .expenseTracker {
   width: 100%;
@@ -165,6 +177,10 @@
   color: #b1a7a6;
 
   background-color: #fff;
+}
+.expenseAddSection select{
+  width:100%;
+  background: transparent;
 }
 .paymentMode {
   width: 100%;
