@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { timeActivated } from "../../actions/foodAction";
 const FoodAdd = () => {
-  const time = useSelector((state) => state.food.time);
+  const time=useSelector((state) => state.food.time);
+  const [timeData,setTimeData] = useState(useSelector((state) => state.food.time));
   const dispatch = useDispatch();
   const handleSave = () => {
     dispatch(timeActivated());
@@ -19,7 +20,7 @@ const FoodAdd = () => {
       </div>
       <div className="foodAddSection">
         {time.map((data, val) => (
-          <FoodTime type={data.title} start={data.start} end={data.end} />
+          <FoodTime type={data.title} start={data.start} end={data.end} setTime={setTimeData} time={timeData}/>
         ))}
       </div>
       <div className="foodAddButton">
@@ -31,7 +32,8 @@ const FoodAdd = () => {
 
 export default FoodAdd;
 
-const FoodTime = ({ type, start, end }) => {
+const FoodTime = ({ type, start, end ,time,setTime}) => {
+  
   return (
     <div className="addContainerHeader">
       <div className="addMeal">
