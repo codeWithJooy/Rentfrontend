@@ -88,3 +88,43 @@ export const getMemName = async (userId, propertyId) => {
     console.log(error.message)
   }
 };
+export const getTotaExpense = async (userId, propertyId) => {
+  try{
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    });
+    const res = await expenseApi.get("/getTotalExpense", headers);
+    if (res.data.code == 200) {
+      return res.data.model
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Couldn't Fetch Total Expenses",
+      });
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+};
+export const getExpenseCount = async (userId, propertyId) => {
+  try{
+    const headers = getHeaders({
+      userId,
+      propertyId,
+    });
+    const res = await expenseApi.get("/getExpenseCount", headers);
+    if (res.data.code == 200) {
+      return res.data.model
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Couldn't Fetch ExpenseCount",
+      });
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+};

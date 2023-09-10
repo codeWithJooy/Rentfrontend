@@ -18,6 +18,7 @@
   background: #fff;
   padding: 10px;
   box-shadow: 3px 3px #d3d3d3;
+  margin:10px 0px 20px;
 }
 .expenseMainTop{
   width:100%;
@@ -44,6 +45,7 @@
 .expenseType p {
   font-weight: bold;
   font-size: 17px;
+  color:#a4161a;
 }
 .expenseAmount {
   width: 40%;
@@ -113,16 +115,21 @@
   font-size: 18px;
   font-weight: bold;
 }
+.trackerTop p{
+  color:#a4161a;
+}
 .trackerTitle {
   width: 70%;
   font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
 }
 .trackerTitle img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  margin-left: 30px;
 }
 .expenseButton {
   width: 100%;
