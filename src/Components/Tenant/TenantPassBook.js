@@ -168,8 +168,8 @@ const DuesDataCard = ({
   };
   const handleRemind = () => {
     let url1=`“https://web.whatsapp.com/send?phone=+91900745398&text=hi”`
-    let url=`https://wa.me/919007453398?text=I'm%20interested%20in%20your%20car%20for%20sal`
-    window.open(url1)
+    let url=`https://api.whatsapp.com/send/?phone=919007453398&text=I%27m+interested+in+your+car+for+sale`
+    window.open(url)
     // updateToast({
     //   code: CodeAnalogy.ERROR,
     //   title: "Will be available Soon",
@@ -216,7 +216,7 @@ const DuesDataCard = ({
         <button className="ddcRecord" onClick={handleRecord}>
           Record Payment
         </button>
-        <button className="ddcRemind" onClick={handleRemind}>
+        < button  className="ddcRemind" onClick={handleRemind}>
           Remind To Pay
         </button>
       </div>
