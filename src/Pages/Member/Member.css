@@ -230,3 +230,34 @@
   border: none;
   background: transparent;
 }
+.accessMain{
+  width:80%;
+  margin-left: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.accessText{
+  width:60%;
+  font-size: 15px;
+  font-weight: bold;
+  color:#a4161a;
+}
+.accessRadio{
+  width:40%;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+
+}
+.radioUnit{
+  width:50%;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+input[type=radio] {
+  border: 0px;
+  width: 100%;
+  height: 1.5em;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./Member.css";
+import MemberAcces from "./MemberAccess";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 
@@ -23,12 +24,18 @@ const MemberProfile = () => {
           className={`memNavUnit ${
             navActive == "property" ? "memNavActive" : ""
           }`}
-          onClick={() => setNavActive("personal")}
+          onClick={() => setNavActive("property")}
         >
           <p>Property Access</p>
         </div>
       </div>
-      <MemberPersonal />
+      
+      {
+        navActive=="personal" && <MemberPersonal />
+      }
+      {
+        navActive=="property" && <MemberAcces />
+      }
     </div>
   );
 };
