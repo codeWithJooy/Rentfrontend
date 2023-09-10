@@ -216,9 +216,9 @@ const DuesDataCard = ({
         <button className="ddcRecord" onClick={handleRecord}>
           Record Payment
         </button>
-        < button  className="ddcRemind" onClick={handleRemind}>
+        < a href="https://api.whatsapp.com/send?phone=919007453398"  className="ddcRemind">
           Remind To Pay
-        </button>
+        </a>
       </div>
     </div>
   );
