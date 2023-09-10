@@ -167,9 +167,9 @@ const DuesDataCard = ({
     setOpenCategory(true);
   };
   const handleRemind = () => {
-    
+    let url1=`“https://web.whatsapp.com/send?phone=+91900745398&text=hi”`
     let url=`https://wa.me/919007453398?text=I'm%20interested%20in%20your%20car%20for%20sal`
-    window.open(url)
+    window.open(url1)
     // updateToast({
     //   code: CodeAnalogy.ERROR,
     //   title: "Will be available Soon",
