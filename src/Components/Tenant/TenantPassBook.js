@@ -167,14 +167,11 @@ const DuesDataCard = ({
     setOpenCategory(true);
   };
   const handleRemind = () => {
-    let url1=`“https://web.whatsapp.com/send?phone=+91900745398&text=hi”`
-    let url=`https://api.whatsapp.com/send/?phone=919007453398&text=I%27m+interested+in+your+car+for+sale`
-    window.open(url)
-    // updateToast({
-    //   code: CodeAnalogy.ERROR,
-    //   title: "Will be available Soon",
-    //   message: "This Feature will be available Soon.",
-    // });
+    updateToast({
+      code: CodeAnalogy.ERROR,
+      title: "Will be available Soon",
+      message: "This Feature will be available Soon.",
+    });
   };
   return (
     <div className="duesDataCard">
@@ -216,9 +213,9 @@ const DuesDataCard = ({
         <button className="ddcRecord" onClick={handleRecord}>
           Record Payment
         </button>
-        < a href="https://api.whatsapp.com/send?phone=919007453398"  className="ddcRemind">
+        < button  className="ddcRemind" onClick={handleRemind}>
           Remind To Pay
-        </a>
+        </button>
       </div>
     </div>
   );
