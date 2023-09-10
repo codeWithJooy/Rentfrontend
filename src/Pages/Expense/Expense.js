@@ -139,7 +139,7 @@ const ExpenseMainCard = () => {
   const handleChange=()=>{
     updateToast({
       code:CodeAnalogy.ERROR,
-      code:"Feature Will Be available Soon"
+      title:"Feature Will Be available Soon"
     })
   }
   useEffect(() => {

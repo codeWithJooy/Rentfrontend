@@ -166,11 +166,13 @@ const DuesDataCard = ({
     setOpenCategory(true);
   };
   const handleRemind = () => {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Will be available Soon",
-      message: "This Feature will be available Soon.",
-    });
+    let url=`https://web.whatsapp.com/send?phone=+919007453398&text="Hiii"&app_absent=0`
+    window.open(url)
+    // updateToast({
+    //   code: CodeAnalogy.ERROR,
+    //   title: "Will be available Soon",
+    //   message: "This Feature will be available Soon.",
+    // });
   };
   return (
     <div className="duesDataCard">
