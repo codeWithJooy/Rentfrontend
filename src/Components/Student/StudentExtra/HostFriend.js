@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./HostFriend.css";
+import moment from 'moment'
 import { addStudentHosting } from "../../../actions/Student/studentAction";
 
 const HostFriend = ({ setHost }) => {
@@ -13,7 +14,7 @@ const HostFriend = ({ setHost }) => {
     phone:"",
     from:tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds(),
     to:tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds(),
-    presentDate:new Date()
+    presentDate: moment(new Date()).format("YYYY-MM-DD")
   })
   const handleChange=(e)=>{
     setData({...data,[e.target.name]:e.target.value})

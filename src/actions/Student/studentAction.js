@@ -333,7 +333,7 @@ export const getStudentFood = async (userId, propertyId, today) => {
     console.log(error.message)
   }
 }
-export const addStudentLate = async (userId, propertyId, tenantId, date, time, presentDate) => {
+export const addStudentLate = async (userId, propertyId, tenantId, data) => {
   try {
     let headers = getHeaders({
       userId,
@@ -341,18 +341,14 @@ export const addStudentLate = async (userId, propertyId, tenantId, date, time, p
       tenantId,
 
     })
-    let data = {
-      date,
-      time,
-      presentDate
-    }
+    
     let res = await studentApi.post("/addStudentLate", data, headers)
     if (res.data.code == 200) {
       updateToast({
         code: CodeAnalogy.SUCCESS,
         title: res.data.msg
       })
-      return res.data.model
+      return true
     }
     else {
       updateToast({
@@ -360,6 +356,7 @@ export const addStudentLate = async (userId, propertyId, tenantId, date, time, p
         title: res.data.msg
       })
     }
+    return false
   }
   catch (error) {
     console.log(error.message)
@@ -380,13 +377,14 @@ export const addStudentHosting = async (userId, propertyId, tenantId, data) => {
         code: CodeAnalogy.SUCCESS,
         title: res.data.msg
       })
-      return res.data.model
+      return true
     }
     else {
       updateToast({
         code: CodeAnalogy.ERROR,
         title: res.data.msg
       })
+      return false
     }
   }
   catch (error) {

@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const HostelLife = ({ setEviction, setHost }) => {
+const HostelLife = ({ setEviction, setHost,setLate }) => {
   let history = useHistory()
   const handleIssue = () => {
     history.push("/complaint")
@@ -41,7 +41,7 @@ const HostelLife = ({ setEviction, setHost }) => {
             nextIcon={"Assets/Students/nextFriends.png"}
             onClick={setHost}
           />
-          <HostelCard
+          {/* <HostelCard
             title={"Leaving Property?"}
             description={"Inform Your Owner to give 30 days Notice."}
             fg={"#803EAA"}
@@ -49,15 +49,15 @@ const HostelLife = ({ setEviction, setHost }) => {
             icon={"Assets/Students/nightout.png"}
             nextIcon={"Assets/Students/nextEviction.png"}
             onClick={setEviction}
-          />
+          /> */}
           <HostelCard
             title={"Returning Late ?"}
             description={"Inform Your Owner and take permission"}
-            fg={"#ffa839"}
-            bg={"#fff4ee"}
+            fg={"#803EAA"}
+            bg={"#F2EEFF"}
             icon={"Assets/Students/late.png"}
-            nextIcon={"Assets/Students/nextFriends.png"}
-            onClick={setHost}
+            nextIcon={"Assets/Students/nextEviction.png"}
+            onClick={setLate}
           />
         </Slider>
       </div>

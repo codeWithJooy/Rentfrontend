@@ -49,6 +49,7 @@ import Profile from "./Pages/Profile/Profile";
 import Notifications from "./Pages/Notifications/Notifications"
 import Settings from "./Pages/Profile/Settings";
 import TenantCredentials from "./Pages/Profile/TenantCredentials";
+import StudentNotifi from "./Pages/Student/Notifications";
 const App = () => {
   return (
     <BrowserRouter>
@@ -97,6 +98,7 @@ const App = () => {
         <Route path="/complaint" component={Complaint} />
         <Route path="/complaintHolder" component={ComplaintHolder} />
         <Route path="/studentAccount" component={StudentAccount} />
+        <Route path="/studentNotifi" component={StudentNotifi} />
       </Switch>
       <Toasty />
     </BrowserRouter>
