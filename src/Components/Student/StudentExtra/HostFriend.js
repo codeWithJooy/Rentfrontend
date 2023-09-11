@@ -5,7 +5,7 @@ import "./HostFriend.css";
 import moment from 'moment'
 import { addStudentHosting } from "../../../actions/Student/studentAction";
 
-const HostFriend = ({ setHost }) => {
+const HostFriend = ({ setHost ,setForceHeader }) => {
   const {userId,propertyId,tenantId}=useSelector(state=>state.student.studentData)
   let history=useHistory()
   let tempDate=new Date()
@@ -22,7 +22,8 @@ const HostFriend = ({ setHost }) => {
   const handleSubmit=()=>{
      (async()=>{
        if(await addStudentHosting(userId,propertyId,tenantId,data)){
-          history.push("/student")
+          setForceHeader(true)
+          setHost(false)
        }
      })()
   }

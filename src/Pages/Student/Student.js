@@ -16,9 +16,10 @@ const Student = () => {
   const [late,setLate]=useState(false)
   const [paymentModel, setPaymentModel] = useState(false);
   const [paymentPageUpdate, setPaymentPageUpdate] = useState(true);
+  const [forceHeader,setForceHeader]=useState(true)
   return (
     <div className="studentMain">
-      <StudentHeader />
+      <StudentHeader forceHeader={forceHeader} setForceHeader={setForceHeader}/>
       <div className="stuContainer">
         <MyAccount
           setPaymentModel={setPaymentModel}
@@ -29,7 +30,7 @@ const Student = () => {
         <StudentMenu />
         <StudentComplaint />
       </div>
-      {host && <HostFriend setHost={setHost} />}
+      {host && <HostFriend setHost={setHost} setForceHeader={setForceHeader}/>}
       {eviction && <Eviction setEviction={setEviction} />}
       {late && <Late setLate={setLate} />}
       {paymentModel && (

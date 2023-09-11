@@ -341,7 +341,7 @@ export const getStudentNotifications=async(userId,propertyId,tenantId)=>{
       propertyId,
       tenantId,
      })
-     const res=await studentApi.get("/getStudentNotications",headers)
+     const res=await studentApi.get("/getStudentNotifications",headers)
      if(res.data.code==200){
       return res.data.model
      }
@@ -357,7 +357,52 @@ export const getStudentNotifications=async(userId,propertyId,tenantId)=>{
     console.log(error.message)
   }
 }
-
+export const getStudentNotificationsCount=async(userId,propertyId,tenantId)=>{
+  try{
+     let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+     })
+     const res=await studentApi.get("/getStudentNotificationsCount",headers)
+     if(res.data.code==200){
+      return res.data.model
+     }
+     else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+      return []
+     }
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
+export const updateStudentNotifications=async(userId,propertyId,tenantId)=>{
+  try{
+     let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+     })
+     const res=await studentApi.put("/updateStudentNotifications",{},headers)
+     if(res.data.code==200){
+      return res.data.model
+     }
+     else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+      return []
+     }
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
 export const addStudentLate = async (userId, propertyId, tenantId, data) => {
   try {
     let headers = getHeaders({
