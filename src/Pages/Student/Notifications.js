@@ -27,7 +27,7 @@ const StudentNotifi=()=>{
           <div className="stuContainer">
              {
               notifications && notifications.length > 0 &&
-              notifications.map((data,key)=>(
+              notifications.toReversed().map((data,key)=>(
                 <NotificationUnit type={data.type}
                                   status={data.status}
                                   message={data.message}

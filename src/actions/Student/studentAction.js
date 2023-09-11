@@ -513,11 +513,11 @@ export const addStudentHosting = async (userId, propertyId, tenantId, data) => {
 
 export const getHosting = async (userId,propertyId) => {
   try {
-    let headers={
+    let headers=getHeaders({
       userId,
       propertyId,
-    }
-    let res = await studentApi.post("/getHosting", headers)
+    })
+    let res = await studentApi.get("/getHosting", headers)
     if (res.data.code == 200) {
       return res.data.model
     }
@@ -544,7 +544,7 @@ export const updateStudentHosting = async (userId,propertyId,tenantId,hostingId,
       status,
     })
 
-    let res = await studentApi.post("/updateStudentHosting", data,headers)
+    let res = await studentApi.put("/updateHosting", data,headers)
     if (res.data.code == 200) {
       updateToast({
         code: CodeAnalogy.SUCCESS,

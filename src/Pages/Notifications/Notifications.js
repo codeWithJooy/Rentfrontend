@@ -4,6 +4,7 @@ import Footer from "../../Components/Footer/Footer"
 import PaymentNotiSection from './PaymentNotiSection'
 import './Notifications.css'
 import ComplaintNotiSection from './ComplaintNotiSection'
+import HostingNotiSection from './HostingNotification'
 
 const Notifications = () => {
     const [navActive,setNavActive]=useState("Payment")
@@ -22,6 +23,9 @@ const Notifications = () => {
                 }
                                 {
                     navActive=="Complaint" && <ComplaintNotiSection />
+                }
+                {
+                    navActive=="Hosting" && <HostingNotiSection />
                 }
             </div>
             <Footer />

@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import { addCollection, getReceiptId, getTempCollection } from '../../actions/collectionAction';
 import moment from "moment";
 import { getHosting } from '../../actions/Student/studentAction';
-import { updateHosting } from '../../../../RentBackend/controller/Student/studentExtraController';
-import moment from 'moment'
+import {updateStudentHosting} from "../../actions/Student/studentAction"
+
 
 const HostingNotiSection = () => {
     const { userId, propertyId } = useSelector(state => state.user)
@@ -21,7 +21,7 @@ const HostingNotiSection = () => {
         <div className='paymentNotiSection'>
             {
                 tempData && tempData.length > 0 &&
-                tempData.reverse().map((data, key) => (
+                tempData.map((data, key) => (
                     <HostNotiCard 
                         name={data.name}
                         room={data.room}
@@ -53,7 +53,7 @@ const HostNotiCard = ({ name, room, friend, phone, to, from, hostingId,userId,pr
     const handleAccept = () => {
         (async () => {
             if (
-                await updateHosting(
+                await updateStudentHosting(
                     userId,
                     propertyId,
                     tenantId,
@@ -69,7 +69,7 @@ const HostNotiCard = ({ name, room, friend, phone, to, from, hostingId,userId,pr
     const handleDelete = () => {
         (async () => {
             if (
-                await updateHosting(
+                await updateStudentHosting(
                     userId,
                     propertyId,
                     tenantId,
@@ -82,18 +82,6 @@ const HostNotiCard = ({ name, room, friend, phone, to, from, hostingId,userId,pr
             }
         })()
     }
-    useEffect(() => {
-        (async () => {
-            let receiptData = await getReceiptId(
-                userId,
-                propertyId,
-                propertyName,
-                type,
-                collection.date
-            )
-            setCollection({ ...collection, receiptId: receiptData })
-        })()
-    }, [])
     return (
         <div className='paymentNotiCard'>
             <div className='paymentDetails'>
