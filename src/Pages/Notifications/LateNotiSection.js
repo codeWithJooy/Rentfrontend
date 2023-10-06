@@ -2,18 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { addCollection, getReceiptId, getTempCollection } from '../../actions/collectionAction';
 import moment from "moment";
-import { getHosting } from '../../actions/Student/studentAction';
-import {updateStudentHosting} from "../../actions/Student/studentAction"
-import NotPresent from './NotPresent';
+import { getLate} from '../../actions/Student/studentAction';
+import {updateStudentLate} from "../../actions/Student/studentAction"
 
 
-const HostingNotiSection = () => {
+const LateNotiSection = () => {
     const { userId, propertyId } = useSelector(state => state.user)
     const [forceUpdate, setForceUpdate] = useState(true)
     const [tempData, setTempData] = useState([])
     useEffect(() => {
         (async () => {
-            let data = await getHosting(userId,propertyId)
+            let data = await getLate(userId,propertyId)
             setTempData(data)
             setForceUpdate(false)
         })()
@@ -23,14 +22,12 @@ const HostingNotiSection = () => {
             {
                 tempData && tempData.length > 0 &&
                 tempData.map((data, key) => (
-                    <HostNotiCard 
+                    <LateNotiCard 
                         name={data.name}
                         room={data.room}
-                        friend={data.friend}
-                        phone={data.phone}
-                        from={data.from}
-                        to={data.to}
-                        hostingId={data.hostingId}
+                        reason={data.reason}
+                        time={data.time}
+                        lateId={data.lateIdId}
                         userId={data.userId}
                         propertyId={data.propertyId}
                         tenantId={data.tenantId}
@@ -38,27 +35,22 @@ const HostingNotiSection = () => {
                         key={key} />
                 ))
             }
-            {
-                tempData.length <=0 &&
-                <NotPresent text={"No Hosting Request."}/>
-            }
         </div>
     )
 }
 
-export default HostingNotiSection;
+export default LateNotiSection;
 
-const HostNotiCard = ({ name, room, friend, phone, to, from, hostingId,userId,propertyId,tenantId, setForceUpdate }) => {
+const LateNotiCard = ({ name, room, reason, time, hostingId,userId,propertyId,tenantId, setForceUpdate }) => {
     let data={
-        name:friend,
-        from,
-        to,
+        reason,
+        time,
         presentDate:moment(new Date()).format("YYYY-MM-DD")
     }
     const handleAccept = () => {
         (async () => {
             if (
-                await updateStudentHosting(
+                await updateStudentLate(
                     userId,
                     propertyId,
                     tenantId,
@@ -74,7 +66,7 @@ const HostNotiCard = ({ name, room, friend, phone, to, from, hostingId,userId,pr
     const handleDelete = () => {
         (async () => {
             if (
-                await updateStudentHosting(
+                await updateStudentLate(
                     userId,
                     propertyId,
                     tenantId,
@@ -98,19 +90,14 @@ const HostNotiCard = ({ name, room, friend, phone, to, from, hostingId,userId,pr
                 </div>
             </div>
             <div className='payeeDetails'>
-                <div className='payeeName'>
-                    <p>{friend}</p>
+                <div className='lateReason'>
+                    <p>{reason}</p>
                 </div>
-                <div className='payeeRoom'>
-                    <p>{phone}</p>
-                </div>
+            
             </div>
             <div className='paymentMeta'>
-                <div className='paymentMetaDate'>
-                    <p>From:{from}</p>
-                </div>
-                <div className='paymentMetaMode'>
-                    <p>To : {to}</p>
+                <div className='lateReason'>
+                    <p>Return By:{time}</p>
                 </div>
             </div>
             <div className='paymentButtons'>

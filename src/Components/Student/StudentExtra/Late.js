@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./HostFriend.css";
 import moment from 'moment'
-import { addStudentHosting, addStudentLate } from "../../../actions/Student/studentAction";
+import {  addStudentLate } from "../../../actions/Student/studentAction";
 
-const HostFriend = ({ setLate }) => {
+const Late = ({ setLate }) => {
     const { userId, propertyId, tenantId } = useSelector(state => state.student.studentData)
     let history = useHistory()
     let tempDate = new Date()
@@ -59,4 +59,4 @@ const HostFriend = ({ setLate }) => {
     );
 };
 
-export default HostFriend;
+export default Late;

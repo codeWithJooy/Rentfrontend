@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useRef  } from "react";
 import { useSelector } from "react-redux";
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
@@ -105,10 +105,17 @@ const Personal = ({ edit, details, setDetails }) => {
 };
 
 const Kyc = () => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
+  const govFront=useRef()
   const handleToggle = () => {
     setToggle(!toggle);
   };
+  const handleGovFrontClick=()=>{
+    govFront.current.click()
+  }
+  const handleGovFront=(e)=>{
+    console.log(e);
+  }
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -124,6 +131,80 @@ const Kyc = () => {
           />
         </div>
       </div>
+      {
+        toggle && 
+        <div className="documentContainer">
+        {/* Govererment Id Front */}
+        <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <input type="file" ref={govFront} onChange={handleGovFront} accept=".pdf" style={{display:"none"}} />
+              <button onClick={handleGovFrontClick}>Upload</button>
+            </div>
+          </div>
+        </div>
+                {/* Govererment Id Front */}
+                <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <button>Upload</button>
+            </div>
+          </div>
+        </div>
+                {/* Govererment Id Front */}
+                <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <button>Upload</button>
+            </div>
+          </div>
+        </div>
+                {/* Govererment Id Front */}
+                <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <button>Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
     </div>
   );
 };

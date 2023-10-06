@@ -435,11 +435,11 @@ export const addStudentLate = async (userId, propertyId, tenantId, data) => {
 
 export const getLate = async (userId,propertyId) => {
   try {
-    let headers={
+    let headers=getHeaders({
       userId,
-      propertyId,
-    }
-    let res = await studentApi.post("/getLate", headers)
+      propertyId
+    })
+    let res = await studentApi.get("/getLate", headers)
     if (res.data.code == 200) {
       return res.data.model
     }
@@ -455,13 +455,16 @@ export const getLate = async (userId,propertyId) => {
     console.log(error.message)
   }
 }
-export const updateStudentLate = async (lateId,status) => {
+export const updateStudentLate = async (userId,propertyId,tenantId,lateId,status,data) => {
   try {
-    let data={
+    let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
       lateId,
       status,
-    }
-    let res = await studentApi.post("/updateStudentLate", data)
+    })
+    let res = await studentApi.post("/updateStudentLate", data,headers)
     if (res.data.code == 200) {
       updateToast({
         code: CodeAnalogy.SUCCESS,
