@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useSelector } from 'react-redux';
 import { getComplaints } from '../../actions/Student/studentAction';
 import { useHistory } from "react-router-dom"
+import NotPresent from './NotPresent';
 
 const ComplaintNotiSection = () => {
     const { userId, propertyId } = useSelector(state => state.user)
@@ -20,6 +21,10 @@ const ComplaintNotiSection = () => {
                     <ComplaintNotiCard type={data.type} subType={data.subType} name={data.name} room={data.room} date={data.date} status={data.status} key={key} />
                     ))
                 }
+            {
+                tempData.length <=0 &&
+                <NotPresent text={"No Complaints Present."}/>
+            }    
         </div>
     )
 }

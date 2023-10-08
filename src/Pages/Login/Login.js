@@ -19,6 +19,9 @@ const Login = () => {
   const handleSignUp = () => {
     history.push("/signup");
   };
+  const handleForget=()=>{
+    history.push("/addEmail")
+  }
   const handleSignIn = () => {
     userLogin(user);
   };
@@ -55,6 +58,9 @@ const Login = () => {
               name="password"
               onChange={handleChange}
             />
+          </div>
+          <div className="forget">
+            <p onClick={handleForget}>Forget Password ?</p>
           </div>
           <div className="entryDataButton">
             <button onClick={handleSignIn}>Sign In</button>

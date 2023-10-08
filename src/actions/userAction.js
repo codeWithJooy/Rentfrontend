@@ -2,9 +2,10 @@ import {
   USER_SIGNUP,
   USER_PROPERTY,
   USER_LOGIN,
+  ADD_EMAIL
 } from "../actionTypes/userAction";
 import { userApi, setupApi } from "../apis/apis";
-import { dispatchAction } from "./actionHelper";
+import { dispatchAction, getHeaders } from "./actionHelper";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { updateToast } from "./toastActions";
 import {
@@ -19,6 +20,7 @@ export const userSignup = async (data) => {
       first: data.firstName,
       last: data.lastName,
       email: data.email,
+      number:data.number,
       password: data.password,
     };
     if (!signupValidation(user)) return;
@@ -115,3 +117,86 @@ export const userLogin = async (data) => {
     console.log(error.message);
   }
 };
+//
+export const userEmail=async(email)=>{
+  try{
+    let headers=getHeaders({
+      email
+    })
+    const response=await userApi.get("/addEmail",headers)
+    if(response.data.code==200){
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: response.data.msg,
+      });
+      dispatchAction(ADD_EMAIL,response.data)
+      return true
+    }
+    else{
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: response.data.msg,
+      });
+      return false
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+}
+export const verifyOtp=async(email,otp)=>{
+  try{
+    let headers=getHeaders({
+      email,
+      otp
+    })
+    const response=await userApi.get("/verifyOtp",headers)
+    if(response.data.code==200){
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: response.data.msg,
+      });
+      return true
+    }
+    else{
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: response.data.msg,
+      });
+      return false
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+}
+export const updatePassword=async(email,password,confirm)=>{
+  try{
+    if(password!==confirm){
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Password Doesnt Match",
+      });
+      return false
+    }
+    let headers=getHeaders({
+      email,
+      password
+    })
+    const response=await userApi.get("/updatePassword",headers)
+    if(response.data.code==200){
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: response.data.msg,
+      });
+      return true
+    }
+    else{
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: response.data.msg,
+      });
+      return false
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+}

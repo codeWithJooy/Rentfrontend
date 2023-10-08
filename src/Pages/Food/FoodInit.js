@@ -10,7 +10,7 @@ const FoodInit = () => {
   return (
     <div className="foodInitContainer">
       <div className="foodBox">
-        <img src="Assets/Food/food.png" />
+        <img src="Assets/Food/dinner.png" />
         <div className="foodInitDes">
           <p>The food menu is not activted</p>
         </div>

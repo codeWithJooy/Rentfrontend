@@ -7,6 +7,7 @@ import { dispatchAction, getHeaders } from "../actionHelper";
 import { studentApi, tenantApi, complaintApi, duesApi, foodApi } from "../../apis/apis";
 import { updateToast } from "../toastActions";
 import { CodeAnalogy } from "../../Components/Toasty/Toasty";
+import { updateLocale } from "moment";
 export const setComplaintType = (data) => {
   return {
     type: COMPLAINT_TYPE,
@@ -333,7 +334,76 @@ export const getStudentFood = async (userId, propertyId, today) => {
     console.log(error.message)
   }
 }
-export const addStudentLate = async (userId, propertyId, tenantId, date, time, presentDate) => {
+export const getStudentNotifications=async(userId,propertyId,tenantId)=>{
+  try{
+     let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+     })
+     const res=await studentApi.get("/getStudentNotifications",headers)
+     if(res.data.code==200){
+      return res.data.model
+     }
+     else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+      return []
+     }
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
+export const getStudentNotificationsCount=async(userId,propertyId,tenantId)=>{
+  try{
+     let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+     })
+     const res=await studentApi.get("/getStudentNotificationsCount",headers)
+     if(res.data.code==200){
+      return res.data.model
+     }
+     else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+      return []
+     }
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
+export const updateStudentNotifications=async(userId,propertyId,tenantId)=>{
+  try{
+     let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+     })
+     const res=await studentApi.put("/updateStudentNotifications",{},headers)
+     if(res.data.code==200){
+      return res.data.model
+     }
+     else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+      return []
+     }
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
+export const addStudentLate = async (userId, propertyId, tenantId, data) => {
   try {
     let headers = getHeaders({
       userId,
@@ -341,17 +411,36 @@ export const addStudentLate = async (userId, propertyId, tenantId, date, time, p
       tenantId,
 
     })
-    let data = {
-      date,
-      time,
-      presentDate
-    }
+    
     let res = await studentApi.post("/addStudentLate", data, headers)
     if (res.data.code == 200) {
       updateToast({
         code: CodeAnalogy.SUCCESS,
         title: res.data.msg
       })
+      return true
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+    }
+    return false
+  }
+  catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const getLate = async (userId,propertyId) => {
+  try {
+    let headers=getHeaders({
+      userId,
+      propertyId
+    })
+    let res = await studentApi.get("/getLate", headers)
+    if (res.data.code == 200) {
       return res.data.model
     }
     else {
@@ -359,6 +448,36 @@ export const addStudentLate = async (userId, propertyId, tenantId, date, time, p
         code: CodeAnalogy.ERROR,
         title: res.data.msg
       })
+      return false
+    }
+  }
+  catch (error) {
+    console.log(error.message)
+  }
+}
+export const updateStudentLate = async (userId,propertyId,tenantId,lateId,status,data) => {
+  try {
+    let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+      lateId,
+      status,
+    })
+    let res = await studentApi.post("/updateStudentLate", data,headers)
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: res.data.msg
+      })
+      return true
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+      return false
     }
   }
   catch (error) {
@@ -380,6 +499,29 @@ export const addStudentHosting = async (userId, propertyId, tenantId, data) => {
         code: CodeAnalogy.SUCCESS,
         title: res.data.msg
       })
+      return true
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+      return false
+    }
+  }
+  catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const getHosting = async (userId,propertyId) => {
+  try {
+    let headers=getHeaders({
+      userId,
+      propertyId,
+    })
+    let res = await studentApi.get("/getHosting", headers)
+    if (res.data.code == 200) {
       return res.data.model
     }
     else {
@@ -387,6 +529,38 @@ export const addStudentHosting = async (userId, propertyId, tenantId, data) => {
         code: CodeAnalogy.ERROR,
         title: res.data.msg
       })
+      return false
+    }
+  }
+  catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const updateStudentHosting = async (userId,propertyId,tenantId,hostingId,status,data) => {
+  try {
+    let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+      hostingId,
+      status,
+    })
+
+    let res = await studentApi.put("/updateHosting", data,headers)
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: res.data.msg
+      })
+      return true
+    }
+    else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: res.data.msg
+      })
+      return false
     }
   }
   catch (error) {

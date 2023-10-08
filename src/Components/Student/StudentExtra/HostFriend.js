@@ -2,9 +2,10 @@ import React,{useState} from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./HostFriend.css";
+import moment from 'moment'
 import { addStudentHosting } from "../../../actions/Student/studentAction";
 
-const HostFriend = ({ setHost }) => {
+const HostFriend = ({ setHost ,setForceHeader }) => {
   const {userId,propertyId,tenantId}=useSelector(state=>state.student.studentData)
   let history=useHistory()
   let tempDate=new Date()
@@ -13,7 +14,7 @@ const HostFriend = ({ setHost }) => {
     phone:"",
     from:tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds(),
     to:tempDate.getHours()+':'+ tempDate.getMinutes()+':'+ tempDate.getSeconds(),
-    presentDate:new Date()
+    presentDate: moment(new Date()).format("YYYY-MM-DD")
   })
   const handleChange=(e)=>{
     setData({...data,[e.target.name]:e.target.value})
@@ -21,7 +22,8 @@ const HostFriend = ({ setHost }) => {
   const handleSubmit=()=>{
      (async()=>{
        if(await addStudentHosting(userId,propertyId,tenantId,data)){
-          history.push("/student")
+          setForceHeader(true)
+          setHost(false)
        }
      })()
   }

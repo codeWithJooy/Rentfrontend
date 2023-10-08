@@ -366,10 +366,10 @@ const AddTenant = () => {
                     <p className="rate">Rs {data.due}</p>
                     <p className="range">{`Due ${data.dueDate}`}</p>
                   </div>
-                  <div className="sectionUnit collected">
+                  {/* <div className="sectionUnit collected">
                     <img src="Assets/Tenant/edit.png" />
                     <p>{data.collection}</p>
-                  </div>
+                  </div> */}
                 </div>
               ))}
 

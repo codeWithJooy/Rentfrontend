@@ -4,6 +4,8 @@ import Footer from "../../Components/Footer/Footer"
 import PaymentNotiSection from './PaymentNotiSection'
 import './Notifications.css'
 import ComplaintNotiSection from './ComplaintNotiSection'
+import HostingNotiSection from './HostingNotification'
+import LateNotiSection from './LateNotiSection'
 
 const Notifications = () => {
     const [navActive,setNavActive]=useState("Payment")
@@ -15,13 +17,19 @@ const Notifications = () => {
                     <NavUnit text="Payment" navActive={navActive} setNavActive={setNavActive} />
                     <NavUnit text="Complaint" navActive={navActive} setNavActive={setNavActive} />
                     <NavUnit text="Hosting" navActive={navActive} setNavActive={setNavActive} />
-                    <NavUnit text="Eviction" navActive={navActive} setNavActive={setNavActive} />
+                    <NavUnit text="Late" navActive={navActive} setNavActive={setNavActive} />
                 </div>
                 {
                     navActive=="Payment" && <PaymentNotiSection />
                 }
                                 {
                     navActive=="Complaint" && <ComplaintNotiSection />
+                }
+                {
+                    navActive=="Hosting" && <HostingNotiSection />
+                }
+                                {
+                    navActive=="Late" && <LateNotiSection />
                 }
             </div>
             <Footer />

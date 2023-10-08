@@ -49,6 +49,10 @@ import Profile from "./Pages/Profile/Profile";
 import Notifications from "./Pages/Notifications/Notifications"
 import Settings from "./Pages/Profile/Settings";
 import TenantCredentials from "./Pages/Profile/TenantCredentials";
+import StudentNotifi from "./Pages/Student/Notifications";
+import OtpPage from "./Pages/Login/otpPage";
+import UpdatePass from "./Pages/Login/updatePassword";
+import AddEmail from "./Pages/Login/addEmail";
 const App = () => {
   return (
     <BrowserRouter>
@@ -56,6 +60,9 @@ const App = () => {
         <Route path="/splash" component={Splash} />
         <Route path="/get-started" component={GetStarted} exact />
         <Route path="/login" component={Login} />
+        <Route path="/addEmail" component={AddEmail} />
+        <Route path="/otp" component={OtpPage} />
+        <Route path="/updatePass" component={UpdatePass} />
         <Route path="/signup" component={Signup} />
         <Route path="/add" component={Add} />
         <Route path="/home" component={Home} />
@@ -97,6 +104,7 @@ const App = () => {
         <Route path="/complaint" component={Complaint} />
         <Route path="/complaintHolder" component={ComplaintHolder} />
         <Route path="/studentAccount" component={StudentAccount} />
+        <Route path="/studentNotifi" component={StudentNotifi} />
       </Switch>
       <Toasty />
     </BrowserRouter>

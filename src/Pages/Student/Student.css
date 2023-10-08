@@ -42,6 +42,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position:relative;
 }
 .stuHeaderNotification img {
   width: 30px;
@@ -390,3 +391,54 @@
   border-radius: 10px;
 }
 /*=======================================*/
+/*======================================
+
+=======================================*/
+.noticationUnit{
+  width:90%;
+  border-radius: 5px;
+  margin-left: 5%;
+  border:1px solid #b1a7a6;
+  box-shadow: 0 0 3px #33B8C8;
+  margin-bottom: 10px;
+  padding:10px;
+}
+.notiHeader{
+  width:100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.notiName{
+  width:60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+  font-weight: bold;
+  color:#3b385a;
+}
+.notiStatus{
+  width:40%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 18px;
+  font-weight: bold;
+  color:#3b385a;
+}
+.notiMessage{
+  width:100%;
+  font-size: bold;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.notiDate{
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: bold;
+  color:#33B8C8;
+}

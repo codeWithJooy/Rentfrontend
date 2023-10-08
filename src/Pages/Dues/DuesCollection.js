@@ -7,6 +7,7 @@ import {
   getAllCollectionByUser,
 } from "../../actions/collectionAction";
 import { getMonthCollection } from "../../actions/summaryAction";
+import { beautiDate } from "../../helper";
 const DuesCollection = () => {
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.user);
@@ -76,9 +77,12 @@ const DuesCollectionCard = ({ userId, propertyId, data }) => {
           </div>
         </div>
       </div>
-      <div className="ddcBottom">
+      {/* <div className="ddcBottom">
         <button className="ddcDate">{data.date}</button>
-        <button className="ddcRemind">Share Receipt</button>
+       <button className="ddcRemind">Share Receipt</button>
+      </div> */}
+      <div style={{paddingLeft:"10px"}}>
+        <p style={{fontWeight:"bold"}}>{beautiDate(data.date)}</p>
       </div>
     </div>
   );
@@ -89,7 +93,7 @@ const CollectionMainCard = ({ tenantCount, collectionCount }) => {
   return (
     <div className="expenseMainCard">
       <div className="expenseMainTop">
-        <div className="expenseDuration">Duration : July</div>
+        <div className="expenseDuration">Duration : October</div>
       </div>
       <div className="expenseTracker">
         <div

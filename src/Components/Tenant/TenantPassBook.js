@@ -13,6 +13,7 @@ import DuesCollection from "./DuesCollection";
 import { getReceiptData } from "../../actions/collectionAction";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../Toasty/Toasty";
+import { remindTenant } from "../../actions/tenantAction";
 const TenantPassBook = ({ setForceUpdate }) => {
   const settings = {
     dots: false,
@@ -156,6 +157,8 @@ const DuesDataCard = ({
   setOpenCategory,
   setDueDetail,
 }) => {
+  let {userId,propertyId,propertyName}=useSelector(state=>state.user)
+  let tenantId=useSelector(state=>state.tenant.selectedTenant)
   let finalDue = due - collection;
   let obj = {
     type,
@@ -167,14 +170,10 @@ const DuesDataCard = ({
     setOpenCategory(true);
   };
   const handleRemind = () => {
-    let url1=`“https://web.whatsapp.com/send?phone=+91900745398&text=hi”`
-    let url=`https://api.whatsapp.com/send/?phone=919007453398&text=I%27m+interested+in+your+car+for+sale`
-    window.open(url)
-    // updateToast({
-    //   code: CodeAnalogy.ERROR,
-    //   title: "Will be available Soon",
-    //   message: "This Feature will be available Soon.",
-    // });
+   
+    (async()=>{
+      await remindTenant(userId,propertyId,propertyName,tenantId,type,due,dueDate)
+    })()
   };
   return (
     <div className="duesDataCard">
@@ -216,9 +215,9 @@ const DuesDataCard = ({
         <button className="ddcRecord" onClick={handleRecord}>
           Record Payment
         </button>
-        < a href="https://api.whatsapp.com/send?phone=919007453398"  className="ddcRemind">
+        < button  className="ddcRemind" onClick={handleRemind}>
           Remind To Pay
-        </a>
+        </button>
       </div>
     </div>
   );

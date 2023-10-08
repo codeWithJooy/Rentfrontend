@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useRef  } from "react";
 import { useSelector } from "react-redux";
+import moment from "moment/moment";
+
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
   let data = useSelector(state => state.tenant.tenantDetails)
   const [details, setDetails] = useState(data)
-
+ const handleEdit=()=>{
+  if(!edit){
+    console.log(details)
+  }
+  setEdit(!edit)
+ }
   return (
     <div className="tenantHolder">
       <Personal edit={edit} details={details} setDetails={setDetails} />
@@ -12,7 +19,7 @@ const TenantPersonal = () => {
       <Parent edit={edit} details={details} setDetails={setDetails} />
       <Guardian edit={edit} details={details} setDetails={setDetails} />
       <ParentID />
-      <div className="memEdit" onClick={() => setEdit(!edit)}>
+      <div className="memEdit" onClick={handleEdit}>
         {edit ? "Edit" : "Save"}
       </div>
     </div>
@@ -25,6 +32,17 @@ const Personal = ({ edit, details, setDetails }) => {
   const handleToggle = () => {
     setToggle(!toggle);
   };
+  const handleBloodChange=(e)=>{
+    setDetails({...details,bloodGroup:e.target.value})
+  }
+  const handleChange=(e)=>{
+    setDetails({...details,[e.target.name]:e.target.value})
+  }
+  const handleBirthChange=(e)=>{
+    const d = new Date(e.target.value);
+    const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
+    setDetails({...details,'birthDate':newDate})
+  }
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -63,7 +81,7 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Alternate Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} value={details.alternate} />
+              <input type="text" readOnly={edit} value={details.alternate} name="alternate" onChange={handleChange}/>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -71,7 +89,7 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Email</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} value={details.email} />
+              <input type="text" readOnly={edit} value={details.email} name="email" onChange={handleChange}/>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -79,7 +97,7 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Date Of Birth</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="date" name="birthDate" value={moment().format("YYYY-MM-DD")} readOnly={edit} onChange={handleBirthChange }/>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -87,7 +105,16 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Blood Group</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} value={details.bloodGroup} />
+              <select name="bloodGroup" value={details.bloodGroup} onChange={handleBloodChange}>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+              </select>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -98,6 +125,7 @@ const Personal = ({ edit, details, setDetails }) => {
               <input type="text" readOnly value={details.dob} />
             </div>
           </div>
+                                                                                          
         </div>
       )}
     </div>
@@ -105,10 +133,17 @@ const Personal = ({ edit, details, setDetails }) => {
 };
 
 const Kyc = () => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
+  const govFront=useRef()
   const handleToggle = () => {
     setToggle(!toggle);
   };
+  const handleGovFrontClick=()=>{
+    govFront.current.click()
+  }
+  const handleGovFront=(e)=>{
+    console.log(e);
+  }
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -124,15 +159,92 @@ const Kyc = () => {
           />
         </div>
       </div>
+      {
+        toggle && 
+        <div className="documentContainer">
+        {/* Govererment Id Front */}
+        <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <input type="file" ref={govFront} onChange={handleGovFront} accept=".pdf" style={{display:"none"}} />
+              <button onClick={handleGovFrontClick}>Upload</button>
+            </div>
+          </div>
+        </div>
+                {/* Govererment Id Front */}
+                <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <button>Upload</button>
+            </div>
+          </div>
+        </div>
+                {/* Govererment Id Front */}
+                <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <button>Upload</button>
+            </div>
+          </div>
+        </div>
+                {/* Govererment Id Front */}
+                <div className="documentHolder">
+          <div className="documentImage">
+            <img src="Assets/Tenant/document.png" />
+          </div>
+          <div className="documentName">
+            <div className="documentTitle">
+              <p>Govt. ID</p>
+            </div>
+            <div className="documentDes">
+              <p>Front</p>
+            </div>
+            <div className="documentButton">
+              <button>Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
     </div>
   );
 };
 
-const Parent = ({ edit }) => {
+const Parent = ({ edit, details, setDetails }) => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
   };
+  const handleChange=(e)=>{
+    setDetails({...details,[e.target.name]:e.target.value})
+  }
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -155,7 +267,7 @@ const Parent = ({ edit }) => {
               <p>Father's Name</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} name="fatherName" value={details.fatherName} onChange={handleChange}/>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -163,7 +275,7 @@ const Parent = ({ edit }) => {
               <p>Father's Phone Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} name="fatherNumber" value={details.fatherNumber} onChange={handleChange}/>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -171,7 +283,7 @@ const Parent = ({ edit }) => {
               <p>Mother's Name</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} name="motherName" value={details.motherName} onChange={handleChange}/>
             </div>
           </div>
           <div className="sectionIpFull">
@@ -179,7 +291,7 @@ const Parent = ({ edit }) => {
               <p>Mother's Phone Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input type="text" readOnly={edit} name="motherNumber" value={details.motherNumber} onChange={handleChange}/>
             </div>
           </div>
           <div className="sectionIpFull">

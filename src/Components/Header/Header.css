@@ -72,3 +72,16 @@
   height: 24px;
   width: 24px;
 }
+.studentNotificationsIcon{
+  width:25px;
+  height:25px;
+  border-radius:50%;
+  background:red;
+  position:absolute;
+  left:25px;
+  top:-10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:#fff;
+}
