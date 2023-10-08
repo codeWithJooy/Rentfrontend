@@ -82,12 +82,12 @@ const DuesDataCard = ({ tenant, dues, collection, setOpen }) => {
           </div>
         </div>
       </div>
-      <div className="ddcBottom">
+      {/* <div className="ddcBottom">
         <button className="ddcRecord" onClick={handleRecord}>
           Record Payment
         </button>
         <button className="ddcRemind">Remind To Pay</button>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -97,7 +97,7 @@ const DuesMainCard = ({ tenantCount, dues, collection }) => {
   return (
     <div className="expenseMainCard">
       <div className="expenseMainTop">
-        <div className="expenseDuration">Duration : July</div>
+        <div className="expenseDuration" style={{textAlign:"left!important"}}>Duration :&nbsp; &nbsp; &nbsp; &nbsp; October</div>
       </div>
       <div className="expenseTracker">
         <div

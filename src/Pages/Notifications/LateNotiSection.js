@@ -27,7 +27,7 @@ const LateNotiSection = () => {
                         room={data.room}
                         reason={data.reason}
                         time={data.time}
-                        lateId={data.lateIdId}
+                        lateId={data.lateId}
                         userId={data.userId}
                         propertyId={data.propertyId}
                         tenantId={data.tenantId}
@@ -41,7 +41,7 @@ const LateNotiSection = () => {
 
 export default LateNotiSection;
 
-const LateNotiCard = ({ name, room, reason, time, hostingId,userId,propertyId,tenantId, setForceUpdate }) => {
+const LateNotiCard = ({ name, room, reason, time, lateId,userId,propertyId,tenantId, setForceUpdate }) => {
     let data={
         reason,
         time,
@@ -54,7 +54,7 @@ const LateNotiCard = ({ name, room, reason, time, hostingId,userId,propertyId,te
                     userId,
                     propertyId,
                     tenantId,
-                    hostingId,
+                    lateId,
                     "Accepted",
                     data
                 )
@@ -70,7 +70,7 @@ const LateNotiCard = ({ name, room, reason, time, hostingId,userId,propertyId,te
                     userId,
                     propertyId,
                     tenantId,
-                    hostingId,
+                    lateId,
                     "Rejected",
                     data
                 )
