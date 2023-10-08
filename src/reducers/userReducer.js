@@ -3,12 +3,14 @@ import {
   USER_LOGIN,
   USER_PROPERTY,
   USER_SIGNUP,
+  ADD_EMAIL,
 } from "../actionTypes/userAction";
 
 const initialize = {
   userId: "",
   propertyId: "",
   propertyName: "",
+  addEmail:""
 };
 
 const userReducer = (state = initialize, action) => {
@@ -40,7 +42,13 @@ const userReducer = (state = initialize, action) => {
         pincode: action.payload.pincode,
         contact: action.payload.contact,
       };
-    default:
+    case ADD_EMAIL:{
+      return{
+        ...state,
+        addEmail:action.payload.email
+      }
+    }
+      default:
       return state;
   }
 };

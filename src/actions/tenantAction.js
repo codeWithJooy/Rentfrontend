@@ -227,3 +227,32 @@ export const resetTenantPassword = async (userId, propertyId, tenantId, password
     console.log(error.message)
   }
 }
+
+export const remindTenant=async (userId,propertyId,propertyName,tenantId,type,due,dueDate)=>{
+  try{
+    let data={
+      userId,
+      propertyId,
+      propertyName,
+      tenantId,
+      type,
+      due,
+      dueDate,
+    }
+    const res=await tenantApi.post("/remindTenant",data)
+    if(res.data.code==200){
+      updateToast({
+        code:CodeAnalogy.SUCCESS,
+        title:res.data.msg
+      })
+    }
+    else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+}

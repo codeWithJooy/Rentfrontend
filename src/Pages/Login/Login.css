@@ -52,6 +52,16 @@
   border: none;
   outline: none;
 }
+.forget{
+width:80%;
+display: flex;
+justify-content: flex-end;
+margin-top: 5px;
+margin-bottom: -15px;
+font-size: 14px;
+font-weight: bold;
+color: #e5383b;
+}
 .entryDataButton {
   width: 80%;
   display: flex;

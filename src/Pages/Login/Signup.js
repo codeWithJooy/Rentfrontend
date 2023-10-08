@@ -11,6 +11,7 @@ const Signup = () => {
     firstName: "",
     lastName: "",
     email: "",
+    number:"",
     password: "",
   });
   const history = useHistory();
@@ -61,6 +62,15 @@ const Signup = () => {
               name="email"
               placeholder="Email"
               value={user.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="entryDataUnit">
+            <input
+              type="text"
+              name="number"
+              placeholder="Phone Number"
+              value={user.number}
               onChange={handleChange}
             />
           </div>

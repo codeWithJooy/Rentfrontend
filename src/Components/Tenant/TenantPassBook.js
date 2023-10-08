@@ -13,6 +13,7 @@ import DuesCollection from "./DuesCollection";
 import { getReceiptData } from "../../actions/collectionAction";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../Toasty/Toasty";
+import { remindTenant } from "../../actions/tenantAction";
 const TenantPassBook = ({ setForceUpdate }) => {
   const settings = {
     dots: false,
@@ -156,6 +157,8 @@ const DuesDataCard = ({
   setOpenCategory,
   setDueDetail,
 }) => {
+  let {userId,propertyId,propertyName}=useSelector(state=>state.user)
+  let tenantId=useSelector(state=>state.tenant.selectedTenant)
   let finalDue = due - collection;
   let obj = {
     type,
@@ -167,11 +170,10 @@ const DuesDataCard = ({
     setOpenCategory(true);
   };
   const handleRemind = () => {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Will be available Soon",
-      message: "This Feature will be available Soon.",
-    });
+   
+    (async()=>{
+      await remindTenant(userId,propertyId,propertyName,tenantId,type,due,dueDate)
+    })()
   };
   return (
     <div className="duesDataCard">
