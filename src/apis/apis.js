@@ -21,6 +21,7 @@ const prodApis = {
   FLOOR_API: "https://rentpg.onrender.com/api/floor",
   ROOM_API: "https://rentpg.onrender.com/api/room",
   TENANT_API: "https://rentpg.onrender.com/api/tenant",
+  EXPENSE_API: "https://rentpg.onrender.com/api/expense",
   FOOD_API: "https://rentpg.onrender.com/api/food",
   MEMBER_API: "https://rentpg.onrender.com/api/member",
   COLLECTION_API: "https://rentpg.onrender.com/api/collection",
