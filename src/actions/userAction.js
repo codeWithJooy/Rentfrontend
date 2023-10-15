@@ -121,6 +121,36 @@ export const userLogin = async (data) => {
     console.log(error.message);
   }
 };
+export const userLoginLocalStorage = async (data) => {
+  try {
+    const user = {
+      email: data.email,
+      password: data.password,
+    };
+
+    if (!loginValidation(user)) return;
+
+    const response = await userApi.post("/login", user);
+
+    if (response.data.code == 200) {
+      localStorage.setItem("email",data.email)
+      localStorage.setItem("password",data.password)
+      dispatchAction(USER_LOGIN, response.data);
+      return true;
+    } else if (response.data.code == 404) {
+      return;
+    } else if (response.data.code == 401) {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Password didn't Match",
+        message: "Check Your Password",
+      });
+      return;
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 //
 export const userEmail=async(email)=>{
   try{

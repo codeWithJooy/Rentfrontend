@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useSelector } from "react-redux";
 import "./Splash.css";
-import { userLogin } from "../../actions/userAction";
+import { userLogin, userLoginLocalStorage } from "../../actions/userAction";
 
 const Splash = () => {
   let history = useHistory();
@@ -10,15 +10,26 @@ const Splash = () => {
   const propertyId = useSelector((state) => state.user.propertyId);
   let email = localStorage.getItem("email")
   let password = localStorage.getItem("password")
+  let [present,setPresent]=useState(false)
+
+  useEffect(()=>{
+    if(!email && !password){
+      setTimeout(() => {
+        history.push("/get-started");
+      }, 4000);
+    }
+
+  },[])
 
   useEffect(() => {
+    
     (async () => {
       if (email !== "" && password !== "") {
         let user = {
           email,
           password,
         }
-        userLogin(user)
+        userLoginLocalStorage(user)
       } else {
         setTimeout(() => {
           history.push("/get-started");
@@ -26,6 +37,8 @@ const Splash = () => {
       }
     }
     )()
+
+    
   }, []);
 
   useEffect(() => {
