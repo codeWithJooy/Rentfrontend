@@ -1,15 +1,29 @@
 import React, { useState,useRef  } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment/moment";
+import { updateToast } from "../../actions/toastActions";
+import { CodeAnalogy } from "../Toasty/Toasty";
+import { updateTenant } from "../../actions/tenantAction";
 
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
   let data = useSelector(state => state.tenant.tenantDetails)
+  const { userId, propertyId } = useSelector((state) => state.user);
+  const tenantId=useSelector((state)=>state.tenant.selectedTenant)
+
   const [details, setDetails] = useState(data)
  const handleEdit=()=>{
   if(!edit){
-    console.log(details)
+    (async()=>{
+      if(await updateTenant(userId,propertyId,tenantId,details)){
+
+      }
+    })()
   }
+  updateToast({
+    code:CodeAnalogy.SUCCESS,
+    title:"Edit Tenant Details"
+  })
   setEdit(!edit)
  }
   return (
