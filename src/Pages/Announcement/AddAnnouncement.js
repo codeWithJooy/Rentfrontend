@@ -2,9 +2,17 @@ import React, { useState } from "react";
 import "./Announcement.css";
 import Header from "../../Components/Header/Header";
 import { useSelector } from "react-redux";
+import { updateToast } from "../../actions/toastActions";
+import { CodeAnalogy } from "../../Components/Toasty/Toasty";
 const AddAnnouncement = () => {
   const [navActive, setNavActive] = useState("new");
   const { title, message } = useSelector((state) => state.ann);
+  const handleAnn=()=>{
+    updateToast({
+      code:CodeAnalogy.SUCCESS,
+      title:"Feature Will Be Available Soon",
+    })
+  }
   return (
     <div className="annMain">
       <Header name={"Send Message"} link={"/announcement"} type={"back"} />
@@ -52,7 +60,7 @@ const AddAnnouncement = () => {
           </div>
         </div>
         <div className="newMsg">
-          <button>Send Announcement</button>
+          <button onClick={handleAnn}>Send Announcement</button>
         </div>
       </div>
     </div>
