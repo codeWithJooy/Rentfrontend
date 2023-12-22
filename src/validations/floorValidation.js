@@ -17,12 +17,13 @@ export const checkFloors = (floor) => {
     });
     return false;
   }
-  else if (floor == 0) {
+  else if (floor <= 0) {
     updateToast({
       code: CodeAnalogy.ERROR,
-      title: "Floors Cannot be zero",
+      title: "Add Correct Floor",
       message: "Add another number"
     })
+    return false;
   }
   return true;
 };

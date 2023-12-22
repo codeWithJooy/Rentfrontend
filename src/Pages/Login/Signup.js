@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import "./Login.css";
-import Toasty from "../../Components/Toasty/Toasty";
 import { userSignup } from "../../actions/userAction";
+import "./Login.css";
 
 const Signup = () => {
+  //This is to check if user is already present and redirect to "/add" if present.
   const userPresent = useSelector((state) => state.user);
+
+  //We are saving firstName,lastName,email,number and password.
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -15,16 +17,22 @@ const Signup = () => {
     password: "",
   });
   const history = useHistory();
+  //Function to update user's details
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  //Function to handle user signup
   const handleSignUp = () => {
     userSignup(user);
   };
+
+  //Redirect to SignIn page
   const handleSignIn = () => {
     history.push("/login");
   };
 
+  //We checks onload is user is present,if present redirects to "/add"
   useEffect(() => {
     if (userPresent.userId !== "") {
       history.push("/add");
@@ -93,7 +101,7 @@ const Signup = () => {
             </p>
           </div>
         </div>
-        {/* <Toasty /> */}
+     
       </div>
     </div>
   );

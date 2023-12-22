@@ -86,7 +86,15 @@ export const addRooms = async (
       double,
       triple,
     };
-
+    //This is Added to Check if rooms are all 0
+   if(single=="0" && double=="0" && triple=="0"){
+    updateToast({
+      code:CodeAnalogy.WARN,
+      title:"Rooms Cannot Be Zero",
+      message:"PLease Add Rooms"
+    })
+    return
+   }
     const res = await floorApi.post("/addRoom", floor);
     if (res.data.code == 200) {
       updateToast({
