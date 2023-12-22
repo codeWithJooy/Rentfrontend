@@ -18,7 +18,7 @@ const AddFloor = ({ setFloorDetails, floor }) => {
         <div className="addUnitTop">
           <p>Add Units to {floor.name}</p>
           <img
-            src="Assets/Footer/plus.png"
+            src="Assets/Property/room/close.png"
             onClick={() => setFloorDetails(false)}
           />
         </div>
@@ -60,6 +60,20 @@ const AddUnit = ({ floor, setFloorDetails }) => {
   const handleChange = (e) => {
     setRoomTypes({ ...roomTypes, [e.target.name]: e.target.value });
   };
+  const handleInputFocus = (e) => {
+    const inputValue = e.target.value;
+    // Clear the input if the current value is "0"
+    if (inputValue === "0") {
+      setRoomTypes({ ...roomTypes, [e.target.name]: "" });
+    }
+  };
+  const handleInputBlur = (e) => {
+    const inputValue = e.target.value;
+    // Restore the value to "0" if no change is made
+    if (inputValue === "") {
+      setRoomTypes({ ...roomTypes, [e.target.name]: "0" });
+    }
+  };
   const handleRoomsAdd = () => {
     (async () => {
       if (
@@ -89,7 +103,10 @@ const AddUnit = ({ floor, setFloorDetails }) => {
             type="text"
             name="single"
             onChange={handleChange}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             value={roomTypes.single}
+           
           />
           <p>Sigle Sharing</p>
         </div>
@@ -98,7 +115,10 @@ const AddUnit = ({ floor, setFloorDetails }) => {
             type="text"
             name="double"
             onChange={handleChange}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             value={roomTypes.double}
+            
           />
           <p>Double Sharing</p>
         </div>
@@ -107,6 +127,8 @@ const AddUnit = ({ floor, setFloorDetails }) => {
             type="text"
             name="triple"
             onChange={handleChange}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
             value={roomTypes.triple}
           />
           <p>Triple Sharing</p>
