@@ -8,37 +8,22 @@ const Splash = () => {
   let history = useHistory();
   const userId = useSelector((state) => state.user.userId);
   const propertyId = useSelector((state) => state.user.propertyId);
-  let email = localStorage.getItem("email")
-  let password = localStorage.getItem("password")
-  let [present,setPresent]=useState(false)
+  let email = localStorage.getItem("email");
+  let password = localStorage.getItem("password");
+  let [present, setPresent] = useState(false);
 
-  useEffect(()=>{
-    if(!email && !password){
+  useEffect(() => {
+    if (!email && !password) {
       setTimeout(() => {
         history.push("/get-started");
       }, 4000);
     }
-
-  },[])
+  }, []);
 
   useEffect(() => {
-    
-    (async () => {
-      if (email !== "" && password !== "") {
-        let user = {
-          email,
-          password,
-        }
-        userLoginLocalStorage(user)
-      } else {
-        setTimeout(() => {
-          history.push("/get-started");
-        }, 4000);
-      }
-    }
-    )()
-
-    
+    setTimeout(() => {
+      history.push("/get-started");
+    }, 4000);
   }, []);
 
   useEffect(() => {
