@@ -27,8 +27,7 @@ export const userSignup = async (data) => {
 
     const response = await userApi.post("/signup", user);
     if (response.data.code == 200) {
-      localStorage.setItem("email",data.email)
-      localStorage.setItem("password",data.password)
+     
       updateToast({
         code: CodeAnalogy.SUCCESS,
         title: "Signup Successful",
@@ -93,8 +92,7 @@ export const userLogin = async (data) => {
     const response = await userApi.post("/login", user);
 
     if (response.data.code == 200) {
-      localStorage.setItem("email",data.email)
-      localStorage.setItem("password",data.password)
+     
       updateToast({
         code: CodeAnalogy.SUCCESS,
         title: "Login Successful",
@@ -133,8 +131,7 @@ export const userLoginLocalStorage = async (data) => {
     const response = await userApi.post("/login", user);
 
     if (response.data.code == 200) {
-      localStorage.setItem("email",data.email)
-      localStorage.setItem("password",data.password)
+     
       dispatchAction(USER_LOGIN, response.data);
       return true;
     } else if (response.data.code == 404) {
