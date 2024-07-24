@@ -2,71 +2,51 @@ import { updateToast } from "../actions/toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 
 export const signupValidation = (user) => {
-  const { first, last, email, password } = user;
-  if (first == "") {
+  const { first, last, email, number, password } = user;
+
+  const showError = (title, message) => {
     updateToast({
       code: CodeAnalogy.ERROR,
-      title: "Add First Name",
-      message: "First Name Cannot Be Empty",
+      title: title,
+      message: message,
     });
     return false;
+  };
+
+  if (first === "") {
+    return showError("Add First Name", "First Name Cannot Be Empty");
   }
   if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]/.test(first)) {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Add a Valid First Name",
-      message: "No Numbers or Special Characters please.",
-    });
-    return false;
+    return showError("Add a Valid First Name", "No Numbers or Special Characters please.");
   }
-  else if (last == "") {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Add Last Name",
-      message: "Last Name Cannot Be Empty",
-    });
-    return false;
+  if (last === "") {
+    return showError("Add Last Name", "Last Name Cannot Be Empty");
   }
-  else if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]/.test(last)) {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Add a Valid Last Name",
-      message: "No Numbers or Special Characters please.",
-    });
-    return false;
+  if (/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~\d]/.test(last)) {
+    return showError("Add a Valid Last Name", "No Numbers or Special Characters please.");
   }
-  else if (email == "") {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Add Email",
-      message: "Email Cannot Be Empty",
-    });
-    return false;
-  } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Add Correct Email",
-      message: "Email Format Not Correct",
-    });
-    return false;
-  } else if (password == "") {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Add Password",
-      message: "Password Cannot Be Empty",
-    });
-    return false;
+  if (email === "") {
+    return showError("Add Email", "Email Cannot Be Empty");
   }
-  else if (password.length < 6 || password.length > 10) {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Password Not exceptable",
-      message: "Should be of min 6 to 10 characters"
-    })
-    return false
+  if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+    return showError("Add Correct Email", "Email Format Not Correct");
   }
+  if (number === "") {
+    return showError("Add Phone Number", "Phone Number Cannot Be Empty");
+  }
+  if (!/^\d{10}$/.test(number)) {
+    return showError("Add a Valid Phone Number", "Phone Number should be 10 digits long");
+  }
+  if (password === "") {
+    return showError("Add Password", "Password Cannot Be Empty");
+  }
+  if (password.length < 6 || password.length > 10) {
+    return showError("Password Not Acceptable", "Should be of min 6 to 10 characters");
+  }
+
   return true;
 };
+
 
 export const propertyValidation = (property) => {
   const { name, contact, pincode, code } = property;

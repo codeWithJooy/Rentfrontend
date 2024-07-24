@@ -1,11 +1,14 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 
+/*Started Unit Starts*/
 import Splash from "./Pages/Splash/Splash";
 import GetStarted from "./Pages/GetStarted/GetStarted";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Login/Signup";
 import Add from "./Pages/Login/Add";
+/*Started Unit Ends */
+
 import Home from "./Pages/Home/Home";
 import Property from "./Pages/Property/Property";
 import Floors from "./Pages/Property/Floors/Floors";
