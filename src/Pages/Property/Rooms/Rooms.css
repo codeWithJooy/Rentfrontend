@@ -207,7 +207,7 @@
   height: 80vh;
   background: #fff;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 .tenantEmpty {
