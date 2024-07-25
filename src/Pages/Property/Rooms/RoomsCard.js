@@ -10,11 +10,22 @@ const RoomsCard = ({ roomId, name, type, status, rate }) => {
   const rooms = useSelector((state) => state.room.rooms);
   const handleCardClick = () => {
     dispatch(selectedRoom(roomId));
-    history.push("/room");
+    history.push({
+      pathname: "/room",
+      state: { active:"details" }
+    });
+  }
+    const handleAddTenant = () => {
+      dispatch(selectedRoom(roomId));
+      history.push({
+        pathname: "/room",
+        state: { active:"tenant" }
+      });
   };
   return (
-    <div className="roomsContainer" onClick={handleCardClick}>
+    <div className="roomsContainer" >
       <div className="roomsUnit">
+        <div onClick={handleCardClick}>
         <div className="roomsUnitTitle">
           <p>{name}</p>
         </div>
@@ -32,13 +43,14 @@ const RoomsCard = ({ roomId, name, type, status, rate }) => {
             <p>Rs {rate} / bed</p>
           </div>
         </div>
+        </div>
         <div className="roomsUnitFacility">
           <div className="roomsAddFacility">
             <p>Add Facilities</p>
             <img src="Assets/Property/next.png" />
           </div>
           <div className="roomsAddTenant">
-            <button>{"Add Tenant"}</button>
+            <button onClick={handleAddTenant}>{"Add Tenant"}</button>
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 import {
   getSingleRoom,
   roomUpdate,
@@ -13,9 +15,13 @@ import {
 } from "../../../actions/roomActions";
 import { updateToast } from "../../../actions/toastActions";
 import { CodeAnalogy } from "../../../Components/Toasty/Toasty";
+import { getTenantsRoomWise } from "../../../actions/tenantAction";
+import TenantCard from "../../../Components/Tenant/TenantCard";
 
 const RoomUnit = () => {
-  const [navActive, setNavActive] = useState("details");
+  const location = useLocation();
+  const { active } = location.state || {};
+  const [navActive, setNavActive] = useState(active);
 
   const handleDetailsNav = () => {
     setNavActive("details");
@@ -51,21 +57,54 @@ const RoomUnit = () => {
 export default RoomUnit;
 
 const TenantDetails = () => {
+  let user = useSelector((state) => state.user);
+  const roomId = useSelector((state) => state.room.selectedRoom);
+  let [forceUpdate, setForceUpdate] = useState(true);
+  let [tenants, setTenants] = useState([]);
   const history = useHistory();
   const handleClick = () => {
     history.push("/addtenant");
   };
+  useEffect(() => {
+    if (forceUpdate) {
+      (async () => {
+        let data = await getTenantsRoomWise(
+          user.userId,
+          user.propertyId,
+          roomId
+        );
+        setTenants(data);
+        setForceUpdate(false);
+      })();
+    }
+  }, [forceUpdate]);
+
   return (
     <div className="tenantDetails">
-      <div className="tenantEmpty">
-        <div className="emptyPics">
-          <img src="Assets/Property/bed.png" />
+      {tenants.length == 0 && (
+        <div className="tenantEmpty">
+          <div className="emptyPics">
+            <img src="Assets/Property/bed.png" />
+          </div>
+          <div className="emptyText">{"No Tenants added yet."}</div>
+          <div className="emptyButton">
+            <button onClick={handleClick}>Add Tenant</button>
+          </div>
         </div>
-        <div className="emptyText">{"No Tenants added yet."}</div>
-        <div className="emptyButton">
-          <button onClick={handleClick}>Add Tenant</button>
-        </div>
-      </div>
+      )}
+      {tenants.length > 0 &&
+        tenants.map((data, index) => (
+          <TenantCard
+            key={index}
+            tenantId={data._id}
+            name={data.name}
+            roomName={data.roomName}
+            roomId={data.roomId}
+            number={data.number}
+            doj={data.doj}
+            due={data.dues}
+          />
+        ))}
     </div>
   );
 };
@@ -154,7 +193,7 @@ const RoomDetails = () => {
               <p>{"Floor"}</p>
             </div>
             <div className="detailsInput">
-              <p>{data.floor}</p>
+              <p>{floorName}</p>
             </div>
           </div>
         </div>
@@ -191,8 +230,9 @@ const RoomDetails = () => {
         </div>
       </div>
       <img
-        src={`${edit ? "Assets/Property/done.png" : "Assets/Property/edit.png"
-          }`}
+        src={`${
+          edit ? "Assets/Property/done.png" : "Assets/Property/edit.png"
+        }`}
         className="editButton"
         onClick={edit ? handleUpdate : handleEdit}
       />
