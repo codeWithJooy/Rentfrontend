@@ -5,6 +5,8 @@ import { roomData } from "../../../data/roomData";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
 import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 import {
   getSingleRoom,
   roomUpdate,
@@ -15,7 +17,9 @@ import { updateToast } from "../../../actions/toastActions";
 import { CodeAnalogy } from "../../../Components/Toasty/Toasty";
 
 const RoomUnit = () => {
-  const [navActive, setNavActive] = useState("details");
+  const location = useLocation();
+  const { active} = location.state || {};
+  const [navActive, setNavActive] = useState(active);
 
   const handleDetailsNav = () => {
     setNavActive("details");

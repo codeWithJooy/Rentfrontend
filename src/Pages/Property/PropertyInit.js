@@ -34,7 +34,7 @@ const PropertyInit = () => {
   return (
     <div className="propertyContainer">
       <div className="propertyTitle">
-        <p>Add Rooms in your property</p>
+        <p>Add Floors in your property</p>
       </div>
       <div className="propertyNumber">
         <div className="propertyDetails">
