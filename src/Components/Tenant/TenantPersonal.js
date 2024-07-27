@@ -1,4 +1,4 @@
-import React, { useState,useRef  } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import { updateToast } from "../../actions/toastActions";
@@ -7,25 +7,24 @@ import { updateTenant } from "../../actions/tenantAction";
 
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
-  let data = useSelector(state => state.tenant.tenantDetails)
+  let data = useSelector((state) => state.tenant.tenantDetails);
   const { userId, propertyId } = useSelector((state) => state.user);
-  const tenantId=useSelector((state)=>state.tenant.selectedTenant)
+  const tenantId = useSelector((state) => state.tenant.selectedTenant);
 
-  const [details, setDetails] = useState(data)
- const handleEdit=()=>{
-  if(!edit){
-    (async()=>{
-      if(await updateTenant(userId,propertyId,tenantId,details)){
-
-      }
-    })()
-  }
-  updateToast({
-    code:CodeAnalogy.SUCCESS,
-    title:"Edit Tenant Details"
-  })
-  setEdit(!edit)
- }
+  const [details, setDetails] = useState(data);
+  const handleEdit = () => {
+    if (!edit) {
+      (async () => {
+        if (await updateTenant(userId, propertyId, tenantId, details)) {
+        }
+      })();
+    }
+    updateToast({
+      code: CodeAnalogy.SUCCESS,
+      title: "Edit Tenant Details",
+    });
+    setEdit(!edit);
+  };
   return (
     <div className="tenantHolder">
       <Personal edit={edit} details={details} setDetails={setDetails} />
@@ -46,17 +45,17 @@ const Personal = ({ edit, details, setDetails }) => {
   const handleToggle = () => {
     setToggle(!toggle);
   };
-  const handleBloodChange=(e)=>{
-    setDetails({...details,bloodGroup:e.target.value})
-  }
-  const handleChange=(e)=>{
-    setDetails({...details,[e.target.name]:e.target.value})
-  }
-  const handleBirthChange=(e)=>{
+  const handleBloodChange = (e) => {
+    setDetails({ ...details, bloodGroup: e.target.value });
+  };
+  const handleChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
+  const handleBirthChange = (e) => {
     const d = new Date(e.target.value);
     const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
-    setDetails({...details,'birthDate':newDate})
-  }
+    setDetails({ ...details, birthDate: newDate });
+  };
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -65,10 +64,11 @@ const Personal = ({ edit, details, setDetails }) => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${toggle
-              ? "Assets/components/down.png"
-              : "Assets/components/right.png"
-              }`}
+            src={`${
+              toggle
+                ? "Assets/components/down.png"
+                : "Assets/components/right.png"
+            }`}
           />
         </div>
       </div>
@@ -84,6 +84,27 @@ const Personal = ({ edit, details, setDetails }) => {
           </div>
           <div className="sectionIpFull">
             <div className="sectionIpHeader">
+              <p>Room Number</p>
+            </div>
+            <div className="sectionIpInput">
+              <select
+                name="bloodGroup"
+                value={details.bloodGroup}
+                onChange={handleBloodChange}
+              >
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+              </select>
+            </div>
+          </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
               <p>Phone Number</p>
             </div>
             <div className="sectionIpInput">
@@ -95,7 +116,13 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Alternate Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} value={details.alternate} name="alternate" onChange={handleChange}/>
+              <input
+                type="text"
+                readOnly={edit}
+                value={details.alternate}
+                name="alternate"
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -103,7 +130,13 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Email</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} value={details.email} name="email" onChange={handleChange}/>
+              <input
+                type="text"
+                readOnly={edit}
+                value={details.email}
+                name="email"
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -111,7 +144,13 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Date Of Birth</p>
             </div>
             <div className="sectionIpInput">
-              <input type="date" name="birthDate" value={moment().format("YYYY-MM-DD")} readOnly={edit} onChange={handleBirthChange }/>
+              <input
+                type="date"
+                name="birthDate"
+                value={moment().format("YYYY-MM-DD")}
+                readOnly={edit}
+                onChange={handleBirthChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -119,7 +158,11 @@ const Personal = ({ edit, details, setDetails }) => {
               <p>Blood Group</p>
             </div>
             <div className="sectionIpInput">
-              <select name="bloodGroup" value={details.bloodGroup} onChange={handleBloodChange}>
+              <select
+                name="bloodGroup"
+                value={details.bloodGroup}
+                onChange={handleBloodChange}
+              >
                 <option>A+</option>
                 <option>A-</option>
                 <option>B+</option>
@@ -139,25 +182,79 @@ const Personal = ({ edit, details, setDetails }) => {
               <input type="text" readOnly value={details.dob} />
             </div>
           </div>
-                                                                                          
         </div>
       )}
     </div>
   );
 };
-
 const Kyc = () => {
   const [toggle, setToggle] = useState(true);
-  const govFront=useRef()
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedABImage, setSelectedABImage] = useState(null);
+  const [selectedPFImage, setSelectedPFImage] = useState(null);
+  const [selectedPBImage, setSelectedPBImage] = useState(null);
+
+  const aadharFront = useRef();
+  const aadharBack = useRef();
+  const panFront = useRef();
+  const panBack = useRef();
+
   const handleToggle = () => {
     setToggle(!toggle);
   };
-  const handleGovFrontClick=()=>{
-    govFront.current.click()
-  }
-  const handleGovFront=(e)=>{
-    console.log(e);
-  }
+  const handleaadharFrontClick = () => {
+    aadharFront.current.click();
+  };
+  const handleaadharBackClick = () => {
+    aadharBack.current.click();
+  };
+  const handlepanFrontClick = () => {
+    panFront.current.click();
+  };
+  const handlepanBackClick = () => {
+    panBack.current.click();
+  };
+
+  const handleaadharFront = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setSelectedImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+  const handleaadharBack = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setSelectedABImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+  const handlepanFront = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setSelectedPFImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+  const handlepanBack = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setSelectedPBImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -166,99 +263,160 @@ const Kyc = () => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${toggle
-              ? "Assets/components/down.png"
-              : "Assets/components/right.png"
-              }`}
+            src={`${
+              toggle
+                ? "Assets/components/down.png"
+                : "Assets/components/right.png"
+            }`}
           />
         </div>
       </div>
-      {
-        toggle && 
+      {toggle && (
         <div className="documentContainer">
-        {/* Govererment Id Front */}
-        <div className="documentHolder">
-          <div className="documentImage">
-            <img src="Assets/Tenant/document.png" />
+          {/* Govererment Id Front */}
+          <div className="documentHolder">
+            {!selectedImage && (
+              <div className="documentImage">
+                <img src="Assets/Tenant/document.png" />
+              </div>
+            )}
+            {selectedImage && (
+              <div className="documentImageUploaded">
+                <img src={selectedImage} />
+              </div>
+            )}
+
+            <div className="documentName">
+              <div className="documentTitle">
+                <p>Aadhar Card</p>
+              </div>
+              <div className="documentDes">
+                <p>Front</p>
+              </div>
+              <div className="documentButton">
+                <input
+                  type="file"
+                  ref={aadharFront}
+                  onChange={handleaadharFront}
+                  accept=".jpg,.png,.jpeg"
+                  style={{ display: "none" }}
+                />
+                <button onClick={handleaadharFrontClick}>Upload</button>
+              </div>
+            </div>
           </div>
-          <div className="documentName">
-            <div className="documentTitle">
-              <p>Govt. ID</p>
+          {/* Govererment Id Front */}
+          <div className="documentHolder">
+            <div className="documentImage">
+            {!selectedABImage && (
+              <div className="documentImage">
+                <img src="Assets/Tenant/document.png" />
+              </div>
+            )}
+            {selectedABImage && (
+              <div className="documentImageUploaded">
+                <img src={selectedABImage} />
+              </div>
+            )}
             </div>
-            <div className="documentDes">
-              <p>Front</p>
+            <div className="documentName">
+              <div className="documentTitle">
+                <p>Aadhar Card</p>
+              </div>
+              <div className="documentDes">
+                <p>Back</p>
+              </div>
+              <div className="documentButton">
+              <input
+                  type="file"
+                  ref={aadharBack}
+                  onChange={handleaadharBack}
+                  accept=".jpg,.png,.jpeg"
+                  style={{ display: "none" }}
+                />
+                <button onClick={handleaadharBackClick}>Upload</button>
+              </div>
             </div>
-            <div className="documentButton">
-              <input type="file" ref={govFront} onChange={handleGovFront} accept=".pdf" style={{display:"none"}} />
-              <button onClick={handleGovFrontClick}>Upload</button>
+          </div>
+          {/* Govererment Id Front */}
+          <div className="documentHolder">
+            <div className="documentImage">
+            {!selectedPFImage && (
+              <div className="documentImage">
+                <img src="Assets/Tenant/document.png" />
+              </div>
+            )}
+            {selectedPFImage && (
+              <div className="documentImageUploaded">
+                <img src={selectedPFImage} />
+              </div>
+            )}
+            </div>
+            <div className="documentName">
+              <div className="documentTitle">
+                <p>Pan Card</p>
+              </div>
+              <div className="documentDes">
+                <p>Front</p>
+              </div>
+              <div className="documentButton">
+              <input
+                  type="file"
+                  ref={panFront}
+                  onChange={handlepanFront}
+                  accept=".jpg,.png,.jpeg"
+                  style={{ display: "none" }}
+                />
+                <button onClick={handlepanFrontClick}>Upload</button>
+              </div>
+            </div>
+          </div>
+          {/* Govererment Id Front */}
+          <div className="documentHolder">
+            <div className="documentImage">
+            {!selectedPBImage && (
+              <div className="documentImage">
+                <img src="Assets/Tenant/document.png" />
+              </div>
+            )}
+            {selectedPBImage && (
+              <div className="documentImageUploaded">
+                <img src={selectedPBImage} />
+              </div>
+            )}
+            </div>
+            <div className="documentName">
+              <div className="documentTitle">
+                <p>Pan Card</p>
+              </div>
+              <div className="documentDes">
+                <p>Back</p>
+              </div>
+              <div className="documentButton">
+              <input
+                  type="file"
+                  ref={panBack}
+                  onChange={handlepanBack}
+                  accept=".jpg,.png,.jpeg"
+                  style={{ display: "none" }}
+                />
+                <button onClick={handlepanBackClick}>Upload</button>
+              </div>
             </div>
           </div>
         </div>
-                {/* Govererment Id Front */}
-                <div className="documentHolder">
-          <div className="documentImage">
-            <img src="Assets/Tenant/document.png" />
-          </div>
-          <div className="documentName">
-            <div className="documentTitle">
-              <p>Govt. ID</p>
-            </div>
-            <div className="documentDes">
-              <p>Front</p>
-            </div>
-            <div className="documentButton">
-              <button>Upload</button>
-            </div>
-          </div>
-        </div>
-                {/* Govererment Id Front */}
-                <div className="documentHolder">
-          <div className="documentImage">
-            <img src="Assets/Tenant/document.png" />
-          </div>
-          <div className="documentName">
-            <div className="documentTitle">
-              <p>Govt. ID</p>
-            </div>
-            <div className="documentDes">
-              <p>Front</p>
-            </div>
-            <div className="documentButton">
-              <button>Upload</button>
-            </div>
-          </div>
-        </div>
-                {/* Govererment Id Front */}
-                <div className="documentHolder">
-          <div className="documentImage">
-            <img src="Assets/Tenant/document.png" />
-          </div>
-          <div className="documentName">
-            <div className="documentTitle">
-              <p>Govt. ID</p>
-            </div>
-            <div className="documentDes">
-              <p>Front</p>
-            </div>
-            <div className="documentButton">
-              <button>Upload</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      }
+      )}
     </div>
   );
 };
-
 const Parent = ({ edit, details, setDetails }) => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
   };
-  const handleChange=(e)=>{
-    setDetails({...details,[e.target.name]:e.target.value})
-  }
+  const handleChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -267,10 +425,11 @@ const Parent = ({ edit, details, setDetails }) => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${toggle
-              ? "Assets/components/down.png"
-              : "Assets/components/right.png"
-              }`}
+            src={`${
+              toggle
+                ? "Assets/components/down.png"
+                : "Assets/components/right.png"
+            }`}
           />
         </div>
       </div>
@@ -281,7 +440,13 @@ const Parent = ({ edit, details, setDetails }) => {
               <p>Father's Name</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} name="fatherName" value={details.fatherName} onChange={handleChange}/>
+              <input
+                type="text"
+                readOnly={edit}
+                name="fatherName"
+                value={details.fatherName}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -289,7 +454,13 @@ const Parent = ({ edit, details, setDetails }) => {
               <p>Father's Phone Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} name="fatherNumber" value={details.fatherNumber} onChange={handleChange}/>
+              <input
+                type="text"
+                readOnly={edit}
+                name="fatherNumber"
+                value={details.fatherNumber}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -297,7 +468,13 @@ const Parent = ({ edit, details, setDetails }) => {
               <p>Mother's Name</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} name="motherName" value={details.motherName} onChange={handleChange}/>
+              <input
+                type="text"
+                readOnly={edit}
+                name="motherName"
+                value={details.motherName}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -305,7 +482,13 @@ const Parent = ({ edit, details, setDetails }) => {
               <p>Mother's Phone Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} name="motherNumber" value={details.motherNumber} onChange={handleChange}/>
+              <input
+                type="text"
+                readOnly={edit}
+                name="motherNumber"
+                value={details.motherNumber}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -321,10 +504,13 @@ const Parent = ({ edit, details, setDetails }) => {
     </div>
   );
 };
-const Guardian = ({ edit }) => {
+const Guardian = ({ edit, details, setDetails }) => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
     setToggle(!toggle);
+  };
+  const handleChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.value });
   };
   return (
     <div className="section">
@@ -334,10 +520,11 @@ const Guardian = ({ edit }) => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${toggle
-              ? "Assets/components/down.png"
-              : "Assets/components/right.png"
-              }`}
+            src={`${
+              toggle
+                ? "Assets/components/down.png"
+                : "Assets/components/right.png"
+            }`}
           />
         </div>
       </div>
@@ -348,7 +535,13 @@ const Guardian = ({ edit }) => {
               <p>Guardian's Name</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input
+                type="text"
+                readOnly={edit}
+                value={details.guardianName}
+                name="guardianName"
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -356,7 +549,13 @@ const Guardian = ({ edit }) => {
               <p>Guardian's Phone Number</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input
+                type="text"
+                readOnly={edit}
+                name="guardianNumber"
+                value={details.guardianNumber}
+                onChange={handleChange}
+              />
             </div>
           </div>
           <div className="sectionIpFull">
@@ -364,7 +563,13 @@ const Guardian = ({ edit }) => {
               <p>Guardian's Address</p>
             </div>
             <div className="sectionIpInput">
-              <input type="text" readOnly={edit} />
+              <input
+                type="text"
+                readOnly={edit}
+                name="guardianAddress"
+                value={details.guardianAddress}
+                onChange={handleChange}
+              />
             </div>
           </div>
         </div>
@@ -372,7 +577,6 @@ const Guardian = ({ edit }) => {
     </div>
   );
 };
-
 const ParentID = () => {
   const [toggle, setToggle] = useState(false);
   const handleToggle = () => {
@@ -386,10 +590,11 @@ const ParentID = () => {
         </div>
         <div className="sectionToggle">
           <img
-            src={`${toggle
-              ? "Assets/components/down.png"
-              : "Assets/components/right.png"
-              }`}
+            src={`${
+              toggle
+                ? "Assets/components/down.png"
+                : "Assets/components/right.png"
+            }`}
           />
         </div>
       </div>
