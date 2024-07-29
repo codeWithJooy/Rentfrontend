@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../Toasty/Toasty";
-import { updateTenant } from "../../actions/tenantAction";
+import { addTenantDocument, updateTenant } from "../../actions/tenantAction";
 
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
@@ -28,7 +28,7 @@ const TenantPersonal = () => {
   return (
     <div className="tenantHolder">
       <Personal edit={edit} details={details} setDetails={setDetails} />
-      <Kyc />
+      <Kyc userId={userId} propertyId={propertyId} tenantId={tenantId}/>
       <Parent edit={edit} details={details} setDetails={setDetails} />
       <Guardian edit={edit} details={details} setDetails={setDetails} />
       <ParentID />
@@ -187,7 +187,7 @@ const Personal = ({ edit, details, setDetails }) => {
     </div>
   );
 };
-const Kyc = () => {
+const Kyc = ({userId,propertyId,tenantId}) => {
   const [toggle, setToggle] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedABImage, setSelectedABImage] = useState(null);
@@ -215,11 +215,15 @@ const Kyc = () => {
     panBack.current.click();
   };
 
-  const handleaadharFront = (e) => {
+  const handleaadharFront = async(e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-
+   
     reader.onloadend = () => {
+      (async()=>{
+        const base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+        await addTenantDocument(userId,propertyId,tenantId,"AF",base64String)
+      })()
       setSelectedImage(reader.result);
     };
 

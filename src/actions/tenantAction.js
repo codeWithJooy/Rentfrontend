@@ -10,6 +10,7 @@ import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { tenantApi, collectionApi } from "../apis/apis";
 import { getHeaders, dispatchAction } from "./actionHelper";
 import { addTenantValidation } from "../validations/tenantValidation";
+import { COMPLAINT_TYPE } from "../actionTypes/studentActionType";
 export const addTenant = async (data) => {
   try {
     if (!addTenantValidation(data)) return false;
@@ -292,6 +293,31 @@ export const remindTenant=async (userId,propertyId,propertyName,tenantId,type,du
       updateToast({
         code:CodeAnalogy.ERROR,
         title:res.data.msg
+      })
+    }
+  }catch(error){
+    console.log(error.message)
+  }
+}
+export const addTenantDocument= async(userId,propertyId,tenantId,documentType,image)=>{
+  try{
+    let headers=getHeaders({
+      userId,
+      propertyId,
+      tenantId,
+      documentType,
+      image
+    })
+    const res=await tenantApi.get('/addDocument',headers)
+    if(res.data.code==200){
+        updateToast({
+          code:CodeAnalogy.SUCCESS,
+          title:"Document Uploaded Successfully"
+        })
+    }else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:"Something Went Wrong"
       })
     }
   }catch(error){
