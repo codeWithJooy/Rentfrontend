@@ -25,6 +25,7 @@ const Highlights = () => {
   const [loader, setLoader] = useState(true);
   const { userId, propertyId } = useSelector((state) => state.user);
   const month = monthName(new Date().getMonth()).name;
+  const year=new Date().getFullYear()
   const [todayCollection, setTodayCollection] = useState({
     title: "Today's Collection",
     icon: "Assets/Home/Highlights/collection.png",
@@ -95,7 +96,7 @@ const Highlights = () => {
     return (
       <div className="highlights">
         <div className="highlightTitle">
-          <span>{month} 2023 Summary</span>
+          <span>{month} {year} Summary</span>
         </div>
         <Slider {...settings}>
           <HighlightsUnit val={todayCollection} />

@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 import {
+  getRoomName,
   getSingleRoom,
   roomUpdate,
   selectedRoom,
@@ -20,6 +21,9 @@ import TenantCard from "../../../Components/Tenant/TenantCard";
 
 const RoomUnit = () => {
   const location = useLocation();
+  const roomId=useSelector((state)=>state.room.selectedRoom)
+  const user=useSelector((state)=>state.user)
+  const[roomName,setRoomName]=useState("")
   const { active } = location.state || {};
   const [navActive, setNavActive] = useState(active);
 
@@ -29,10 +33,15 @@ const RoomUnit = () => {
   const handleTenantNav = () => {
     setNavActive("tenant");
   };
-
+  useEffect(()=>{
+    (async()=>{
+      let data=await getRoomName(user.userId,user.propertyId,roomId)
+      setRoomName(data)
+    })()
+  },[])
   return (
     <div className="rooms">
-      <Header type={"back"} name={"Room"} link={"/rooms"} />
+      <Header type={"back"} name={roomName} link={"/rooms"} />
       <div className="roomMain">
         <div className="roomNavbar">
           <div
@@ -59,11 +68,12 @@ export default RoomUnit;
 const TenantDetails = () => {
   let user = useSelector((state) => state.user);
   const roomId = useSelector((state) => state.room.selectedRoom);
+  const [search, setSearch] = useState("");
   let [forceUpdate, setForceUpdate] = useState(true);
   let [tenants, setTenants] = useState([]);
   const history = useHistory();
   const handleClick = () => {
-    history.push("/addtenant");
+    history.push("/addtenantRoom");
   };
   useEffect(() => {
     if (forceUpdate) {
@@ -78,11 +88,19 @@ const TenantDetails = () => {
       })();
     }
   }, [forceUpdate]);
-
+  let filteredTenants = tenants;
+  if (search) {
+    filteredTenants = tenants.filter((tenant) => {
+      return (
+        tenant.name.toLowerCase().includes(search.toLocaleLowerCase()) ||
+        tenant.number.includes(search) 
+      );
+    });
+  }
   return (
     <div className="tenantDetails">
       {tenants.length == 0 && (
-        <div className="tenantEmpty">
+        <div className="tenantEmpty" style={{marginTop:"150px"}}>
           <div className="emptyPics">
             <img src="Assets/Property/bed.png" />
           </div>
@@ -92,19 +110,34 @@ const TenantDetails = () => {
           </div>
         </div>
       )}
-      {tenants.length > 0 &&
-        tenants.map((data, index) => (
-          <TenantCard
-            key={index}
-            tenantId={data._id}
-            name={data.name}
-            roomName={data.roomName}
-            roomId={data.roomId}
-            number={data.number}
-            doj={data.doj}
-            due={data.dues}
-          />
-        ))}
+        {tenants.length > 0 && (
+          <div className="tenantHolder">
+            <div className="tenantSearch">
+              <div className="tenantSearchBox">
+                <input
+                  placeholder="Search Tenant By Name,Number,Room"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </div>
+              <button className="tenantAddBox" onClick={handleClick}>
+                Add Tenant
+              </button>
+            </div>
+            {filteredTenants.map((data, index) => (
+              <TenantCard
+                key={index}
+                tenantId={data._id}
+                name={data.name}
+                roomName={data.roomName}
+                roomId={data.roomId}
+                number={data.number}
+                doj={data.doj}
+                due={data.dues}
+              />
+            ))}
+          </div>
+        )}
     </div>
   );
 };

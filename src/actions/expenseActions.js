@@ -1,7 +1,7 @@
 import { SET_EXPENSE_CATEGORY } from "../actionTypes/expenseActionsType";
 import { expenseApi } from "../apis/apis";
 import { checkFloors } from "../validations/floorValidation";
-import { dispatchAction, getHeaders } from "./actionHelper";
+import { dispatchAction, getHeaders, getMultiPart } from "./actionHelper";
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { checkExpenses } from "../validations/expenseValidation";
@@ -12,46 +12,29 @@ export const setExpenseCategory = (data) => {
   };
 };
 
-export const addExpense = async (
-  userId,
-  propertyId,
-  expenseName,
-  amount,
-  date,
-  paidBy,
-  paidTo,
-  description,
-  mode
-) => {
-  const val = {
-    userId,
-    propertyId,
-    expenseName,
-    amount,
-    date,
-    paidBy,
-    paidTo,
-    description,
-    mode,
-  };
-  if(!checkExpenses(amount,paidTo)) return
-  const res = await expenseApi.post("/addExpense", val);
-  if (res.data.code == 200) {
-    updateToast({
-      code: CodeAnalogy.SUCCESS,
-      title: "Expense Added",
-      message: "Successfully Added Expense",
-    });
-    return true;
-  } else {
-    updateToast({
-      code: CodeAnalogy.ERROR,
-      title: "Something Went Wrong",
-      message: "Couldn't Add Expense",
-    });
-    return false;
+export const addExpense=async(formData)=>{
+  try{
+    let headers=getMultiPart()
+    const res = await expenseApi.post("/addExpense", formData,headers);
+    if (res.data.code == 200) {
+      updateToast({
+        code: CodeAnalogy.SUCCESS,
+        title: "Expense Added",
+        message: "Successfully Added Expense",
+      });
+      return true;
+    } else {
+      updateToast({
+        code: CodeAnalogy.ERROR,
+        title: "Something Went Wrong",
+        message: "Couldn't Add Expense",
+      });
+      return false;
+    }
+  }catch(error){
+    console.log(error.message)
   }
-};
+}
 export const getExpense = async (userId, propertyId) => {
   const headers = getHeaders({
     userId,
