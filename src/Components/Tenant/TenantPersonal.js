@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../Toasty/Toasty";
-import { addTenantDocument, updateTenant } from "../../actions/tenantAction";
+import { addTenantDocument, getTenantDocument, updateTenant } from "../../actions/tenantAction";
 
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
@@ -28,7 +28,7 @@ const TenantPersonal = () => {
   return (
     <div className="tenantHolder">
       <Personal edit={edit} details={details} setDetails={setDetails} />
-      <Kyc userId={userId} propertyId={propertyId} tenantId={tenantId}/>
+      <Kyc userId={userId} propertyId={propertyId} tenantId={tenantId} />
       <Parent edit={edit} details={details} setDetails={setDetails} />
       <Guardian edit={edit} details={details} setDetails={setDetails} />
       <ParentID />
@@ -187,7 +187,7 @@ const Personal = ({ edit, details, setDetails }) => {
     </div>
   );
 };
-const Kyc = ({userId,propertyId,tenantId}) => {
+const Kyc = ({ userId, propertyId, tenantId }) => {
   const [toggle, setToggle] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedABImage, setSelectedABImage] = useState(null);
@@ -215,50 +215,99 @@ const Kyc = ({userId,propertyId,tenantId}) => {
     panBack.current.click();
   };
 
-  const handleaadharFront = async(e) => {
+  const handleaadharFront = async (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
-   
-    reader.onloadend = () => {
-      (async()=>{
-        const base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
-        await addTenantDocument(userId,propertyId,tenantId,"AF",base64String)
-      })()
-      setSelectedImage(reader.result);
-    };
+    const formData = new FormData();
 
-    reader.readAsDataURL(file);
+    formData.append("file", file);
+    formData.append("userId", userId);
+    formData.append("propertyId", propertyId);
+    formData.append("tenantId", tenantId);
+    formData.append("docType", "AF");
+
+    try {
+      (async()=>{
+        let data = await addTenantDocument(formData);
+        console.log(data)
+        setSelectedImage(data);
+      })()
+      
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
   const handleaadharBack = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
 
-    reader.onloadend = () => {
-      setSelectedABImage(reader.result);
-    };
+    formData.append("file", file);
+    formData.append("userId", userId);
+    formData.append("propertyId", propertyId);
+    formData.append("tenantId", tenantId);
+    formData.append("docType", "AB");
 
-    reader.readAsDataURL(file);
+    try {
+      (async()=>{
+        let data = await addTenantDocument(formData);
+        setSelectedABImage(data);
+      })()
+      
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
   const handlepanFront = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
 
-    reader.onloadend = () => {
-      setSelectedPFImage(reader.result);
-    };
+    formData.append("file", file);
+    formData.append("userId", userId);
+    formData.append("propertyId", propertyId);
+    formData.append("tenantId", tenantId);
+    formData.append("docType", "PF");
 
-    reader.readAsDataURL(file);
+    try {
+      (async()=>{
+        let data = await addTenantDocument(formData);
+        setSelectedPFImage(data);
+      })()
+      
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
   const handlepanBack = (e) => {
     const file = e.target.files[0];
-    const reader = new FileReader();
+    const formData = new FormData();
 
-    reader.onloadend = () => {
-      setSelectedPBImage(reader.result);
-    };
+    formData.append("file", file);
+    formData.append("userId", userId);
+    formData.append("propertyId", propertyId);
+    formData.append("tenantId", tenantId);
+    formData.append("docType", "PB");
 
-    reader.readAsDataURL(file);
+    try {
+      (async()=>{
+        let data = await addTenantDocument(formData);
+        setSelectedPBImage(data);
+      })()
+      
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
+  useEffect(()=>{
+     (async()=>{
+      let aadharFront=await getTenantDocument(userId,propertyId,tenantId,"AF")
+      let aadharBack=await getTenantDocument(userId,propertyId,tenantId,"AB")
+      let panFront=await getTenantDocument(userId,propertyId,tenantId,"PF")
+      let panBack=await getTenantDocument(userId,propertyId,tenantId,"PB")
+      setSelectedImage(aadharFront)
+      setSelectedABImage(aadharBack)
+      setSelectedPFImage(panFront)
+      setSelectedPBImage(panBack)
+     })()
+  },[])
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -312,16 +361,16 @@ const Kyc = ({userId,propertyId,tenantId}) => {
           {/* Govererment Id Front */}
           <div className="documentHolder">
             <div className="documentImage">
-            {!selectedABImage && (
-              <div className="documentImage">
-                <img src="Assets/Tenant/document.png" />
-              </div>
-            )}
-            {selectedABImage && (
-              <div className="documentImageUploaded">
-                <img src={selectedABImage} />
-              </div>
-            )}
+              {!selectedABImage && (
+                <div className="documentImage">
+                  <img src="Assets/Tenant/document.png" />
+                </div>
+              )}
+              {selectedABImage && (
+                <div className="documentImageUploaded">
+                  <img src={selectedABImage} />
+                </div>
+              )}
             </div>
             <div className="documentName">
               <div className="documentTitle">
@@ -331,7 +380,7 @@ const Kyc = ({userId,propertyId,tenantId}) => {
                 <p>Back</p>
               </div>
               <div className="documentButton">
-              <input
+                <input
                   type="file"
                   ref={aadharBack}
                   onChange={handleaadharBack}
@@ -345,16 +394,16 @@ const Kyc = ({userId,propertyId,tenantId}) => {
           {/* Govererment Id Front */}
           <div className="documentHolder">
             <div className="documentImage">
-            {!selectedPFImage && (
-              <div className="documentImage">
-                <img src="Assets/Tenant/document.png" />
-              </div>
-            )}
-            {selectedPFImage && (
-              <div className="documentImageUploaded">
-                <img src={selectedPFImage} />
-              </div>
-            )}
+              {!selectedPFImage && (
+                <div className="documentImage">
+                  <img src="Assets/Tenant/document.png" />
+                </div>
+              )}
+              {selectedPFImage && (
+                <div className="documentImageUploaded">
+                  <img src={selectedPFImage} />
+                </div>
+              )}
             </div>
             <div className="documentName">
               <div className="documentTitle">
@@ -364,7 +413,7 @@ const Kyc = ({userId,propertyId,tenantId}) => {
                 <p>Front</p>
               </div>
               <div className="documentButton">
-              <input
+                <input
                   type="file"
                   ref={panFront}
                   onChange={handlepanFront}
@@ -378,16 +427,16 @@ const Kyc = ({userId,propertyId,tenantId}) => {
           {/* Govererment Id Front */}
           <div className="documentHolder">
             <div className="documentImage">
-            {!selectedPBImage && (
-              <div className="documentImage">
-                <img src="Assets/Tenant/document.png" />
-              </div>
-            )}
-            {selectedPBImage && (
-              <div className="documentImageUploaded">
-                <img src={selectedPBImage} />
-              </div>
-            )}
+              {!selectedPBImage && (
+                <div className="documentImage">
+                  <img src="Assets/Tenant/document.png" />
+                </div>
+              )}
+              {selectedPBImage && (
+                <div className="documentImageUploaded">
+                  <img src={selectedPBImage} />
+                </div>
+              )}
             </div>
             <div className="documentName">
               <div className="documentTitle">
@@ -397,7 +446,7 @@ const Kyc = ({userId,propertyId,tenantId}) => {
                 <p>Back</p>
               </div>
               <div className="documentButton">
-              <input
+                <input
                   type="file"
                   ref={panBack}
                   onChange={handlepanBack}

@@ -23,3 +23,19 @@ export const getHeaders = (params) => {
 
   return headers;
 };
+export const getMultiPart = (params) => {
+  const headers = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+
+  if (params) {
+    headers.params = {
+      ...headers.params,
+      ...params,
+    };
+  }
+
+  return headers;
+};

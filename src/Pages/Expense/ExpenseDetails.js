@@ -11,6 +11,9 @@ const ExpenseDetails = () => {
   const category = useSelector((state) => state.expense.category);
   const [members,setMembers]=useState([])
   const user = useSelector((state) => state.user);
+  const [imageSrc, setImageSrc] = useState('');
+  const [hasImage, setHasImage] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
 
   const [expense, setExpense] = useState({
     userId: user.userId,
@@ -23,10 +26,16 @@ const ExpenseDetails = () => {
     description: "",
     mode: "Cash",
   });
+ 
+
   const history = useHistory();
+
+  //For Getting Input Data
   const handleChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
   };
+
+  //For Handling Date
   const handleDate = (e) => {
     const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
     setExpense({
@@ -34,25 +43,45 @@ const ExpenseDetails = () => {
       date: newDate,
     });
   };
-  const handleAdd = () => {
-    (async () => {
-      if (
-        await addExpense(
-          expense.userId,
-          expense.propertyId,
-          expense.expenseName,
-          expense.amount,
-          expense.date,
-          expense.paidBy,
-          expense.paidTo,
-          expense.description,
-          expense.mode
-        )
-      ) {
-        history.push("/expense");
-      }
-    })();
+
+  //For Handling Adding Data To Server
+  const handleAdd = async () => {
+    const formData = new FormData();
+    formData.append('userId', expense.userId);
+    formData.append('propertyId', expense.propertyId);
+    formData.append('expenseName', expense.expenseName);
+    formData.append('amount', expense.amount);
+    formData.append('date', expense.date);
+    formData.append('paidBy', expense.paidBy);
+    formData.append('paidTo', expense.paidTo);
+    formData.append('description', expense.description);
+    formData.append('mode', expense.mode);
+    if (imageFile) {
+      formData.append('file', imageFile); // Append the image file to the form data
+    }
+
+    const response = await addExpense(formData); // Assume addExpense is modified to handle form data
+    if (response) {
+      history.push('/expense');
+    }
   };
+ 
+  //For Handling Image Upload
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      setImageSrc(e.target.result);
+      setHasImage(true);
+      setImageFile(file)
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
   useEffect(()=>{
    (async()=>{
     let data=await getMemName(user.userId,user.propertyId)
@@ -120,6 +149,33 @@ const ExpenseDetails = () => {
             onChange={handleChange}
           />
         </div>
+      </div>
+      <div className="expenseHolder">
+      <div
+      className="expenseBill"
+      onClick={() => document.getElementById('fileInput').click()}
+      style={{
+        backgroundImage: `url(${imageSrc})`}}
+    >
+      {!hasImage && (
+        <span
+          style={{
+            position: 'absolute',
+            color: '#666',
+            fontSize: '16px'
+          }}
+        >
+          Add bill/document
+        </span>
+      )}
+      <input
+        type="file"
+        id="fileInput"
+        style={{ display: 'none' }}
+        accept="image/*"
+        onChange={handleFileChange}
+      />
+    </div>
       </div>
       <div className="paymentMode">
         <p>Payment Mode</p>

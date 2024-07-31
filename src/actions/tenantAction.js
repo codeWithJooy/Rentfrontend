@@ -8,7 +8,7 @@ import {
 import { updateToast } from "./toastActions";
 import { CodeAnalogy } from "../Components/Toasty/Toasty";
 import { tenantApi, collectionApi } from "../apis/apis";
-import { getHeaders, dispatchAction } from "./actionHelper";
+import { getHeaders, dispatchAction ,getMultiPart} from "./actionHelper";
 import { addTenantValidation } from "../validations/tenantValidation";
 import { COMPLAINT_TYPE } from "../actionTypes/studentActionType";
 export const addTenant = async (data) => {
@@ -299,27 +299,41 @@ export const remindTenant=async (userId,propertyId,propertyName,tenantId,type,du
     console.log(error.message)
   }
 }
-export const addTenantDocument= async(userId,propertyId,tenantId,documentType,image)=>{
+export const addTenantDocument= async(formData)=>{
   try{
-    let headers=getHeaders({
+    let headers=getMultiPart()
+    const res=await tenantApi.post("/addDocument",formData,headers)
+    if(res.data.code==200){
+      updateToast({
+        code:CodeAnalogy.SUCCESS,
+        title:"Dcument Uploaded Sucessfully"
+      })
+      return res.data.url
+    }
+    else{
+      updateToast({
+        code:CodeAnalogy.ERROR,
+        title:res.data.msg
+      })
+      return ""
+    }
+  }
+  catch(error){
+    console.log(error.message)
+  }
+}
+export const getTenantDocument=async(userId,propertyId,tenantId,docType)=>{
+  try{
+     let headers=getHeaders({
       userId,
       propertyId,
       tenantId,
-      documentType,
-      image
-    })
-    const res=await tenantApi.get('/addDocument',headers)
-    if(res.data.code==200){
-        updateToast({
-          code:CodeAnalogy.SUCCESS,
-          title:"Document Uploaded Successfully"
-        })
-    }else{
-      updateToast({
-        code:CodeAnalogy.ERROR,
-        title:"Something Went Wrong"
-      })
-    }
+      docType
+     })
+     let res=await tenantApi.get("/getDocument",headers)
+     if(res){
+      return res.data.url
+     }
   }catch(error){
     console.log(error.message)
   }
