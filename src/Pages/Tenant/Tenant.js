@@ -48,6 +48,7 @@ const Tenant = () => {
     }
     setForceUpdate(false);
   }, [forceUpdate]);
+  
   let filteredTenants = tenants;
   if (search) {
     filteredTenants = tenants.filter((tenant) => {
