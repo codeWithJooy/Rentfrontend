@@ -55,6 +55,10 @@
   border-radius: 5px;
   margin-top: 25px;
 }
+.highlight{
+  border: 1px solid #e5383b; /* Highlight border color */
+  box-shadow: 0 0 0 3px rgba(229, 56, 59, 0.25); /* Matching shadow color with reduced opacity */
+}
 .propertyDetailsInput input {
   width: 80%;
   height: 30px;
@@ -63,6 +67,8 @@
   text-align: center;
   background: transparent;
   color: #a4161a;
+  font-size: 16px;
+  font-weight: bold;
 }
 .propertyDetailsInput img {
   width: 20%;

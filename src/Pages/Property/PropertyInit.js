@@ -6,6 +6,7 @@ import { getTotalFloors, setTotalFloors } from "../../actions/floorActions";
 
 const PropertyInit = () => {
   const [floors, setFloors] = useState(0);
+  const [focus,setFocus]=useState(false)
   const [forceUpdate, setForceUpdate] = useState(true);
   const floorPresent = useSelector((state) => state.floor.floorPresent);
   const user = useSelector((state) => state.user);
@@ -41,11 +42,13 @@ const PropertyInit = () => {
           <div className="detailsTitle">
             <p>How Many floors do you have in {propertyName} ?</p>
           </div>
-          <div className="propertyDetailsInput">
+          <div className={`propertyDetailsInput ${focus ? 'highlight' : ''}`}>
             <input
               type="text"
               placeholder="Total Floor"
               onChange={(e) => setFloors(e.target.value)}
+              onFocus={()=>setFocus(true)}
+              onBlur={()=>setFocus(false)}
             />
             <img src="Assets/Property/next.png" onClick={handleFloors} />
           </div>
