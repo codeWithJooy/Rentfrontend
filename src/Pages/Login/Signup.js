@@ -16,6 +16,7 @@ const Signup = () => {
     number:"",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   //Function to update user's details
   const handleChange = (e) => {
@@ -24,7 +25,11 @@ const Signup = () => {
 
   //Function to handle user signup
   const handleSignUp = () => {
-    userSignup(user);
+    setLoading(true)
+    setTimeout(()=>{
+      userSignup(user)
+      setLoading(false)
+    },1000)
   };
 
   //Redirect to SignIn page
@@ -92,7 +97,13 @@ const Signup = () => {
             />
           </div>
           <div className="entryDataButton">
-            <button onClick={handleSignUp}>Sign Up</button>
+          <button onClick={handleSignUp} disabled={loading}>
+              {loading ? (
+                <div className="loader"></div>
+              ) : (
+                "Sign Up"
+              )}
+            </button>
             <p>
               Already a Member ?
               <span onClick={handleSignIn} className="register">
