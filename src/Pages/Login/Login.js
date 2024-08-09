@@ -12,6 +12,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,7 +24,11 @@ const Login = () => {
     history.push("/addEmail")
   }
   const handleSignIn = () => {
-    userLogin(user);
+    setLoading(true)
+    setTimeout(()=>{
+      userLogin(user)
+      setLoading(false)
+    },1000)
   };
   useEffect(() => {
     if (userId != "") {
@@ -63,7 +68,13 @@ const Login = () => {
             <p onClick={handleForget}>Forget Password ?</p>
           </div>
           <div className="entryDataButton">
-            <button onClick={handleSignIn}>Sign In</button>
+          <button onClick={handleSignIn} disabled={loading}>
+              {loading ? (
+                <div className="loader"></div>
+              ) : (
+                "Sign In"
+              )}
+            </button>
             <p>
               Not a Member ?
               <span onClick={handleSignUp} className="register">

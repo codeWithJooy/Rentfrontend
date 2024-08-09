@@ -14,12 +14,17 @@ const Add = () => {
     pincode: "",
     code: ""
   });
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const handleChange = (e) => {
     setProperty({ ...property, [e.target.name]: e.target.value });
   };
   const handleAdd = () => {
-    userProperty(property, userId);
+    setLoading(true)
+    setTimeout(()=>{
+      userProperty(property, userId);
+      setLoading(false)
+    },1000)
   };
   const handleSignIn = () => {
     history.push("/login");
@@ -74,7 +79,13 @@ const Add = () => {
             />
           </div>
           <div className="entryDataButton">
-            <button onClick={handleAdd}>Add Property</button>
+            <button onClick={handleAdd} disabled={loading}>
+              {loading ? (
+                <div className="loader"></div>
+              ) : (
+                "Add Property"
+              )}
+            </button>
           </div>
         </div>
       </div>
