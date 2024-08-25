@@ -220,15 +220,17 @@
   justify-content: center;
   border: 1px solid #b1a7a6;
 }
-.sectionIpInput input {
+.sectionIpInput input,textarea {
   width: 100%;
   border: none;
   outline: none;
+  background: transparent;
 }
 .sectionIpInput select {
   width: 100%;
   border: none;
   background: transparent;
+  outline: none;
 }
 .accessMain{
   width:80%;
