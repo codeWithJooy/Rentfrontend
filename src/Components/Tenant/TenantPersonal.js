@@ -3,15 +3,22 @@ import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import { updateToast } from "../../actions/toastActions";
 import { CodeAnalogy } from "../Toasty/Toasty";
-import { addTenantDocument, getTenantDocument, updateTenant } from "../../actions/tenantAction";
+import {
+  addTenantDocument,
+  getTenantDocument,
+  updateTenant,
+} from "../../actions/tenantAction";
+import { getAllRooms, getRoomName } from "../../actions/roomActions";
 
 const TenantPersonal = () => {
   const [edit, setEdit] = useState(true);
   let data = useSelector((state) => state.tenant.tenantDetails);
+  data.roomId = "";
   const { userId, propertyId } = useSelector((state) => state.user);
   const tenantId = useSelector((state) => state.tenant.selectedTenant);
 
   const [details, setDetails] = useState(data);
+  console.log(details);
   const handleEdit = () => {
     if (!edit) {
       (async () => {
@@ -31,7 +38,7 @@ const TenantPersonal = () => {
       <Kyc userId={userId} propertyId={propertyId} tenantId={tenantId} />
       <Parent edit={edit} details={details} setDetails={setDetails} />
       <Guardian edit={edit} details={details} setDetails={setDetails} />
-      <ParentID />
+      <ParentID  userId={userId} propertyId={propertyId} tenantId={tenantId}/>
       <div className="memEdit" onClick={handleEdit}>
         {edit ? "Edit" : "Save"}
       </div>
@@ -41,12 +48,19 @@ const TenantPersonal = () => {
 export default TenantPersonal;
 
 const Personal = ({ edit, details, setDetails }) => {
+  const { userId, propertyId } = useSelector((state) => state.user);
+  let roomId = useSelector((state) => state.tenant.singleTenant.roomId);
   const [toggle, setToggle] = useState(true);
+  const [roomName, setRoomName] = useState("Abhi");
+  const [allRooms, setAllRooms] = useState([]);
   const handleToggle = () => {
     setToggle(!toggle);
   };
   const handleBloodChange = (e) => {
     setDetails({ ...details, bloodGroup: e.target.value });
+  };
+  const handleRoomChange = (e) => {
+    setDetails({ ...details, roomId: e.target.value });
   };
   const handleChange = (e) => {
     setDetails({ ...details, [e.target.name]: e.target.value });
@@ -56,6 +70,15 @@ const Personal = ({ edit, details, setDetails }) => {
     const newDate = moment(new Date(e.target.value)).format("YYYY-MM-DD");
     setDetails({ ...details, birthDate: newDate });
   };
+  useEffect(() => {
+    (async () => {
+      let roomVal = await getRoomName(userId, propertyId, roomId);
+      let rooms = await getAllRooms(userId, propertyId);
+      setDetails({ ...details, roomId: roomId });
+      setRoomName(roomVal);
+      setAllRooms(rooms);
+    })();
+  }, []);
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -88,18 +111,16 @@ const Personal = ({ edit, details, setDetails }) => {
             </div>
             <div className="sectionIpInput">
               <select
-                name="bloodGroup"
-                value={details.bloodGroup}
-                onChange={handleBloodChange}
+                name="roomId"
+                value={details.roomId}
+                onChange={handleRoomChange}
+                readOnly={edit}
               >
-                <option>A+</option>
-                <option>A-</option>
-                <option>B+</option>
-                <option>B-</option>
-                <option>O+</option>
-                <option>O-</option>
-                <option>AB+</option>
-                <option>AB-</option>
+                <option value={roomId}>{roomName}</option>
+                {allRooms.length > 0 &&
+                  allRooms.map((val, key) => (
+                    <option value={val._id}>{val.name}</option>
+                  ))}
               </select>
             </div>
           </div>
@@ -117,7 +138,7 @@ const Personal = ({ edit, details, setDetails }) => {
             </div>
             <div className="sectionIpInput">
               <input
-                type="text"
+                type="number"
                 readOnly={edit}
                 value={details.alternate}
                 name="alternate"
@@ -182,6 +203,34 @@ const Personal = ({ edit, details, setDetails }) => {
               <input type="text" readOnly value={details.dob} />
             </div>
           </div>
+          <div className="sectionIpFull">
+            <div className="sectionIpHeader">
+              <p>Tenants's Address</p>
+            </div>
+            <div className="sectionIpInput">
+              <input
+                type="text"
+                readOnly={edit}
+                name="address"
+                value={details.address}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="sectionIpFul">
+            <div className="sectionIpHeader">
+              <p>Remarks</p>
+            </div>
+            <div className="sectionIpInput">
+              <textarea
+                rows={8}
+                name="remarks"
+                value={details.remarks}
+                onChange={handleChange}
+                readOnly={edit}
+              ></textarea>
+            </div>
+          </div>
         </div>
       )}
     </div>
@@ -199,6 +248,19 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
   const panFront = useRef();
   const panBack = useRef();
 
+  const downloadImage = async () => {
+    const imageUrl = selectedImage; // Replace with your file URL
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "image.jpg"); // Replace with your desired file name
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url); // Clean up
+  };
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -226,12 +288,11 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
     formData.append("docType", "AF");
 
     try {
-      (async()=>{
+      (async () => {
         let data = await addTenantDocument(formData);
-        console.log(data)
+        console.log(data);
         setSelectedImage(data);
-      })()
-      
+      })();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -247,11 +308,10 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
     formData.append("docType", "AB");
 
     try {
-      (async()=>{
+      (async () => {
         let data = await addTenantDocument(formData);
         setSelectedABImage(data);
-      })()
-      
+      })();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -267,11 +327,10 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
     formData.append("docType", "PF");
 
     try {
-      (async()=>{
+      (async () => {
         let data = await addTenantDocument(formData);
         setSelectedPFImage(data);
-      })()
-      
+      })();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -287,27 +346,41 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
     formData.append("docType", "PB");
 
     try {
-      (async()=>{
+      (async () => {
         let data = await addTenantDocument(formData);
         setSelectedPBImage(data);
-      })()
-      
+      })();
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
-  useEffect(()=>{
-     (async()=>{
-      let aadharFront=await getTenantDocument(userId,propertyId,tenantId,"AF")
-      let aadharBack=await getTenantDocument(userId,propertyId,tenantId,"AB")
-      let panFront=await getTenantDocument(userId,propertyId,tenantId,"PF")
-      let panBack=await getTenantDocument(userId,propertyId,tenantId,"PB")
-      setSelectedImage(aadharFront)
-      setSelectedABImage(aadharBack)
-      setSelectedPFImage(panFront)
-      setSelectedPBImage(panBack)
-     })()
-  },[])
+  useEffect(() => {
+    (async () => {
+      let aadharFront = await getTenantDocument(
+        userId,
+        propertyId,
+        tenantId,
+        "AF"
+      );
+      let aadharBack = await getTenantDocument(
+        userId,
+        propertyId,
+        tenantId,
+        "AB"
+      );
+      let panFront = await getTenantDocument(
+        userId,
+        propertyId,
+        tenantId,
+        "PF"
+      );
+      let panBack = await getTenantDocument(userId, propertyId, tenantId, "PB");
+      setSelectedImage(aadharFront);
+      setSelectedABImage(aadharBack);
+      setSelectedPFImage(panFront);
+      setSelectedPBImage(panBack);
+    })();
+  }, []);
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
@@ -335,16 +408,13 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
             )}
             {selectedImage && (
               <div className="documentImageUploaded">
-                <img src={selectedImage} />
+                <img src={selectedImage} onClick={downloadImage} />
               </div>
             )}
 
             <div className="documentName">
               <div className="documentTitle">
-                <p>Aadhar Card</p>
-              </div>
-              <div className="documentDes">
-                <p>Front</p>
+                <p>Govt.ID</p>
               </div>
               <div className="documentButton">
                 <input
@@ -374,10 +444,7 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
             </div>
             <div className="documentName">
               <div className="documentTitle">
-                <p>Aadhar Card</p>
-              </div>
-              <div className="documentDes">
-                <p>Back</p>
+                <p>College ID</p>
               </div>
               <div className="documentButton">
                 <input
@@ -407,53 +474,17 @@ const Kyc = ({ userId, propertyId, tenantId }) => {
             </div>
             <div className="documentName">
               <div className="documentTitle">
-                <p>Pan Card</p>
-              </div>
-              <div className="documentDes">
-                <p>Front</p>
+                <p>Agreement</p>
               </div>
               <div className="documentButton">
                 <input
                   type="file"
                   ref={panFront}
                   onChange={handlepanFront}
-                  accept=".jpg,.png,.jpeg"
+                  accept=".jpg,.png,.jpeg,.pdf"
                   style={{ display: "none" }}
                 />
                 <button onClick={handlepanFrontClick}>Upload</button>
-              </div>
-            </div>
-          </div>
-          {/* Govererment Id Front */}
-          <div className="documentHolder">
-            <div className="documentImage">
-              {!selectedPBImage && (
-                <div className="documentImage">
-                  <img src="Assets/Tenant/document.png" />
-                </div>
-              )}
-              {selectedPBImage && (
-                <div className="documentImageUploaded">
-                  <img src={selectedPBImage} />
-                </div>
-              )}
-            </div>
-            <div className="documentName">
-              <div className="documentTitle">
-                <p>Pan Card</p>
-              </div>
-              <div className="documentDes">
-                <p>Back</p>
-              </div>
-              <div className="documentButton">
-                <input
-                  type="file"
-                  ref={panBack}
-                  onChange={handlepanBack}
-                  accept=".jpg,.png,.jpeg"
-                  style={{ display: "none" }}
-                />
-                <button onClick={handlepanBackClick}>Upload</button>
               </div>
             </div>
           </div>
@@ -508,7 +539,7 @@ const Parent = ({ edit, details, setDetails }) => {
             </div>
             <div className="sectionIpInput">
               <input
-                type="text"
+                type="number"
                 readOnly={edit}
                 name="fatherNumber"
                 value={details.fatherNumber}
@@ -536,7 +567,7 @@ const Parent = ({ edit, details, setDetails }) => {
             </div>
             <div className="sectionIpInput">
               <input
-                type="text"
+                type="number"
                 readOnly={edit}
                 name="motherNumber"
                 value={details.motherNumber}
@@ -630,16 +661,68 @@ const Guardian = ({ edit, details, setDetails }) => {
     </div>
   );
 };
-const ParentID = () => {
-  const [toggle, setToggle] = useState(false);
+const ParentID = ({ userId, propertyId, tenantId }) => {
+  const [toggle, setToggle] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const aadharFront = useRef();
+
+  const downloadImage = async () => {
+    const imageUrl = selectedImage; // Replace with your file URL
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "image.jpg"); // Replace with your desired file name
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url); // Clean up
+  };
   const handleToggle = () => {
     setToggle(!toggle);
   };
+  const handleaadharFrontClick = () => {
+    aadharFront.current.click();
+  };
+
+  const handleaadharFront = async (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("file", file);
+    formData.append("userId", userId);
+    formData.append("propertyId", propertyId);
+    formData.append("tenantId", tenantId);
+    formData.append("docType", "Other");
+
+    try {
+      (async () => {
+        let data = await addTenantDocument(formData);
+        console.log(data);
+        setSelectedImage(data);
+      })();
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      let aadharFront = await getTenantDocument(
+        userId,
+        propertyId,
+        tenantId,
+        "Other"
+      );
+      setSelectedImage(aadharFront);
+    })();
+  }, []);
   return (
     <div className="section">
       <div className="sectionHeader" onClick={handleToggle}>
         <div className="sectionTitle">
-          <p>Parent IDs</p>
+          <p>Other Documents</p>
         </div>
         <div className="sectionToggle">
           <img
@@ -651,6 +734,39 @@ const ParentID = () => {
           />
         </div>
       </div>
+      {toggle && (
+        <div className="documentContainer">
+          {/* Govererment Id Front */}
+          <div className="documentHolder">
+            {!selectedImage && (
+              <div className="documentImage">
+                <img src="Assets/Tenant/document.png" />
+              </div>
+            )}
+            {selectedImage && (
+              <div className="documentImageUploaded">
+                <img src={selectedImage} onClick={downloadImage} />
+              </div>
+            )}
+
+            <div className="documentName">
+              <div className="documentTitle">
+                <p>Other</p>
+              </div>
+              <div className="documentButton">
+                <input
+                  type="file"
+                  ref={aadharFront}
+                  onChange={handleaadharFront}
+                  accept=".jpg,.png,.jpeg"
+                  style={{ display: "none" }}
+                />
+                <button onClick={handleaadharFrontClick}>Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
