@@ -78,9 +78,9 @@ const ExpenseUnitCard = ({
   image,
 }) => {
   const [open, setOpen] = useState(false);
-  const handleBillOpen=()=>{
-    setOpen(!open)
-  }
+  const handleBillOpen = () => {
+    setOpen(!open);
+  };
   return (
     <div className="expenseMainCard">
       <div className="expenseTop">
@@ -107,8 +107,20 @@ const ExpenseUnitCard = ({
           <p>Paid To {paidTo} </p>
         </div>
         <div className="expenseIconHolder">
-          {open && <img className="expenseOpen" src="Assets/Tenant/down.png" onClick={handleBillOpen}/>}
-          {!open && <img className="expenseOpen" src="Assets/Tenant/up.png" onClick={handleBillOpen}/>}
+          {open && (
+            <img
+              className="expenseOpen"
+              src="Assets/Tenant/down.png"
+              onClick={handleBillOpen}
+            />
+          )}
+          {!open && (
+            <img
+              className="expenseOpen"
+              src="Assets/Tenant/up.png"
+              onClick={handleBillOpen}
+            />
+          )}
         </div>
       </div>
       {open && (
@@ -160,11 +172,16 @@ const ExpenseMainCard = () => {
   const { userId, propertyId } = useSelector((state) => state.user);
   let [total, setTotal] = useState([]);
   let [count, setCount] = useState([]);
+  let [filter, setFilter] = useState(false);
+  let [filterSelected, setFilterSelected] = useState("range");
   const handleChange = () => {
     updateToast({
       code: CodeAnalogy.ERROR,
       title: "Feature Will Be available Soon",
     });
+  };
+  const handleFilterSelected = (val) => {
+    setFilterSelected(val);
   };
   useEffect(() => {
     (async () => {
@@ -176,16 +193,6 @@ const ExpenseMainCard = () => {
   });
   return (
     <div className="expenseMainCard">
-      <div className="expenseMainTop">
-        <div className="expenseDuration">Duration :</div>
-        <div className="expenseMonth">
-          <select onChange={handleChange}>
-            <option>All Expenses</option>
-            <option>Yesterday</option>
-            <option>Last Month</option>
-          </select>
-        </div>
-      </div>
       <div className="expenseTracker">
         <div
           className="trackerUnit"
@@ -209,6 +216,110 @@ const ExpenseMainCard = () => {
           </div>
         </div>
       </div>
+      <div className="expenseMainTop">
+        <div className="filterSection" onClick={() => setFilter(true)}>
+          <img src="Assets/Expense/filter.png" />
+          <p>Filter</p>
+        </div>
+      </div>
+      {filter && (
+        <div className="expenseFilterPage">
+          <div className="filterContainer">
+            <div className="filterHeader">
+              <div className="filterLeft">
+                <img
+                  src="Assets/Expense/left-arrow.png"
+                  onClick={() => setFilter(false)}
+                />
+                <p>Filter</p>
+              </div>
+              <div className="filterRight">
+                <p onClick={() => setFilter(false)}>Clear Filters</p>
+              </div>
+            </div>
+            <div className="filterSelection">
+              <div
+                className={
+                  filterSelected === "range"
+                    ? "filterSelected"
+                    : "filterSelectionUnit"
+                }
+                onClick={() => setFilterSelected("range")}
+              >
+                <p>Date Range</p>
+              </div>
+              <div
+                className={
+                  filterSelected === "member"
+                    ? "filterSelected"
+                    : "filterSelectionUnit"
+                }
+                onClick={() => setFilterSelected("member")}
+              >
+                <p>Member Filter</p>
+              </div>
+              <div
+                className={
+                  filterSelected === "mode"
+                    ? "filterSelected"
+                    : "filterSelectionUnit"
+                }
+                onClick={() => setFilterSelected("mode")}
+              >
+                <p>Payment Filter</p>
+              </div>
+            </div>
+            <div className="filterResult">
+              {filterSelected == "range" && (
+                <div className="resultContainer">
+                  <div className="rangeSelection">
+                    <div className="selectionUnit">
+                      <label>Date From</label>
+                      <input type="date" />
+                    </div>
+                    <div className="selectionUnit">
+                      <label>Date To</label>
+                      <input type="date" />
+                    </div>
+                  </div>
+                </div>
+              )}
+              {filterSelected == "member" && (
+                <div className="resultContainer">
+                  <div className="rangeSelection">
+                    <div className="selectionUnit">
+                      <label>Member Expense</label>
+                      <select>
+                        <option>All</option>
+                        <option>Abhi</option>
+                        <option>Hemant</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {filterSelected == "mode" && (
+                <div className="resultContainer">
+                  <div className="rangeSelection">
+                    <div className="selectionUnit">
+                      <label>Payment Mode</label>
+                      <select>
+                        <option>All</option>
+                        <option>Cash</option>
+                        <option>Gpay</option>
+                        <option>PhonePay</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="filterApply">
+              <button onClick={() => setFilter(false)}>Apply Filter</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -20,13 +20,148 @@
   box-shadow: 3px 3px #d3d3d3;
   margin:10px 0px 20px;
   position: relative;
+  z-index: 1;
 }
-
+.expenseFilterPage{
+  width:100%;
+  height:100%;
+  z-index: 10000;
+  position: fixed;
+  top:0;
+  left:0;
+  background-color: white;
+}
+.filterSection{
+  border:1px solid #161a1d;
+  border-radius: 30px;
+  width:auto;
+  padding:5px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.filterSection img{
+  width:15px;
+  height:15px;
+  margin-right: 10px;
+}
+.filterSelectionUnit{
+  width:100%;
+  height:60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.filterSelectionUnit p{
+  font-size: 16px;
+  font-weight: bold;
+}
+.filterContainer{
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  height:80vh;
+}
+.filterHeader{
+  width:100%;
+  height:50px;
+  padding:10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.filterLeft{
+  width:60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.filterLeft img{
+  height: 16px;
+  width:16px;
+  margin-right: 10px;
+}
+.filterLeft p{
+  font-size: 16px;
+  font-weight: bold;
+}
+.filterRight{
+  width:40%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+.filterSelection{
+  width:40%;
+  height:90%;
+  background: lightgray;
+}
+.filterSelectionUnit{
+  width:100%;
+  height:40px;
+  padding:0px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.filterSelected{
+  width:100%;
+  min-height:40px;
+  padding:0px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+}
+.filterSelected p{
+  font-weight: bold;
+  font-size: 18px;
+}
+.filterResult{
+  height:90%;
+  width:60%;
+  padding:20px 15px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.selectionUnit{
+  width:100%;
+  margin-bottom: 25px;
+}
+.selectionUnit label{
+  font-size: 16px;
+  font-weight: bold;
+}
+.selectionUnit input,select{
+  width:100%;
+  border:1px solid #161a1d;
+  padding:10px 15px;
+  border-radius: 20px;
+  outline: none;
+  margin:5px 0px;
+}
+.filterApply{
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding:10px 15px;
+}
+.filterApply button{
+  background: #161a1d;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding:10px;
+}
 .expenseMainTop{
   width:100%;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-end;
 }
 .expenseTop {
   width: 100%;
