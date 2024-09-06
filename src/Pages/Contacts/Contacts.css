@@ -1,0 +1,154 @@
+.contactsMain{
+    width:100%;
+    height:100vh;
+}
+.contactsNav{
+    width:100%;
+    height:50px;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+.navContactUnit{
+    width:50%;
+    height:100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #fff;
+}
+.navContactUnit p{
+    font-weight: bold;
+}
+.navContactSelected{
+    width:50%;
+    height:100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #f96e04;
+}
+.navContactSelected p{
+    font-size:16px;
+    font-weight: bold;
+    color:#f96e04
+}
+.contactSection{
+    width:100%;
+    padding:20px 15px;
+    position: relative;
+}
+.contactSectionContainer{
+    width:100%;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.contactAddPlus{
+    position: fixed;
+    bottom:20px;
+    right:30px;
+}
+.contactAddPlus img{
+    width:35x;
+    height:35px;
+}
+.contactTypeCard{
+    width:48%;
+    margin:0px 1%;
+    padding:10px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px lightgray;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.contactTypeCard p{
+    font-size: 16px;
+    font-weight: bold;
+}
+.contactCard{
+    width:48%;
+    margin:0px 1%;
+    padding:10px;
+    border-radius: 15px;
+    box-shadow: 0 0 5px lightgray;
+    margin-bottom: 10px;
+}
+.contactName{
+    text-align: center;
+}
+.contactName p{
+    font-size: 16px;
+    font-size: bold;
+    color:#f96e04
+}
+.contactType{
+    width:100%;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+.contactNumber{
+    text-align: center;
+    font-size: 16px;
+    color:#f96e04;
+    font-weight: bold;
+    margin-top:10px;
+}
+
+.modelBg{
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;right:0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: center;
+}
+.contactClose{
+    position: absolute;
+    top:10px;
+    right:20px;
+    height:30px;
+    width:30px;
+}
+.contactTypeHolder{
+    width:90%;
+    padding:15px 10px;
+    border-radius:10px;
+    background-color: #fff;
+}
+.typeName{
+    width:100%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.typeInput{
+   width:100%;
+   margin-top: 20px;
+   border-radius: 10px;
+   box-shadow:0 0 5px lightgray;
+}
+.typeInput input{
+    padding:10px 15px;
+}
+.typeButton{
+    width:100%;
+    margin-top: 20px;
+}
+.typeButton button{
+    width:100%;
+    padding:10px;
+    border-radius: 10px;
+    background: #f96e04;
+    color:#fff;
+    font-weight: bold;
+}

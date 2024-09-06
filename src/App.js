@@ -14,6 +14,7 @@ import Property from "./Pages/Property/Property";
 import Floors from "./Pages/Property/Floors/Floors";
 import Rooms from "./Pages/Property/Rooms/Rooms";
 import RoomUnit from "./Pages/Property/Rooms/RoomUnit";
+import Contacts from "./Pages/Contacts/Contacts";
 
 import AddTenant from "./Pages/Tenant/AddTenant";
 import AddTenantRoom from "./Pages/Tenant/AddTenantRoom";
@@ -101,7 +102,7 @@ const App = () => {
         <Route path="/notifications" component={Notifications} />
         <Route path="/receipt" component={Receipt} />
         <Route path="/receiptStudent" component={ReceiptStudent} />
-
+        <Route path="/contacts" component={Contacts} />
         <Route path="/studentSignUp" component={StudentSignUp} />
         <Route path="/studentLogin" component={StudentLogin} />
         <Route path="/studentNumberLogin" component={StudentNumberLogin} />

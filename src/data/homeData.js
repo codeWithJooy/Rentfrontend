@@ -39,4 +39,9 @@ export const homeData = [
     img: "Assets/Home/complaints.png",
     link: "/complaintSection",
   },
+  {
+    title: "Add Contact",
+    img: "Assets/Home/contacts.png",
+    link: "/contacts",
+  },
 ];
