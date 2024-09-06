@@ -7,6 +7,7 @@ import {
   getContacts,
   getContactType,
 } from "../../actions/contactsAction";
+import Empty from "./Empty";
 
 const ContactSection = () => {
   const user = useSelector((state) => state.user);
@@ -41,6 +42,10 @@ const ContactSection = () => {
               number={val.contactNumber}
             />
           ))}
+          {
+            contactData && contactData.length <=0 && 
+            <Empty text={"Contacts Not Added"} />
+          }
       </div>
       {model && (
         <ContactAddModal setModel={setModel} setForceUpdate={setForceUpdate} />

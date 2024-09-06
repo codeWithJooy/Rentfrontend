@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./Contacts.css";
 import { addContactType, getContactType } from "../../actions/contactsAction";
+import Empty from "./Empty";
 
 const ContactTypes = () => {
   const user = useSelector((state) => state.user);
@@ -14,9 +15,9 @@ const ContactTypes = () => {
   useEffect(() => {
     if (forceUpdate) {
       (async () => {
-        let val = await getContactType(user.userId,user.propertyId);
-        setContactTypeData(val)
-        setForceUpdate(false)
+        let val = await getContactType(user.userId, user.propertyId);
+        setContactTypeData(val);
+        setForceUpdate(false);
       })();
     }
   }, [forceUpdate]);
@@ -26,21 +27,25 @@ const ContactTypes = () => {
         <img src="Assets/Tenant/plus.png" alt="Add" onClick={openModel} />
       </div>
       <div className="contactSectionContainer">
-        {
-            contactTypeData && contactTypeData.length >0 &&
-            contactTypeData.map((val,key)=>(
-              <ContactTypeCard type={val.contactType} />
-            ))
-        }
+        {contactTypeData &&
+          contactTypeData.length > 0 &&
+          contactTypeData.map((val, key) => (
+            <ContactTypeCard type={val.contactType} />
+          ))}
+        {contactTypeData && contactTypeData.length <= 0 && (
+          <Empty text={"Contact Type Not Added"} />
+        )}
       </div>
-      {model && <ContactTypeModal setModel={setModel} setForceUpdate={setForceUpdate}/>}
+      {model && (
+        <ContactTypeModal setModel={setModel} setForceUpdate={setForceUpdate} />
+      )}
     </div>
   );
 };
 
 export default ContactTypes;
 
-const ContactTypeCard = ({type}) => {
+const ContactTypeCard = ({ type }) => {
   return (
     <div className="contactTypeCard">
       <p>{type}</p>
@@ -48,7 +53,7 @@ const ContactTypeCard = ({type}) => {
   );
 };
 
-const ContactTypeModal = ({ setModel,setForceUpdate }) => {
+const ContactTypeModal = ({ setModel, setForceUpdate }) => {
   const user = useSelector((state) => state.user);
   const [contactType, setContactType] = useState({
     userId: user.userId,
@@ -63,7 +68,7 @@ const ContactTypeModal = ({ setModel,setForceUpdate }) => {
   const handleTypeAdd = () => {
     (async () => {
       await addContactType(contactType);
-      setForceUpdate(true)
+      setForceUpdate(true);
       setModel(false);
     })();
   };
